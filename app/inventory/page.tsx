@@ -2,13 +2,22 @@
 
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
+import { CiShoppingCart } from "react-icons/ci";
+import { TiLocation } from "react-icons/ti";
+import { FaTruck } from "react-icons/fa";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Inventory", href: "/inventory" },
+  { name: "Inventory", href: "#" },
   { name: "Orders", href: "#" },
   { name: "Suppliers", href: "#" },
   { name: "Staff", href: "#" },
+];
+
+const products = [
+  { name: "Product 1", quantity: 100, location: "A1", supplier: "Supplier 1" },
+  { name: "Product 2", quantity: 200, location: "A2", supplier: "Supplier 2" },
+  { name: "Product 3", quantity: 300, location: "A3", supplier: "Supplier 3" },
 ];
 
 export default function Example() {
@@ -22,7 +31,7 @@ export default function Example() {
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
@@ -114,39 +123,38 @@ export default function Example() {
         </Dialog>
       </header>
 
-      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 px-6 pt-14 lg:px-8">
-        <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-          <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-            Announcing our newest update.{" "}
-            <a href="#" className="font-semibold text-indigo-600">
-              <span className="absolute inset-0" aria-hidden="true" />
-              Read more <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </div>
+      <div className="w-screen mx-auto pt-20 py-16 px-6">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Data drive inventory management.
+            Inventory console
           </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-            fugiat aliqua.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a
-              href="#"
-              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Get started
-            </a>
-            <a
-              href="#"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Learn more <span aria-hidden="true">→</span>
-            </a>
-          </div>
+        </div>
+
+        <div className="grid grid-flow-col py-12">
+          {products.map((product) => (
+            <div className="border border-gradient rounded-md m-auto w-96 h-auto bg-white relative">
+              <div className="text-black p-4 rounded-md rounded-b-none border-b">
+                <strong className="text-2xl">{product.name}</strong>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center px-2 py-1">
+                  <CiShoppingCart />
+                  <p className="px-2 text-gray-700">{product.quantity}</p>
+                </div>
+                <div className="flex items-center px-2 py-1">
+                  <TiLocation />
+                  <p className="px-2 text-gray-700">{product.location}</p>
+                </div>
+                <div className="flex items-center px-2 py-1">
+                  <FaTruck />
+                  <p className="px-2 text-gray-700">{product.supplier}</p>
+                </div>
+              </div>
+              <button className="border text-black rounded-md py-2 px-4 mb-4 mx-4 absolute right-0 bottom-0 hover:border-black">
+                Order More
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
