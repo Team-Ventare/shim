@@ -13,19 +13,22 @@ const products = [
 
 export default function Example() {
   return (
-    <div className="min-h-screen max-h-screen relative isolate">
+    <div className="bg-white min-h-screen min-w-screen max-w-screen">
       <Nav />
 
-      <div className="w-screen mx-auto pt-20 py-16 px-6">
-        <div className="text-center pt-8">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Inventory console
-          </h1>
+      <div className="mx-auto min-w-screen p-4">
+        <div className="text-center p-4 mb-2">
+          <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
+            Inventory
+          </h2>
         </div>
 
-        <div className="grid grid-flow-col py-12">
-          {products.map((product) => (
-            <div className="border border-gradient rounded-md m-auto w-96 h-auto bg-white relative">
+        <div className="flex flex-row flex-wrap justify-center py-2">
+          {products.map((product, index) => (
+            <div
+              className="border border-gradient rounded-md m-auto w-96 h-auto bg-white relative flex-shrink-0 mb-4 shadow-xl"
+              key={index}
+            >
               <div className="text-black p-4 rounded-md rounded-b-none border-b">
                 <strong className="text-2xl">{product.name}</strong>
               </div>

@@ -4,7 +4,7 @@ import { Nav } from "./nav/navbar";
 
 export default function Example() {
   return (
-    <div className="min-h-screen max-h-screen relative isolate">
+    <div className="min-h-screen max-h-screen relative isolate bg-white">
       <Nav />
 
       <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 px-6 pt-14 lg:px-8">
