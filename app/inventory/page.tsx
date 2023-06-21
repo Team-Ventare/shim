@@ -4,7 +4,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { TiLocation } from "react-icons/ti";
 import { FaTruck } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { BsQrCodeScan } from "react-icons/bs";
+import { BsUpcScan } from "react-icons/bs";
 import { IoAdd } from "react-icons/io5";
 import { Nav } from "../nav/navbar";
 
@@ -20,13 +20,13 @@ export default function Example() {
       <Nav />
 
       <div className="flex justify-between items-center p-4 border-b">
-        <div>
+        <div className="flex">
           <button className="text-sm font-semibold leading-6 text-slate-700 hover:bg-slate-100 px-3 py-2 rounded-md flex items-center">
             <IoIosNotificationsOutline className="text-lg mr-1" />
             <span>Notifications</span>
           </button>
           <button className="text-sm font-semibold leading-6 text-slate-700 hover:bg-slate-100 px-3 py-2 rounded-md flex items-center ml-1">
-            <BsQrCodeScan className="text-lg mr-1" />
+            <BsUpcScan className="text-lg mr-2" />
             <span>Recent Scans</span>
           </button>
         </div>
