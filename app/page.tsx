@@ -2,12 +2,12 @@
 
 import { Nav } from "./nav/navbar";
 
-export default function Example() {
+export default function Home() {
   return (
-    <div className="min-h-screen max-h-screen relative isolate bg-white">
+    <div className="bg-white min-h-screen min-w-screen max-w-screen">
       <Nav />
 
-      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 px-6 pt-14 lg:px-8">
+      <div className="mx-auto min-w-screen max-w-2xl py-32 sm:py-48 px-6 pt-14 lg:px-8">
         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
             Announcing our newest update.{" "}
