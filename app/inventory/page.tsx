@@ -8,34 +8,24 @@ import { FaTruck } from "react-icons/fa";
 import { BsUpcScan } from "react-icons/bs";
 import { IoAdd } from "react-icons/io5";
 import { Nav } from "../nav/navbar";
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+
+const categoryPills = ["Name", "Location", "Supplier"];
 
 const products = [
   { name: "Product 1", quantity: 100, location: "A1", supplier: "Supplier 1" },
   { name: "Product 2", quantity: 200, location: "A2", supplier: "Supplier 2" },
   { name: "Product 3", quantity: 300, location: "A3", supplier: "Supplier 3" },
+  { name: "Product 4", quantity: 400, location: "A4", supplier: "Supplier 4" },
+  { name: "Product 5", quantity: 500, location: "A5", supplier: "Supplier 5" },
+  { name: "Product 6", quantity: 600, location: "A6", supplier: "Supplier 6" },
 ];
 
-/*
-<div className="flex py-2 px-1 rounded-lg text-gray-500 font-semibold cursor-pointer">
-  <span>Category</span>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M19 9l-7 7-7-7"
-    />
-  </svg>
-</div>
-*/
-
 export default function Example() {
+  const [categoryPill, setCategoryPill] = useState(categoryPills[0]);
+
   return (
     <div className="bg-white min-h-screen min-w-screen max-w-screen">
       <Nav />
@@ -55,7 +45,7 @@ export default function Example() {
             <input
               className="text-sm leading-none text-left text-gray-600 px-4 py-3 w-full border rounded border-gray-300  outline-none"
               type="text"
-              placeholder="Search"
+              placeholder={"Searching by " + categoryPill.toLowerCase() + "..."}
               style={{ paddingRight: "2.5rem" }}
             />
             <svg
@@ -82,7 +72,44 @@ export default function Example() {
               />
             </svg>
           </div>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white p-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                Category
+                <ChevronDownIcon
+                  className="-mr-1 h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </Menu.Button>
+            </div>
+
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  {categoryPills.map((pill, index) => (
+                    <Menu.Item key={index}>
+                      <button
+                        onClick={() => setCategoryPill(pill)}
+                        className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+                      >
+                        {pill}
+                      </button>
+                    </Menu.Item>
+                  ))}
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
         </div>
+
         <button className="text-sm font-semibold leading-6 text-slate-700 hover:bg-slate-100 px-3 py-2 rounded-md flex items-center">
           <IoAdd className="text-lg mr-1" />
           <span>Add Item</span>
