@@ -49,12 +49,23 @@ export default function Example() {
   const [categoryPill, setCategoryPill] = useState(categoryPills[0]);
   const [cartQuantity, setCartQuantity] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalItems = products.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const handlePageChange = (pageNumber: React.SetStateAction<number>) => {
     if (currentPage > products.length / 10) {
       setCurrentPage(Math.ceil(products.length / 10));
     }
     setCurrentPage(pageNumber);
+  };
+
+  const generatePageNumbers = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
   };
 
   return (
@@ -146,16 +157,43 @@ export default function Example() {
             <IoAdd className="text-lg mr-1" />
             <span>Add Item</span>
           </button>
-          <button className="text-sm font-semibold leading-6 text-white bg-slate-900 px-3 py-2 rounded-md flex items-center border">
+          <button className="text-sm font-semibold leading-6 text-white bg-blue-600 px-3 py-2 rounded-md flex items-center border">
             <BsCart3 className="text-lg mr-1" />
-            <kbd className="px-2 py-1.5 text-xs font-semibold text-black bg-slate-50 border border-black rounded-full dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
-              {cartQuantity}
-            </kbd>
+            <span>Cart</span>
           </button>
         </div>
       </div>
 
       <div className="mx-auto min-w-screen px-6 pt-6">
+        <div className="pb-4 bg-white dark:bg-gray-900">
+          <label htmlFor="table-search" className="sr-only">
+            Search
+          </label>
+          <div className="relative mt-1">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="table-search"
+              className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search for items"
+            />
+          </div>
+        </div>
+
         <div className="relative overflow-x-auto border border-slate-400 sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto sm:rounded-lg">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -264,7 +302,7 @@ export default function Example() {
               </li>
               {/* Render the pagination links dynamically based on your data */}
               {/* Example: Rendering 5 page links */}
-              {[1, 2, 3, 4, 5].map((pageNumber) => (
+              {generatePageNumbers().map((pageNumber) => (
                 <li key={pageNumber}>
                   <a
                     href="#"
@@ -282,7 +320,10 @@ export default function Example() {
               <li>
                 <a
                   href="#"
-                  onClick={() => handlePageChange(currentPage + 1)}
+                  onClick={() => {
+                    if (currentPage === totalPages) return;
+                    handlePageChange(currentPage + 1);
+                  }}
                   className="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                   <span className="sr-only">Next</span>
