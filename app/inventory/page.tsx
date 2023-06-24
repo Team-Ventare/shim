@@ -2,7 +2,6 @@
 
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { MdOutlineEditCalendar } from "react-icons/md";
-import { CiShoppingCart } from "react-icons/ci";
 import { TiLocation } from "react-icons/ti";
 import { FaTruck } from "react-icons/fa";
 import { BsUpcScan, BsCart3 } from "react-icons/bs";
@@ -83,37 +82,6 @@ export default function Example() {
             <span>Scans</span>
           </button>
 
-          <div className="flex justify-start items-center px-3 relative ml-1">
-            <input
-              className="text-sm leading-none text-left text-gray-600 px-4 py-3 w-full border rounded border-gray-300  outline-none"
-              type="text"
-              placeholder={"Searching by " + categoryPill.toLowerCase() + "..."}
-              style={{ paddingRight: "2.5rem" }}
-            />
-            <svg
-              className="absolute right-5 z-10 cursor-pointer"
-              width={24}
-              height={24}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
-                stroke="#4B5563"
-                strokeWidth="1.66667"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M21 21L15 15"
-                stroke="#4B5563"
-                strokeWidth="1.66667"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white p-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -249,12 +217,10 @@ export default function Example() {
                   <td className="px-6 py-4">Type</td>
                   <td className="px-6 py-4">Status</td>
                   <td className="px-6 py-4">
-                    <a
-                      href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      Edit
-                    </a>
+                    <div className="flex flex-row space-x-4 w-auto">
+                      <MdOutlineEditCalendar className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
+                      <BsCart3 className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
+                    </div>
                   </td>
                 </tr>
               ))}
