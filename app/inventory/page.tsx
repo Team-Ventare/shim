@@ -5,14 +5,27 @@ import { MdOutlineEditCalendar } from "react-icons/md";
 import { CiShoppingCart } from "react-icons/ci";
 import { TiLocation } from "react-icons/ti";
 import { FaTruck } from "react-icons/fa";
-import { BsUpcScan } from "react-icons/bs";
+import { BsUpcScan, BsCart3 } from "react-icons/bs";
 import { IoAdd } from "react-icons/io5";
 import { Nav } from "../nav/navbar";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import React from "react";
 
-const categoryPills = ["Name", "Location", "Supplier"];
+const categoryPills = [
+  "Name",
+  "Location",
+  "Supplier",
+  "Patient Simulators",
+  "Task Trainers",
+  "Simulation Equipment",
+  "Medical Furniture",
+  "Consumable Supplies",
+  "Non-Consumable Supplies",
+  "Computers",
+  "Office Supplies",
+];
 
 const products = [
   { name: "Product 1", quantity: 100, location: "A1", supplier: "Supplier 1" },
@@ -23,8 +36,26 @@ const products = [
   { name: "Product 6", quantity: 600, location: "A6", supplier: "Supplier 6" },
 ];
 
+const tableHeaders = [
+  "Item Name",
+  "Amount",
+  "Location",
+  "Type",
+  "Status",
+  "Action",
+];
+
 export default function Example() {
   const [categoryPill, setCategoryPill] = useState(categoryPills[0]);
+  const [cartQuantity, setCartQuantity] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (pageNumber: React.SetStateAction<number>) => {
+    if (currentPage > products.length / 10) {
+      setCurrentPage(Math.ceil(products.length / 10));
+    }
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="bg-white min-h-screen min-w-screen max-w-screen">
@@ -110,49 +141,168 @@ export default function Example() {
           </Menu>
         </div>
 
-        <button className="text-sm font-semibold leading-6 text-slate-700 hover:bg-slate-100 px-3 py-2 rounded-md flex items-center">
-          <IoAdd className="text-lg mr-1" />
-          <span>Add Item</span>
-        </button>
+        <div className="flex items-center space-x-2">
+          <button className="text-sm font-semibold leading-6 text-slate-700 hover:bg-slate-100 px-3 py-2 rounded-md flex items-center border-black border">
+            <IoAdd className="text-lg mr-1" />
+            <span>Add Item</span>
+          </button>
+          <button className="text-sm font-semibold leading-6 text-white bg-slate-900 px-3 py-2 rounded-md flex items-center border">
+            <BsCart3 className="text-lg mr-1" />
+            <kbd className="px-2 py-1.5 text-xs font-semibold text-black bg-slate-50 border border-black rounded-full dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
+              {cartQuantity}
+            </kbd>
+          </button>
+        </div>
       </div>
 
-      <div className="mx-auto min-w-screen p-4">
-        <div className="text-center p-4">
-          <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
-            Inventory
-          </h2>
-        </div>
-
-        <div className="flex flex-row flex-wrap justify-center py-2">
-          {products.map((product, index) => (
-            <div
-              className="border border-gradient rounded-md m-auto w-96 h-auto bg-white relative flex-shrink-0 mb-4 shadow-xl"
-              key={index}
-            >
-              <div className="text-black p-4 rounded-md rounded-b-none border-b flex items-center justify-between">
-                <strong className="text-2xl">{product.name}</strong>
-                <MdOutlineEditCalendar className="text-xl mr-2 cursor-pointer" />
-              </div>
-
-              <div className="p-4">
-                <div className="flex items-center px-2 py-1">
-                  <CiShoppingCart className="text-xl" />
-                  <p className="px-2 text-gray-700">{product.quantity}</p>
-                </div>
-                <div className="flex items-center px-2 py-1">
-                  <TiLocation className="text-xl" />
-                  <p className="px-2 text-gray-700">{product.location}</p>
-                </div>
-                <div className="flex items-center px-2 py-1">
-                  <FaTruck className="text-xl" />
-                  <p className="px-2 text-gray-700">{product.supplier}</p>
-                </div>
-              </div>
-              <button className="border text-black rounded-md py-2 px-4 mb-4 mx-4 absolute right-0 bottom-0 hover:border-black">
-                Order More
-              </button>
-            </div>
-          ))}
+      <div className="mx-auto min-w-screen px-6 pt-6">
+        <div className="relative overflow-x-auto border border-slate-400 sm:rounded-lg">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto sm:rounded-lg">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="p-4">
+                  <div className="flex items-center">
+                    <input
+                      id="checkbox-all-search"
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                    <label htmlFor="checkbox-all-search" className="sr-only">
+                      checkbox
+                    </label>
+                  </div>
+                </th>
+                {tableHeaders.map((header, index) => (
+                  <th key={index} scope="col" className="px-6 py-3">
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product, index) => (
+                <tr
+                  key={index}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                  <td className="w-4 p-4">
+                    <div className="flex items-center">
+                      <input
+                        id="checkbox-table-search-1"
+                        type="checkbox"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        htmlFor="checkbox-table-search-1"
+                        className="sr-only"
+                      >
+                        checkbox
+                      </label>
+                    </div>
+                  </td>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {product.name}
+                  </th>
+                  <td className="px-6 py-4">{product.quantity}</td>
+                  <td className="px-6 py-4">{product.location}</td>
+                  <td className="px-6 py-4">Type</td>
+                  <td className="px-6 py-4">Status</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <nav
+            className="flex items-center justify-between px-4 py-1 bg-white border-t border-gray-200 sm:px-6 dark:bg-gray-800 dark:border-gray-700"
+            aria-label="Table navigation"
+          >
+            <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+              Showing{" "}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                1-{products.length > 10 ? 10 : products.length}
+              </span>{" "}
+              of{" "}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                {products.length}
+              </span>
+            </span>
+            <ul className="inline-flex items-center -space-x-px">
+              <li>
+                <a
+                  href="#"
+                  onClick={() => {
+                    if (currentPage === 1) return;
+                    handlePageChange(currentPage - 1);
+                  }}
+                  className="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  <span className="sr-only">Previous</span>
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+              {/* Render the pagination links dynamically based on your data */}
+              {/* Example: Rendering 5 page links */}
+              {[1, 2, 3, 4, 5].map((pageNumber) => (
+                <li key={pageNumber}>
+                  <a
+                    href="#"
+                    className={`px-3 py-2 leading-tight ${
+                      pageNumber === currentPage
+                        ? "text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                        : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    }`}
+                    onClick={() => handlePageChange(pageNumber)}
+                  >
+                    {pageNumber}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  className="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  <span className="sr-only">Next</span>
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>

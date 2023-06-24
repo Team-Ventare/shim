@@ -7,9 +7,9 @@ import Link from "next/link";
 
 const navigation = [
   { name: "Inventory", href: "/inventory" },
-  { name: "Orders", href: "/" },
-  { name: "Suppliers", href: "/" },
-  { name: "Staff", href: "/" },
+  { name: "Purchase Request", href: "/purchaserequest" },
+  { name: "Suppliers", href: "/suppliers" },
+  { name: "Staff", href: "/staff" },
 ];
 
 const Nav = () => {
@@ -52,12 +52,18 @@ const Nav = () => {
             </Link>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-2">
           <Link
             href="#"
             className="text-sm font-semibold leading-6 text-slate-700 hover:bg-slate-100 px-3 py-2 rounded-md"
           >
             Log in <span aria-hidden="true">&rarr;</span>
+          </Link>
+          <Link
+            href="#"
+            className="text-sm font-semibold leading-6 text-white bg-orange-500 px-3 py-2 rounded-md"
+          >
+            Sign Up
           </Link>
         </div>
       </nav>
@@ -105,7 +111,13 @@ const Nav = () => {
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-slate-700 hover:bg-gray-50"
                 >
-                  Log in
+                  Log In
+                </Link>
+                <Link
+                  href="#"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-slate-700 hover:bg-gray-50"
+                >
+                  Sign Up
                 </Link>
               </div>
             </div>
