@@ -2,8 +2,7 @@
 
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { MdOutlineEditCalendar } from "react-icons/md";
-import { TiLocation } from "react-icons/ti";
-import { FaTruck } from "react-icons/fa";
+import { motion } from "framer-motion";
 import { BsUpcScan, BsCart3 } from "react-icons/bs";
 import { IoAdd } from "react-icons/io5";
 import { Nav } from "../nav/navbar";
@@ -81,43 +80,6 @@ export default function Example() {
             <BsUpcScan className="text-lg mr-2" />
             <span>Scans</span>
           </button>
-
-          <Menu as="div" className="relative inline-block text-left">
-            <div>
-              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white p-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                Category
-                <ChevronDownIcon
-                  className="-mr-1 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-              </Menu.Button>
-            </div>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  {categoryPills.map((pill, index) => (
-                    <Menu.Item key={index}>
-                      <button
-                        onClick={() => setCategoryPill(pill)}
-                        className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 w-full text-left"
-                      >
-                        {pill}
-                      </button>
-                    </Menu.Item>
-                  ))}
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -134,37 +96,97 @@ export default function Example() {
 
       <div className="mx-auto min-w-screen px-6 pt-6">
         <div className="pb-4 bg-white dark:bg-gray-900">
-          <label htmlFor="table-search" className="sr-only">
-            Search
-          </label>
-          <div className="relative mt-1">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
+          <div className="flex justify-between items-center">
+            <div className="flex">
+              {/* Search Bar */}
+              <label htmlFor="table-search" className="sr-only">
+                Search
+              </label>
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg
+                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="table-search"
+                  className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9"
+                  placeholder={`Search by ${categoryPill}`}
                 />
-              </svg>
+              </div>
+              {/* END - Search Bar */}
+
+              {/* Category Pill */}
+              <Menu
+                as="div"
+                className="relative inline-block text-left pl-2 mt-1"
+              >
+                <div>
+                  <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 h-9">
+                    Category
+                    <svg
+                      class="w-4 h-4 ml-2"
+                      aria-hidden="true"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </Menu.Button>
+                </div>
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-2">
+                      {categoryPills.slice(0, 3).map((pill, index) => (
+                        <Menu.Item key={index}>
+                          <button
+                            onClick={(s) => setCategoryPill(pill)}
+                            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+                          >
+                            {pill}
+                          </button>
+                        </Menu.Item>
+                      ))}
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+              {/* END - Category Pill */}
             </div>
-            <input
-              type="text"
-              id="table-search"
-              className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search for items"
-            />
           </div>
         </div>
 
+        {/* Table */}
         <div className="relative overflow-x-auto border border-slate-400 sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto sm:rounded-lg">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b border-gray-200">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -179,7 +201,7 @@ export default function Example() {
                   </div>
                 </th>
                 {tableHeaders.map((header, index) => (
-                  <th key={index} scope="col" className="px-6 py-3">
+                  <th key={index} scope="col" className="px-4 py-3">
                     {header}
                   </th>
                 ))}
@@ -208,18 +230,32 @@ export default function Example() {
                   </td>
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {product.name}
                   </th>
-                  <td className="px-6 py-4">{product.quantity}</td>
-                  <td className="px-6 py-4">{product.location}</td>
-                  <td className="px-6 py-4">Type</td>
-                  <td className="px-6 py-4">Status</td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4">{product.quantity}</td>
+                  <td className="px-4 py-4">{product.location}</td>
+                  <td className="px-4 py-4">Type</td>
+                  <td className="px-4 py-4">Status</td>
+                  <td className="px-4 py-4">
                     <div className="flex flex-row space-x-4 w-auto">
-                      <MdOutlineEditCalendar className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
-                      <BsCart3 className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
+                      <motion.button
+                        whileHover={{
+                          scale: 1.2,
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <MdOutlineEditCalendar className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{
+                          scale: 1.2,
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <BsCart3 className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
+                      </motion.button>
                     </div>
                   </td>
                 </tr>

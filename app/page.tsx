@@ -1,11 +1,36 @@
 "use client";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./lib/firebase";
 import { Nav } from "./nav/navbar";
+import { RxCross2 } from "react-icons/rx";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [showWarningModal, setShowWarningModal] = useState(true);
+  const [user] = useAuthState(auth);
+
+  useEffect(() => {}, []);
+
   return (
     <div className="bg-white min-h-screen min-w-screen max-w-screen">
       <Nav />
+
+      {!user && showWarningModal ? undefined : (
+        <div className="bg-yellow-50 border-y border-yellow-400 p-4">
+          <div className="flex justify-between">
+            <p className="text-sm text-yellow-700">
+              You are not logged in. Features will be limited.
+            </p>
+            <div className="flex-shrink-0">
+              <RxCross2
+                onClick={() => setShowWarningModal(false)}
+                className="text-lg text-yellow-700 cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="mx-auto min-w-screen max-w-2xl py-32 sm:py-48 px-6 pt-14 lg:px-8">
         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
