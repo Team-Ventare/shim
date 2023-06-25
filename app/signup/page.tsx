@@ -3,12 +3,56 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../lib/firebase";
 import { Nav } from "../nav/navbar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 
 export default function SignUp() {
   const { theme, setTheme } = useTheme();
   const [user] = useAuthState(auth);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== passwordConfirm) {
+      alert("Passwords do not match");
+      return;
+    }
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = result.user;
+      await updateProfile(user, {
+        displayName: firstName + " " + lastName,
+      });
+      await sendEmailVerification(user);
+      alert("Account created successfully. Please verify your email.");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log("User signed in: ", uid);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className={theme == "dark" ? "dark" : undefined}>
@@ -16,7 +60,7 @@ export default function SignUp() {
         <Nav />
 
         <div className="px-4 py-6 md:px-8 md:py-12 lg:px-16 xl:px-32">
-          <form>
+          <form onSubmit={handleSignUp}>
             <div className="grid gap-6 mb-6">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -27,6 +71,8 @@ export default function SignUp() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="John"
                   required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
               <div>
@@ -38,32 +84,9 @@ export default function SignUp() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Doe"
                   required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
-              </div>
-              <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Phone number
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M14.667 3.333c-2.927 0-5.304 2.376-5.304 5.304 0 2.927 2.377 5.304 5.304 5.304 2.927 0 5.304-2.377 5.304-5.304 0-2.928-2.377-5.304-5.304-5.304zm-3.363 7.97a.808.808 0 01-.486-.165L6.81 9.263a.667.667 0 01-.164-.972 7.245 7.245 0 004.6 4.6c.39.158.703.47.861.86l-1.876 3.006a.809.809 0 01-.652.369c-1.585.01-3.21-.607-4.447-1.843a6.3 6.3 0 01-1.843-4.446c-.003-.225.087-.449.27-.631L6.84 7.812a.811.811 0 01.37-.652l3.036-1.892a.665.665 0 01.97.164c.057.095.087.204.087.318v4.646a.669.669 0 01-.671.669h-.002z" />
-                    </svg>
-                  </div>
-                  <input
-                    type="tel"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="123-456-7890"
-                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                    required
-                  />
-                </div>
               </div>
             </div>
             <div className="mb-6">
@@ -88,6 +111,8 @@ export default function SignUp() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="john.doe@company.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -100,6 +125,8 @@ export default function SignUp() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="•••••••••"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="mb-6">
@@ -111,6 +138,8 @@ export default function SignUp() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="•••••••••"
                 required
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
               />
             </div>
             <button
