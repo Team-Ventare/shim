@@ -1,14 +1,19 @@
+// home page
 "use client";
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./lib/firebase";
-import { Nav } from "./nav/navbar";
-import { RxCross2 } from "react-icons/rx";
+import { useAuthState } from "react-firebase-hooks/auth"; //
+import { auth } from "./lib/firebase"; //
+import { Nav } from "./nav/navbar"; //
+import { RxCross2 } from "react-icons/rx"; //
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [showWarningModal, setShowWarningModal] = useState(true);
-  const [user] = useAuthState(auth);
+  const [user] = useAuthState(auth); //add
+
+  useEffect(() => {
+    console.log("showWarningModal", showWarningModal);
+  }, [user, showWarningModal]);
 
   return (
     <div className="bg-white min-h-screen min-w-screen max-w-screen">
@@ -42,12 +47,10 @@ export default function Home() {
         </div>
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Data drive inventory management.
+            Smart Hospital Inventory Management.
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-            fugiat aliqua.
+            Developed by Ventare, a team of computer science and software engineers at the University of Texas at Arlington.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <a
