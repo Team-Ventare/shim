@@ -8,7 +8,7 @@ import { IoAdd } from "react-icons/io5";
 import { Nav } from "../nav/navbar";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { RxCross2 } from "react-icons/rx";
 import React from "react";
 
 const categoryPills = [
@@ -44,6 +44,8 @@ const tableHeaders = [
 ];
 
 export default function Example() {
+  const [cartAddNotification, setCartAddNotification] = useState(false);
+  const [showItemSavedModal, setShowItemSavedModal] = useState(false);
   const [categoryPill, setCategoryPill] = useState(categoryPills[0]);
   const [cartQuantity, setCartQuantity] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -87,12 +89,44 @@ export default function Example() {
             <IoAdd className="text-lg mr-1" />
             <span>Add Item</span>
           </button>
-          <button className="text-sm font-semibold leading-6 text-white bg-blue-600 px-3 py-2 rounded-md flex items-center border">
-            <BsCart3 className="text-lg mr-1" />
-            <span>Cart</span>
-          </button>
         </div>
       </div>
+
+      {
+        /* Item Saved Alert */
+        !showItemSavedModal ? undefined : (
+          <div className="bg-orange-50 border-y border-orange-400 p-4">
+            <div className="flex justify-between">
+              <p className="text-sm text-orange-700">
+                Item saved and inventory updated!
+              </p>
+              <div className="flex-shrink-0">
+                <RxCross2
+                  onClick={() => setShowItemSavedModal(false)}
+                  className="text-lg text-orange-700 cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {
+        /* Cart Alert */
+        !cartAddNotification ? undefined : (
+          <div className="bg-blue-50 border-y border-blue-400 p-4">
+            <div className="flex justify-between">
+              <p className="text-sm text-blue-700">{`Item added to cart. Cart total ${cartQuantity}`}</p>
+              <div className="flex-shrink-0">
+                <RxCross2
+                  onClick={() => setCartAddNotification(false)}
+                  className="text-lg text-blue-700 cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        )
+      }
 
       <div className="mx-auto min-w-screen px-6 pt-6">
         <div className="pb-4 bg-white dark:bg-gray-900">
@@ -136,7 +170,7 @@ export default function Example() {
                   <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 h-9">
                     Category
                     <svg
-                      class="w-4 h-4 ml-2"
+                      className="w-4 h-4 ml-2"
                       aria-hidden="true"
                       fill="none"
                       stroke="currentColor"
@@ -144,9 +178,9 @@ export default function Example() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M19 9l-7 7-7-7"
                       ></path>
                     </svg>
@@ -179,6 +213,16 @@ export default function Example() {
                 </Transition>
               </Menu>
               {/* END - Category Pill */}
+            </div>
+
+            {/* Start - Right Side */}
+            <div className="flex items-center space-x-2">
+              <button className="text-sm font-semibold leading-6 text-slate-700 hover:bg-slate-100 p-2 rounded-md flex items-center border-black border h-9">
+                <IoAdd className="text-lg" />
+              </button>
+              <button className="text-sm font-semibold leading-6 text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-md flex items-center border h-9">
+                <BsCart3 className="text-lg" />
+              </button>
             </div>
           </div>
         </div>
@@ -246,7 +290,10 @@ export default function Example() {
                         }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <MdOutlineEditCalendar className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
+                        <MdOutlineEditCalendar
+                          onClick={() => setShowItemSavedModal(true)}
+                          className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900"
+                        />
                       </motion.button>
                       <motion.button
                         whileHover={{
@@ -254,7 +301,13 @@ export default function Example() {
                         }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <BsCart3 className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900" />
+                        <BsCart3
+                          onClick={() => {
+                            setCartAddNotification(true);
+                            setCartQuantity(cartQuantity + 1);
+                          }}
+                          className="text-xl cursor-pointer rounded-sm text-slate-600 hover:text-slate-900"
+                        />
                       </motion.button>
                     </div>
                   </td>
@@ -295,9 +348,9 @@ export default function Example() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </a>
@@ -337,9 +390,9 @@ export default function Example() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </a>

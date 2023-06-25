@@ -10,7 +10,9 @@ export default function Home() {
   const [showWarningModal, setShowWarningModal] = useState(true);
   const [user] = useAuthState(auth);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("showWarningModal", showWarningModal);
+  }, [user, showWarningModal]);
 
   return (
     <div className="bg-white min-h-screen min-w-screen max-w-screen">
@@ -54,6 +56,7 @@ export default function Home() {
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <a
               href="#"
+              onClick={() => setShowWarningModal(true)}
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Get started
