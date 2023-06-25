@@ -10,10 +10,6 @@ export default function Home() {
   const [showWarningModal, setShowWarningModal] = useState(true);
   const [user] = useAuthState(auth);
 
-  useEffect(() => {
-    console.log("showWarningModal", showWarningModal);
-  }, [user, showWarningModal]);
-
   return (
     <div className="bg-white min-h-screen min-w-screen max-w-screen">
       <Nav />
