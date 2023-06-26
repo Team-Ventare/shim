@@ -1,3 +1,4 @@
+// top nav bar
 "use client";
 
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -7,8 +8,9 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 
 const navigation = [
+  { name: "Home", href: "/" },
   { name: "Inventory", href: "/inventory" },
-  { name: "Purchase Request", href: "/purchaserequest" },
+  { name: "Purchase Requests", href: "/purchaserequests" },
   { name: "Suppliers", href: "/suppliers" },
   { name: "Staff", href: "/staff" },
 ];
@@ -32,8 +34,8 @@ const Nav = () => {
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="h-12 w-auto"
+                src="/logo1.png" 
                 alt=""
               />
             </Link>
@@ -65,7 +67,7 @@ const Nav = () => {
               href="#"
               className="text-sm font-semibold leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 px-3 py-2 rounded-md"
             >
-              Log in <span aria-hidden="true">&rarr;</span>
+              Sign In <span aria-hidden="true">&rarr;</span>
             </Link>
             <Link
               href="/signup"
