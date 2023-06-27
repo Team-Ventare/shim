@@ -14,7 +14,7 @@ import {
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { RxCross2 } from "react-icons/rx";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const { theme, setTheme } = useTheme();
