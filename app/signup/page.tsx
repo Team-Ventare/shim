@@ -14,9 +14,12 @@ import {
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { RxCross2 } from "react-icons/rx";
+import { useRouter } from "next/router";
 
 export default function SignUp() {
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+
   const [user] = useAuthState(auth);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,6 +28,7 @@ export default function SignUp() {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Handle Sign Up Function - Nicholas 06/27/2023
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== passwordConfirm) {
@@ -44,12 +48,15 @@ export default function SignUp() {
       });
       await sendEmailVerification(user);
       alert("Account created successfully. Please verify your email.");
+
+      router.push("/signin");
     } catch (error: any | FirebaseError) {
       setErrorMessage(error.message);
       setShowError(true);
     }
   };
 
+  // Listening for Auth State Changes - Nicholas 06/27/2023
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -66,6 +73,7 @@ export default function SignUp() {
         <Nav />
 
         <div className="mx-auto min-w-screen px-6 py-4 md:px-12 md:py-8 lg:px-24 xl:px-32 2xl:px-40">
+          {/* Sign Up Header */}
           {showError ? (
             <>
               <div className="bg-red-50 dark:bg-gray-800 border border-red-400 p-4 rounded-lg mb-4">
@@ -84,7 +92,9 @@ export default function SignUp() {
             </>
           ) : undefined}
 
+          {/* Sign Up Form */}
           <form onSubmit={handleSignUp}>
+            {/* Name Field */}
             <div className="grid gap-6 mb-6">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -105,6 +115,7 @@ export default function SignUp() {
                 </div>
               </div>
             </div>
+            {/* Email Field */}
             <div className="mb-6">
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Email
@@ -278,6 +289,7 @@ export default function SignUp() {
                 </>
               )}
             </div>
+            {/* Sign Up Button */}
             <button
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
