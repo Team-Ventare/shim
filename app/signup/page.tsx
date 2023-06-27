@@ -12,6 +12,8 @@ import {
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import { RxCross2 } from "react-icons/rx";
 
 export default function SignUp() {
   const { theme, setTheme } = useTheme();
@@ -20,11 +22,14 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== passwordConfirm) {
-      alert("Passwords do not match");
+      setErrorMessage("Passwords do not match.");
+      setShowError(true);
       return;
     }
     try {
@@ -39,8 +44,9 @@ export default function SignUp() {
       });
       await sendEmailVerification(user);
       alert("Account created successfully. Please verify your email.");
-    } catch (error) {
-      alert(error);
+    } catch (error: any | FirebaseError) {
+      setErrorMessage(error.message);
+      setShowError(true);
     }
   };
 
@@ -59,7 +65,25 @@ export default function SignUp() {
       <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
         <Nav />
 
-        <div className="px-4 py-6 md:px-8 md:py-12 lg:px-16 xl:px-32">
+        <div className="mx-auto min-w-screen px-6 py-4 md:px-12 md:py-8 lg:px-24 xl:px-32 2xl:px-40">
+          {showError ? (
+            <>
+              <div className="bg-red-50 dark:bg-gray-800 border border-red-400 p-4 rounded-lg mb-4">
+                <div className="flex justify-between">
+                  <p className="text-red-800 dark:text-red-400 text-md">
+                    <span className="font-medium">Oops! </span> {errorMessage}
+                  </p>
+                  <div className="flex-shrink-0">
+                    <RxCross2
+                      onClick={() => setShowError(false)}
+                      className="text-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 cursor-pointer"
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : undefined}
+
           <form onSubmit={handleSignUp}>
             <div className="grid gap-6 mb-6">
               <div>
