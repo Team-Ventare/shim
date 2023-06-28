@@ -116,7 +116,7 @@ const Nav = () => {
                     href="/signin"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-slate-700 hover:bg-gray-50"
                   >
-                    Log In
+                    Sign In
                   </Link>
                   <Link
                     href="/signup"
