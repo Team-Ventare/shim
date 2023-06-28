@@ -33,11 +33,7 @@ const Nav = () => {
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
-                className="h-12 w-auto"
-                src="/logo1.png" 
-                alt=""
-              />
+              <img className="h-12 w-auto" src="/logo1.png" alt="" />
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -63,11 +59,10 @@ const Nav = () => {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-2">
             <Link
-              onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
-              href="#"
+              href="/signin"
               className="text-sm font-semibold leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 px-3 py-2 rounded-md"
             >
-              Sign In <span aria-hidden="true">&rarr;</span>
+              Sign In
             </Link>
             <Link
               href="/signup"
@@ -118,7 +113,7 @@ const Nav = () => {
                 </div>
                 <div className="py-6">
                   <Link
-                    href="#"
+                    href="/signin"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-slate-700 hover:bg-gray-50"
                   >
                     Log In
