@@ -7,10 +7,10 @@ import { BsUpcScan, BsCart3 } from "react-icons/bs";
 import { IoAdd } from "react-icons/io5";
 import { Nav } from "../nav/navbar";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import React from "react";
-import { useTheme } from "next-themes";
+import { Product } from "./Product";
 
 const categoryPills = [
   "Name",
@@ -71,6 +71,7 @@ export default function Inventory() {
   const [categoryPill, setCategoryPill] = useState(categoryPills[0]);
   const [cartQuantity, setCartQuantity] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchContext, setSearchContext] = useState("");
   const itemsPerPage = 10;
   const totalItems = products.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -152,9 +153,6 @@ export default function Inventory() {
           <div className="flex justify-between items-center">
             <div className="flex">
               {/* Search Bar */}
-              <label htmlFor="table-search" className="sr-only">
-                Search
-              </label>
               <div className="relative mt-1">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <svg
@@ -174,8 +172,9 @@ export default function Inventory() {
                 <input
                   type="text"
                   id="table-search"
+                  onChange={(event) => setSearchContext(event.target.value)}
                   className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-9"
-                  placeholder={`Search by ${categoryPill}`}
+                  placeholder={`Searching by ${categoryPill.toLowerCase()}..`}
                 />
               </div>
               {/* END - Search Bar */}
@@ -257,7 +256,7 @@ export default function Inventory() {
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-2"
                     />
                     <label htmlFor="checkbox-all-search" className="sr-only">
                       checkbox
@@ -272,67 +271,43 @@ export default function Inventory() {
               </tr>
             </thead>
             <tbody>
-              {currentProducts.map((product, index) => (
-                <tr
-                  key={index}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                >
-                  <td className="w-4 p-4">
-                    <div className="flex items-center">
-                      <input
-                        id="checkbox-table-search-1"
-                        type="checkbox"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <label
-                        htmlFor="checkbox-table-search-1"
-                        className="sr-only"
-                      >
-                        checkbox
-                      </label>
-                    </div>
-                  </td>
-                  <th
-                    scope="row"
-                    className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {product.name}
-                  </th>
-                  <td className="px-4 py-4">{product.quantity}</td>
-                  <td className="px-4 py-4">{product.location}</td>
-                  <td className="px-4 py-4">Type</td>
-                  <td className="px-4 py-4">Status</td>
-                  <td className="px-4 py-4">
-                    <div className="flex flex-row space-x-4 w-auto">
-                      <motion.button
-                        whileHover={{
-                          scale: 1.2,
-                        }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <MdOutlineEditCalendar
-                          onClick={() => setShowItemSavedModal(true)}
-                          className="text-xl cursor-pointer rounded-sm text-slate-600 dark:text-white hover:text-slate-900"
-                        />
-                      </motion.button>
-                      <motion.button
-                        whileHover={{
-                          scale: 1.2,
-                        }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <BsCart3
-                          onClick={() => {
+              {searchContext !== ""
+                ? currentProducts
+                    .filter((product) =>
+                      product.name
+                        .toLowerCase()
+                        .includes(searchContext.toLowerCase())
+                    )
+                    .map((data, index) => (
+                      <>
+                        <Product
+                          key={index}
+                          product={data}
+                          edit={() => {
+                            setShowItemSavedModal(true);
+                          }}
+                          cart={() => {
                             setCartAddNotification(true);
                             setCartQuantity(cartQuantity + 1);
                           }}
-                          className="text-xl cursor-pointer rounded-sm text-slate-600 dark:text-white hover:text-slate-900"
                         />
-                      </motion.button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                      </>
+                    ))
+                : currentProducts.map((data, index) => (
+                    <>
+                      <Product
+                        key={index}
+                        product={data}
+                        edit={() => {
+                          setShowItemSavedModal(true);
+                        }}
+                        cart={() => {
+                          setCartAddNotification(true);
+                          setCartQuantity(cartQuantity + 1);
+                        }}
+                      />
+                    </>
+                  ))}
             </tbody>
           </table>
           <nav
