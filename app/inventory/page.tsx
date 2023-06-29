@@ -107,7 +107,7 @@ export default function Inventory() {
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
       <Nav />
 
-      <div className="mx-auto min-w-screen px-6 py-4">
+      <div className="mx-auto min-w-screen px-6 py-2 pt-4">
         {/* Start - Notification Stack */}
         <div>
           {
@@ -148,9 +148,9 @@ export default function Inventory() {
         </div>
         {/* End - Notification Stack */}
 
-        <div className="pb-4">
+        <div className="pb-2">
           {/* Start - Top Bar */}
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center">
             <div className="flex">
               {/* Search Bar */}
               <div className="relative mt-1">
@@ -235,11 +235,11 @@ export default function Inventory() {
 
             {/* Start - Right Side */}
             <div className="flex items-center space-x-2">
-              <button className="text-sm font-semibold leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-md flex items-center border-black dark:border-slate-400 border h-9">
-                <IoAdd className="text-lg" />
+              <button className="text-sm font-medium leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-md flex items-center border-black dark:border-slate-400 border h-9">
+                <IoAdd className="text-lg pr-1" /> Add Item
               </button>
-              <button className="text-sm font-semibold leading-6 text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-md flex items-center border h-9">
-                <BsCart3 className="text-lg" />
+              <button className="text-sm font-medium leading-6 text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-md flex items-center border h-9">
+                <BsCart3 className="text-lg pr-1" /> Cart
               </button>
             </div>
           </div>
