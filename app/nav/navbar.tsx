@@ -5,7 +5,6 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../lib/firebase";
 
