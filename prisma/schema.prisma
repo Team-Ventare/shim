@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Category {
+  PATIENT_SIMULATORS
+  TASK_TRAINERS
+  SIMULATION_EQUIPMENT
+  MEDICAL_FURNITURE
+  CONSMABLE_SUPPLIES
+  NONCONSUMABLE_SUPPLIES
+  COMPUTERS
+  OFFICE_SUPPLIES
+  OTHER
+}
+
+model User {
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  email            String            @unique
+  name             String
+  role             Role              @default(USER)
+  purchaseRequests PurchaseRequest[]
+}
+
+model PurchaseRequest {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  category  Category
+  price     Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
+  status    String   @default("PENDING")
+}
