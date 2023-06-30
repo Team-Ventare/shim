@@ -2,11 +2,12 @@
 "use client";
 
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { useState } from "react";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../lib/firebase";
+import { ProfileDropDown } from "./ProfileDropDown";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -14,12 +15,6 @@ const navigation = [
   { name: "Purchase Requests", href: "/purchaserequests" },
   { name: "Suppliers", href: "/suppliers" },
   { name: "Staff", href: "/staff" },
-];
-
-const profileNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "/signout" },
 ];
 
 const Nav = () => {
@@ -63,42 +58,7 @@ const Nav = () => {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-2">
           {user ? (
             // User signed in
-            <>
-              <Menu as="div" className="relative ml-3">
-                <div>
-                  <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                  </Menu.Button>
-                </div>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {profileNavigation.map((item, index) => (
-                      <Menu.Item key={index}>
-                        <a
-                          href={item.href}
-                          className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 w-full text-left"
-                        >
-                          {item.name}
-                        </a>
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Transition>
-              </Menu>
-            </>
+            <ProfileDropDown />
           ) : (
             // User not signed in
             <>
