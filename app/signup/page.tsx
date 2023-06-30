@@ -65,13 +65,13 @@ export default async function SignUp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      await Router.push("/signin");
     } catch (e: any) {
       console.error(e);
     }
   };
 
   // Listening for Auth State Changes - Nicholas 06/27/2023
+  /*
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -81,6 +81,7 @@ export default async function SignUp() {
     });
     return () => unsubscribe();
   }, []);
+  */
 
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">

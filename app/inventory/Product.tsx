@@ -38,7 +38,7 @@ const Product = ({ product, edit, cart }: ProductProps) => {
           {product.name}
         </th>
         <td className="px-4 py-4">{product.quantity}</td>
-        <td className="px-4 py-4">{product.location}</td>
+        <td className="px-4 py-4">Location</td>
         <td className="px-4 py-4">Type</td>
         <td className="px-4 py-4">Status</td>
         <td className="px-4 py-4">
