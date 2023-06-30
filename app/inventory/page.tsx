@@ -285,15 +285,7 @@ export default function Inventory() {
                     </tr>
                   </thead>
                   <tbody>
-                    {searchContext !== ""
-                      ? currentProducts
-                          .filter((product) =>
-                            product.name
-                              .toLowerCase()
-                              .includes(searchContext.toLowerCase())
-                          )
-                          .map((data, index) => <></>)
-                      : currentProducts.map((data, index) => <></>)}
+                    <></>
                   </tbody>
                 </table>
                 <nav
