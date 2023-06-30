@@ -13,9 +13,10 @@ import {
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { RxCross2 } from "react-icons/rx";
+import { prisma } from "@/lib/prisma";
 import Router from "next/router";
 
-export default function SignUp() {
+export default async function SignUp() {
   const [user] = useAuthState(auth);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -59,17 +60,14 @@ export default function SignUp() {
 
     try {
       const body = { name, email };
-      const res = await fetch("/api/user", {
+      await fetch("/api/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-
-      if (res.status === 200) Router.push("/signin");
-    } catch (error: any) {
-      alert(error.message);
-      setErrorMessage(error.message);
-      setShowError(true);
+      await Router.push("/signin");
+    } catch (e: any) {
+      console.error(e);
     }
   };
 

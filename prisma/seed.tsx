@@ -1,48 +1,18 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const users = [
-  {
-    name: "Admin",
-    email: "inventoryadmin@gmail.com",
-    purchaseRequest: {
-      create: [
-        {
-          requestDate: new Date(),
-          requestStatus: "Pending",
-          requestItems: {
-            create: [
-              {
-                item: {
-                  create: {
-                    itemName: "Laptop",
-                    itemDescription: "Laptop",
-                    itemPrice: 1000,
-                    itemQuantity: 10,
-                    itemCategory: "Electronics",
-                    itemStatus: "Available",
-                  },
-                },
-                quantity: 10,
-              },
-            ],
-          },
-        },
-      ],
-    },
-  },
-];
-
 async function main() {
   console.log(`Start seeding ...`);
 
-  for (const u of users) {
-    const user = await prisma.user.create({
-      data: u,
-    });
-    console.log(`Created user with id: ${user.id}`);
-  }
-  console.log(`Seeding finished.`);
+  const user = await prisma.user.upsert({
+    where: { email: "test@test.com" },
+    update: {},
+    create: {
+      email: "test@test.com",
+      name: "Test User",
+    },
+  });
+  console.log({ user });
 }
 
 main()
