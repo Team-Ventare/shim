@@ -292,36 +292,8 @@ export default function Inventory() {
                               .toLowerCase()
                               .includes(searchContext.toLowerCase())
                           )
-                          .map((data, index) => (
-                            <>
-                              <Product
-                                key={index}
-                                product={data}
-                                edit={() => {
-                                  setItemSavedModal(true);
-                                }}
-                                cart={() => {
-                                  setCartAddNotification(true);
-                                  setCartQuantity(cartQuantity + 1);
-                                }}
-                              />
-                            </>
-                          ))
-                      : currentProducts.map((data, index) => (
-                          <>
-                            <Product
-                              key={index}
-                              product={data}
-                              edit={() => {
-                                setItemSavedModal(true);
-                              }}
-                              cart={() => {
-                                setCartAddNotification(true);
-                                setCartQuantity(cartQuantity + 1);
-                              }}
-                            />
-                          </>
-                        ))}
+                          .map((data, index) => <></>)
+                      : currentProducts.map((data, index) => <></>)}
                   </tbody>
                 </table>
                 <nav
