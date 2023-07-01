@@ -1,16 +1,13 @@
-import { prisma } from "@/lib/prisma";
+"use client";
+
+import { signIn, signOut } from "next-auth/react";
 import { Nav } from "./nav/navbar";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
       <Nav />
 
-      <pre>{JSON.stringify(session)}</pre>
       <div className="py-6 flex justify-center">
         <img src="/scaledshimlogo.png" width={520} height={77} alt="" />
       </div>
@@ -33,18 +30,18 @@ export default async function Home() {
             engineers at the University of Texas at Arlington.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a
-              href="#"
+            <button
+              onClick={() => signIn()}
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Get started
-            </a>
-            <a
-              href="#"
+              Log In
+            </button>
+            <button
+              onClick={() => signOut()}
               className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
             >
-              Learn more <span aria-hidden="true">→</span>
-            </a>
+              Log Out <span aria-hidden="true">→</span>
+            </button>
           </div>
         </div>
       </div>
