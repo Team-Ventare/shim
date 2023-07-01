@@ -12,7 +12,16 @@ async function main() {
       name: "Test User",
     },
   });
-  console.log({ user });
+  const adminUser = await prisma.user.upsert({
+    where: { email: "ventare@outlook.com" },
+    update: {},
+    create: {
+      email: "ventare@outlook.com",
+      name: "Admin User",
+      role: "ADMIN",
+    },
+  });
+  console.log(`Seeding finished.`);
 }
 
 main()
