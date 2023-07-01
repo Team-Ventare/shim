@@ -10,6 +10,7 @@ CREATE TABLE "User" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "email" STRING NOT NULL,
+    "password" STRING NOT NULL,
     "name" STRING NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'USER',
 

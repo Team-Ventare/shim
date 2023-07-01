@@ -1,11 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { Nav } from "./nav/navbar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
+  const session = await getServerSession(authOptions);
+
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
       <Nav />
 
+      <pre>{JSON.stringify(session)}</pre>
       <div className="py-6 flex justify-center">
         <img src="/scaledshimlogo.png" width={520} height={77} alt="" />
       </div>

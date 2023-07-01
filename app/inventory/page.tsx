@@ -11,6 +11,7 @@ import { Product } from "./Product";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../lib/firebase";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const categorys = [
   "Name",
@@ -66,6 +67,7 @@ const tableHeaders = [
 ];
 
 export default function Inventory() {
+  const { data: session } = useSession();
   const router = useRouter();
   const [user] = useAuthState(auth);
   const [cartAddNotification, setCartAddNotification] = useState(false);
@@ -147,6 +149,22 @@ export default function Inventory() {
                 </div>
               </div>
             )
+          }
+          {
+            /* Session Alert */
+            <div className="bg-blue-50 dark:bg-gray-800 border border-blue-400 p-4 rounded-lg mb-2">
+              <div className="flex justify-between">
+                <p className="text-blue-800 dark:text-blue-400 text-md">
+                  {JSON.stringify(session)}
+                </p>
+                <div className="flex-shrink-0">
+                  <RxCross2
+                    onClick={() => setCartAddNotification(false)}
+                    className="text-lg bg-blue-50 dark:bg-gray-800 text-blue-800 dark:text-blue-400 cursor-pointer"
+                  />
+                </div>
+              </div>
+            </div>
           }
         </div>
         {/* End - Notification Stack */}
