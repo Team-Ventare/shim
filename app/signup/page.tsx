@@ -60,7 +60,7 @@ export default async function SignUp() {
 
     try {
       const body = { name, email };
-      await fetch("/api/user", {
+      await fetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
