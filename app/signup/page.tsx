@@ -1,23 +1,11 @@
 "use client";
 
 import { BiLockAlt, BiLockOpenAlt, BiUser } from "react-icons/bi";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../lib/firebase";
 import { Header } from "../components/Header";
-import React, { useEffect, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  sendEmailVerification,
-  updateProfile,
-} from "firebase/auth";
-import { FirebaseError } from "firebase/app";
+import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import { prisma } from "@/lib/prisma";
-import Router from "next/router";
 
-export default async function SignUp() {
-  const [user] = useAuthState(auth);
+export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +13,7 @@ export default async function SignUp() {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -39,19 +27,6 @@ export default async function SignUp() {
       console.error(e);
     }
   };
-
-  // Listening for Auth State Changes - Nicholas 06/27/2023
-  /*
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        console.log("User signed in: ", uid);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
-  */
 
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
