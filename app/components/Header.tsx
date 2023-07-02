@@ -7,6 +7,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ProfileDropDown } from "./ProfileDropDown";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -47,7 +48,7 @@ const Header = () => {
             <Link
               key={index}
               href={item.href}
-              className="text-sm font-semibold leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 px-3 py-2 rounded-md"
+              className="text-sm font-semibold leading-6 text-slate-700 hover:text-slate-900 hover:bg-slate-100 px-3 py-2 rounded-md"
             >
               {item.name}
             </Link>
@@ -56,7 +57,9 @@ const Header = () => {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-2">
           {session ? (
             // User signed in
-            <ProfileDropDown />
+            <motion.div className="flex flex-row items-center px-3 py-2 text-sm leading-6 font-semibold rounded-md text-slate-700 hover:text-slate-900 hover:bg-slate-100">
+              <ProfileDropDown props={session.user} />
+            </motion.div>
           ) : (
             // User not signed in
             <>

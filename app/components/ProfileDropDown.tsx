@@ -1,5 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import Image from "next/image";
 
 const navigation = [
   { name: "Your Profile", href: "#", color: "gray" },
@@ -7,17 +8,20 @@ const navigation = [
   { name: "Sign out", href: "/signout", color: "red" },
 ];
 
-const ProfileDropDown = () => {
+const ProfileDropDown = ({ props }: { props: any }) => {
   return (
-    <Menu as="div" className="relative ml-3">
+    <Menu as="div" className="relative">
       <div>
-        <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+        <Menu.Button className="flex text-md items-center">
           <span className="sr-only">Open user menu</span>
-          <img
-            className="h-8 w-8 rounded-full"
+          <Image
+            className="rounded-full"
+            width={32}
+            height={32}
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             alt=""
           />
+          <h1 className="pl-2">{props.name}</h1>
         </Menu.Button>
       </div>
       <Transition
