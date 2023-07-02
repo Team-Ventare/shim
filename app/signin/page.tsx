@@ -5,9 +5,10 @@ import { Header } from "../components/Header";
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignIn() {
+  const router = useRouter();
   const searchParmas = useSearchParams();
   const callbackUrl = searchParmas.get("callbackUrl") || "/";
   const [email, setEmail] = useState("");
@@ -18,12 +19,15 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
-      signIn("credentials", {
+      const res = await signIn("credentials", {
+        redirect: false,
         email,
         password,
         callbackUrl,
       });
-    } catch (error) {
+      if (res?.error) setError(true);
+      else router.push(callbackUrl);
+    } catch (error: any) {
       setError(true);
     }
   };
