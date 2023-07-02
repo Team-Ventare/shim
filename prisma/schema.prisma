@@ -13,9 +13,21 @@ datasource db {
 enum Role {
   ADMIN
   USER
+  PENDING
 }
 
-enum Category {
+enum PR_Status {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum INV_Status {
+  AVAILABLE
+  CHECKED_OUT
+}
+
+enum Type {
   PATIENT_SIMULATORS
   TASK_TRAINERS
   SIMULATION_EQUIPMENT
@@ -34,18 +46,30 @@ model User {
   email            String            @unique
   password         String
   name             String
-  role             Role              @default(USER)
+  role             Role              @default(PENDING)
   purchaseRequests PurchaseRequest[]
 }
 
-model PurchaseRequest {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Inventory {
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   name      String
-  category  Category
+  amount    Int
+  location  String
+  type      Type
+  status    INV_Status @default(AVAILABLE)
+}
+
+model PurchaseRequest {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String    @db.Uuid
+  name      String
+  title     String
+  category  Type
   price     Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @db.Uuid
-  status    String   @default("PENDING")
+  status    PR_Status @default(PENDING)
+  User      User      @relation(fields: [userId], references: [id])
 }

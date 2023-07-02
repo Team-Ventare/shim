@@ -39,6 +39,18 @@ export default function Inventory() {
         {/* Start - Notification Stack */}
         <div>
           {
+            /* Session Alert */
+            session === undefined ? undefined : (
+              <div className="bg-green-50 dark:bg-gray-800 border border-green-400 p-4 rounded-lg mb-2">
+                <div className="flex justify-between">
+                  <p className="text-green-800 dark:text-green-400 text-md">
+                    {JSON.stringify(session)}
+                  </p>
+                </div>
+              </div>
+            )
+          }
+          {
             /* Item Saved Alert */
             !itemSavedModal ? undefined : (
               <div className="bg-orange-50 dark:bg-gray-800 border border-orange-400 p-4 rounded-lg mb-2">
@@ -69,18 +81,6 @@ export default function Inventory() {
                       className="text-lg bg-blue-50 dark:bg-gray-800 text-blue-800 dark:text-blue-400 cursor-pointer"
                     />
                   </div>
-                </div>
-              </div>
-            )
-          }
-          {
-            /* Session Alert */
-            session === undefined ? undefined : (
-              <div className="bg-green-50 dark:bg-gray-800 border border-green-400 p-4 rounded-lg mb-2">
-                <div className="flex justify-between">
-                  <p className="text-green-800 dark:text-green-400 text-md">
-                    {JSON.stringify(session)}
-                  </p>
                 </div>
               </div>
             )

@@ -1,39 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "./Product";
 
 const headers = ["Item Name", "Amount", "Location", "Type", "Status", "Action"];
-
-const products = [
-  { name: "Product 1", quantity: 100, location: "A1", supplier: "Supplier 1" },
-  { name: "Product 2", quantity: 200, location: "A2", supplier: "Supplier 2" },
-  { name: "Product 3", quantity: 300, location: "A3", supplier: "Supplier 3" },
-  { name: "Product 4", quantity: 400, location: "A4", supplier: "Supplier 4" },
-  { name: "Product 5", quantity: 500, location: "A5", supplier: "Supplier 5" },
-  { name: "Product 6", quantity: 600, location: "A6", supplier: "Supplier 6" },
-  { name: "Product 7", quantity: 700, location: "A7", supplier: "Supplier 7" },
-  { name: "Product 8", quantity: 800, location: "A8", supplier: "Supplier 8" },
-  { name: "Product 9", quantity: 900, location: "A9", supplier: "Supplier 9" },
-  {
-    name: "Product 10",
-    quantity: 1000,
-    location: "A10",
-    supplier: "Supplier 10",
-  },
-  {
-    name: "Product 11",
-    quantity: 1100,
-    location: "A11",
-    supplier: "Supplier 11",
-  },
-  {
-    name: "Product 12",
-    quantity: 1200,
-    location: "A12",
-    supplier: "Supplier 12",
-  },
-];
 
 interface TableContext {
   searchContext: string;
@@ -41,10 +11,20 @@ interface TableContext {
   setCartAddNotification: (value: boolean) => void;
 }
 
+interface Product {
+  id: string;
+  name: string;
+  amount: number;
+  location: string;
+  type: string;
+  status: string;
+}
+
 const Table = ({ props }: { props: TableContext }) => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const totalItems = products.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const indexOfLastProduct = currentPage * itemsPerPage;
@@ -75,6 +55,16 @@ const Table = ({ props }: { props: TableContext }) => {
     }
     setCurrentPage(pageNumber);
   };
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      const res = await fetch("/api/inventory");
+      const data = await res.json();
+      setProducts(data);
+    };
+
+    fetchInventory();
+  }, []);
 
   return (
     <div className="relative overflow-x-auto border border-slate-400 sm:rounded-lg">

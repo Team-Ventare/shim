@@ -5,8 +5,10 @@ import { MdOutlineEditCalendar } from "react-icons/md";
 interface ProductProps {
   product: {
     name: string;
-    quantity: number;
+    amount: number;
     location: string;
+    type: string;
+    status: string;
   };
   edit: () => void;
   cart: () => void;
@@ -37,10 +39,10 @@ const Product = ({ product, edit, cart }: ProductProps) => {
         >
           {product.name}
         </th>
-        <td className="px-4 py-4">{product.quantity}</td>
-        <td className="px-4 py-4">Location</td>
-        <td className="px-4 py-4">Type</td>
-        <td className="px-4 py-4">Status</td>
+        <td className="px-4 py-4">{product.amount}</td>
+        <td className="px-4 py-4">{product.location}</td>
+        <td className="px-4 py-4">{product.type}</td>
+        <td className="px-4 py-4">{product.status}</td>
         <td className="px-4 py-4">
           <div className="flex flex-row space-x-4 w-auto">
             <motion.button

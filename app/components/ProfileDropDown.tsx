@@ -1,11 +1,11 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
 
 const navigation = [
-  { name: "Your Profile", href: "#", color: "gray" },
-  { name: "Settings", href: "#", color: "gray" },
-  { name: "Sign out", href: "/signout", color: "red" },
+  { name: "Your Profile", href: "#" },
+  { name: "Settings", href: "#" },
 ];
 
 const ProfileDropDown = ({ props }: { props: any }) => {
@@ -38,12 +38,20 @@ const ProfileDropDown = ({ props }: { props: any }) => {
             <Menu.Item key={index}>
               <a
                 href={item.href}
-                className={`w-full text-left block px-4 py-2 text-sm text-${item.color}-700 hover:bg-${item.color}-100 hover:text-${item.color}-900`}
+                className={`w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900`}
               >
                 {item.name}
               </a>
             </Menu.Item>
           ))}
+          <Menu.Item>
+            <button
+              onClick={() => signOut()}
+              className="w-full text-left block px-4 py-2 text-sm text-red-700 hover:bg-red-100 hover:text-red-900"
+            >
+              Sign Out
+            </button>
+          </Menu.Item>
         </Menu.Items>
       </Transition>
     </Menu>
