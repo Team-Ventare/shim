@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   return NextResponse.json(users);
 }
 
-// Create User
+// Create User (/api/users/)
 export async function POST(request: Request) {
   const json = await request.json();
 

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// Fetch User
+// Fetch User (/api/users/[id])
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
@@ -15,7 +15,7 @@ export async function GET(
   return NextResponse.json(user);
 }
 
-// Update user
+// Update user (full) (/api/users/[id])
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
@@ -35,6 +35,7 @@ export async function PUT(
   return NextResponse.json(updated);
 }
 
+// Update user (partial) (/api/users/[id])
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
@@ -54,6 +55,7 @@ export async function PATCH(
   return NextResponse.json(updated);
 }
 
+// Delete user (/api/users/[id])
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
