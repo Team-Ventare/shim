@@ -3,7 +3,7 @@
 import { BiLockAlt, BiLockOpenAlt, BiUser } from "react-icons/bi";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../lib/firebase";
-import { Nav } from "../nav/navbar";
+import { Header } from "../components/Header";
 import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -24,36 +24,6 @@ export default async function SignUp() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  // Handle Sign Up Function - Nicholas 06/27/2023
-  /*
-  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (password !== passwordConfirm) {
-      setErrorMessage("Passwords do not match.");
-      setShowError(true);
-      return;
-    }
-    try {
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = result.user;
-      await updateProfile(user, {
-        displayName: name,
-      });
-      await sendEmailVerification(user);
-      alert("Account created successfully. Please verify your email.");
-
-      Router.push("/signin");
-    } catch (error: any | FirebaseError) {
-      setErrorMessage(error.message);
-      setShowError(true);
-    }
-  };
-  */
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -85,7 +55,7 @@ export default async function SignUp() {
 
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-      <Nav />
+      <Header />
 
       <div className="mx-auto min-w-screen px-6 py-4 md:px-12 md:py-8 lg:px-24 xl:px-32 2xl:px-40">
         {/* Sign Up Header */}

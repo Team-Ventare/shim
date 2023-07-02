@@ -3,7 +3,7 @@
 import { BiLockAlt } from "react-icons/bi";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../lib/firebase";
-import { Nav } from "../nav/navbar";
+import { Header } from "../components/Header";
 import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import {
@@ -53,7 +53,7 @@ export default function SignIn() {
   return (
     <div className={theme == "dark" ? "dark" : undefined}>
       <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-        <Nav />
+        <Header />
 
         <div className="mx-auto min-w-screen px-6 py-4 md:px-12 md:py-8 lg:px-24 xl:px-32 2xl:px-40">
           {/* Sign In Header */}

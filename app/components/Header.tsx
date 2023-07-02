@@ -17,7 +17,7 @@ const navigation = [
   { name: "Staff", href: "/staff" },
 ];
 
-const Nav = () => {
+const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [user] = useAuthState(auth);
@@ -139,4 +139,4 @@ const Nav = () => {
   );
 };
 
-export { Nav };
+export { Header };

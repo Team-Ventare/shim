@@ -93,8 +93,8 @@ const Table = ({ props }: { props: TableContext }) => {
                 </label>
               </div>
             </th>
-            {headers.map((header) => (
-              <th key={header} scope="col" className="px-4 py-3">
+            {headers.map((header, index) => (
+              <th key={index} scope="col" className="px-4 py-3">
                 {header}
               </th>
             ))}

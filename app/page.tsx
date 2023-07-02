@@ -1,12 +1,12 @@
 "use client";
 
 import { signIn, signOut } from "next-auth/react";
-import { Nav } from "./nav/navbar";
+import { Header } from "./components/Header";
 
 export default async function Home() {
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-      <Nav />
+      <Header />
 
       <div className="py-6 flex justify-center">
         <img src="/scaledshimlogo.png" width={520} height={77} alt="" />
