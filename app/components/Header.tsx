@@ -5,9 +5,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
 import Link from "next/link";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../lib/firebase";
 import { ProfileDropDown } from "./ProfileDropDown";
+import { useSession } from "next-auth/react";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -18,9 +17,8 @@ const navigation = [
 ];
 
 const Header = () => {
+  const { data: session } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const [user] = useAuthState(auth);
 
   return (
     <div className="bg-white top-0 z-50 mx-auto border-b border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-transparent sticky">
@@ -45,9 +43,9 @@ const Header = () => {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-4">
-          {navigation.map((item) => (
+          {navigation.map((item, index) => (
             <Link
-              key={item.name}
+              key={index}
               href={item.href}
               className="text-sm font-semibold leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 px-3 py-2 rounded-md"
             >
@@ -56,7 +54,7 @@ const Header = () => {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-2">
-          {user ? (
+          {session ? (
             // User signed in
             <ProfileDropDown />
           ) : (
