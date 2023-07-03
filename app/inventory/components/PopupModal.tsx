@@ -80,6 +80,30 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                             />
                           </div>
                         </div>
+
+                        <div className="mb-4 flex flex-row items-center justify-between border-b px-5 pb-4">
+                          <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                            Location
+                          </label>
+                          <div className="relative w-96">
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4 flex flex-row items-center justify-between border-b px-5 pb-4">
+                          <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                            Amount
+                          </label>
+                          <div className="relative w-96">
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              required
+                            />
+                          </div>
+                        </div>
                       </form>
                     </div>
                   </div>
