@@ -21,7 +21,7 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-white top-0 z-50 mx-auto border-b border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-transparent sticky">
+    <div className="bg-white top-0 z-0 mx-auto border-b border-slate-900/10 dark:border-slate-50/[0.06] dark:bg-transparent sticky">
       <nav
         className="flex items-center justify-between px-6 py-4 lg:px-8"
         aria-label="Global"

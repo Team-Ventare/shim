@@ -8,12 +8,14 @@ import { Fragment, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import React from "react";
 import { useSession } from "next-auth/react";
-import { Table, TableContext } from "./Table";
+import { Table, TableContext } from "./components/Table";
+import PopupModal from "./components/PopupModal";
 
 const categorys = ["Name", "Location", "Supplier"];
 
 export default function Inventory() {
   const { data: session } = useSession();
+  const [addItemSlideOver, setAddItemSlideOver] = useState(false);
   const [cartAddNotification, setCartAddNotification] = useState(false);
   const [itemSavedModal, setItemSavedModal] = useState(false);
   const [category, setCategory] = useState(categorys[0]);
@@ -87,6 +89,13 @@ export default function Inventory() {
           }
           {/* End - Notification Stack */}
         </div>
+
+        {addItemSlideOver ? (
+          <PopupModal
+            slideOver={addItemSlideOver}
+            setSlideOver={() => setAddItemSlideOver(!addItemSlideOver)}
+          />
+        ) : undefined}
 
         <div className="pb-2">
           {/* Start - Top Bar */}
@@ -175,7 +184,10 @@ export default function Inventory() {
 
             {/* Start - Right Side */}
             <div className="flex items-center space-x-2">
-              <button className="text-sm font-medium leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-md flex items-center border-black dark:border-slate-400 border h-9">
+              <button
+                onClick={() => setAddItemSlideOver(true)}
+                className="text-sm font-medium leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-md flex items-center border-black dark:border-slate-400 border h-9"
+              >
                 <IoAdd className="text-lg pr-1" /> Add Item
               </button>
               <button className="text-sm font-medium leading-6 text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-md flex items-center border h-9">
