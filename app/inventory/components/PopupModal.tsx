@@ -57,7 +57,7 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                     {/* Add New Item Form */}
                     <div className="relative mt-4 flex-1">
                       <form>
-                        <div className="mb-6 flex flex-row items-center justify-between border-b px-5 pb-4">
+                        <div className="mb-4 flex flex-row items-center justify-between border-b px-5 pb-4">
                           <label className="block text-sm font-medium text-gray-900 dark:text-white">
                             Item name
                           </label>
@@ -69,7 +69,7 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                           </div>
                         </div>
 
-                        <div className="mb-6 flex flex-row items-start justify-between border-b px-5 pb-4">
+                        <div className="mb-4 flex flex-row items-start justify-between border-b px-5 pb-4">
                           <label className="block text-sm font-medium text-gray-900 dark:text-white self-start">
                             Description
                           </label>
