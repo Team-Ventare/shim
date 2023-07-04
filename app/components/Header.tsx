@@ -3,10 +3,11 @@
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ProfileDropDown } from "./ProfileDropDown";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import { MobileMenu, MobileMenuProps } from "./MobileMenu";
+import { MobileMenu } from "./MobileMenu";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -27,9 +28,9 @@ const Header = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5">
             <span className="sr-only">Your Company</span>
-            <img className="h-12 w-auto" src="/logo1.png" alt="" />
+            <Image height={46} width={46} src="/logo1.png" alt="" />
           </Link>
         </div>
         <div className="flex lg:hidden">
