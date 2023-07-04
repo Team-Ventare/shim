@@ -33,14 +33,9 @@ const MobileMenu = ({
       <div className="fixed inset-0 z-50" />
       <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
         <div className="flex items-center justify-between">
-          <Link href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 px-1">
             <span className="sr-only">Your Company</span>
-            <Image
-              height={32}
-              width={32}
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
+            <Image height={46} width={46} src="/logo1.png" alt="" />
           </Link>
           <button
             type="button"
