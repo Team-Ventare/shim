@@ -1,15 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Product } from "./Product";
 
 const headers = ["Item Name", "Amount", "Location", "Type", "Status", "Action"];
-
-interface TableContext {
-  searchContext: string;
-  setItemSavedModal: (value: boolean) => void;
-  setCartAddNotification: (value: boolean) => void;
-}
 
 interface Product {
   id: string;
@@ -20,16 +14,22 @@ interface Product {
   status: string;
 }
 
+interface TableContext {
+  searchContext: string;
+  products: Product[];
+  setItemSavedModal: (value: boolean) => void;
+  setCartAddNotification: (value: boolean) => void;
+}
+
 const Table = ({ props }: { props: TableContext }) => {
-  const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 5;
-  const totalItems = products.length;
+  const totalItems = props.products.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = props.products.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
@@ -50,21 +50,11 @@ const Table = ({ props }: { props: TableContext }) => {
   };
 
   const handlePageChange = (pageNumber: React.SetStateAction<number>) => {
-    if (currentPage > products.length / 10) {
-      setCurrentPage(Math.ceil(products.length / 10));
+    if (currentPage > props.products.length / 10) {
+      setCurrentPage(Math.ceil(props.products.length / 10));
     }
     setCurrentPage(pageNumber);
   };
-
-  useEffect(() => {
-    const fetchInventory = async () => {
-      const res = await fetch("/api/inventory");
-      const data = await res.json();
-      setProducts(data);
-    };
-
-    fetchInventory();
-  }, []);
 
   return (
     <div className="relative overflow-x-auto border border-slate-400 sm:rounded-lg">
@@ -129,7 +119,7 @@ const Table = ({ props }: { props: TableContext }) => {
           </span>{" "}
           of{" "}
           <span className="font-semibold text-gray-900 dark:text-white">
-            {products.length}
+            {props.products.length}
           </span>
         </span>
         <ul className="inline-flex items-center -space-x-px">
@@ -205,4 +195,4 @@ const Table = ({ props }: { props: TableContext }) => {
 };
 
 export { Table };
-export type { TableContext };
+export type { TableContext, Product };

@@ -1,14 +1,29 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { BiLockAlt } from "react-icons/bi";
+import { Product } from "./Table";
 
 interface PopupModalProps {
   slideOver: boolean;
+  products: Product[];
   setSlideOver: () => void;
 }
 
-const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
+const types = [
+  "PATIENT_SIMULATORS",
+  "TASK_TRAINERS",
+  "SIMULATION_EQUIPMENT",
+  "MEDICAL_FURNITURE",
+  "CONSMABLE_SUPPLIES",
+  "NONCONSUMABLE_SUPPLIES",
+  "COMPUTERS",
+  "OFFICE_SUPPLIES",
+  "OTHER",
+];
+
+const statuses = ["AVAILABLE", "CHECKED_OUT"];
+
+const PopupModal = ({ slideOver, products, setSlideOver }: PopupModalProps) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -32,6 +47,8 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
         }),
       });
       if (res.ok) {
+        const data = await res.json();
+        products.push(data);
         setSlideOver();
       }
     } catch (error: any) {

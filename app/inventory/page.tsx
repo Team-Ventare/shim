@@ -4,17 +4,18 @@ import { BsCart3 } from "react-icons/bs";
 import { IoAdd } from "react-icons/io5";
 import { Header } from "../components/Header";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import React from "react";
 import { useSession } from "next-auth/react";
-import { Table, TableContext } from "./components/Table";
+import { Product, Table, TableContext } from "./components/Table";
 import PopupModal from "./components/PopupModal";
 
 const categorys = ["Name", "Location", "Supplier"];
 
 export default function Inventory() {
   const { data: session } = useSession();
+  const [products, setProducts] = useState<Product[]>([]);
   const [addItemSlideOver, setAddItemSlideOver] = useState(false);
   const [cartAddNotification, setCartAddNotification] = useState(false);
   const [itemSavedModal, setItemSavedModal] = useState(false);
@@ -24,6 +25,7 @@ export default function Inventory() {
 
   const tableProps: TableContext = {
     searchContext: searchContext,
+    products: products,
     setItemSavedModal: (value: boolean) => {
       setItemSavedModal(value);
     },
@@ -32,6 +34,16 @@ export default function Inventory() {
       setCartQuantity(cartQuantity + 1);
     },
   };
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      const res = await fetch("/api/inventory");
+      const data = await res.json();
+      setProducts(data);
+    };
+
+    fetchInventory();
+  }, []);
 
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
@@ -93,6 +105,7 @@ export default function Inventory() {
         {addItemSlideOver ? (
           <PopupModal
             slideOver={addItemSlideOver}
+            products={products}
             setSlideOver={() => setAddItemSlideOver(!addItemSlideOver)}
           />
         ) : undefined}
