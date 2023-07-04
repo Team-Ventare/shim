@@ -9,6 +9,36 @@ interface PopupModalProps {
 }
 
 const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [amount, setAmount] = useState("");
+  const [type, setType] = useState("");
+  const [status, setStatus] = useState("");
+
+  const handleAddItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("/api/inventory/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          location: location,
+          amount: parseInt(amount),
+          type: type,
+          status: status,
+        }),
+      });
+      if (res.ok) {
+        setSlideOver();
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
   return (
     <Transition.Root show={slideOver} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setSlideOver}>
@@ -56,7 +86,10 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                     </div>
                     {/* Add New Item Form */}
                     <div className="relative mt-4 flex-1">
-                      <form>
+                      <form
+                        onSubmit={handleAddItem}
+                        className="flex flex-col justify-between h-full"
+                      >
                         <div className="mb-4 flex flex-row items-center justify-between border-b px-5 pb-4">
                           <label className="block text-sm font-medium text-gray-900 dark:text-white">
                             Item name
@@ -65,6 +98,8 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                             <input
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               required
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
                             />
                           </div>
                         </div>
@@ -77,6 +112,8 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                             <textarea
                               className="bg-gray-50 border h-24 flex-wrap border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               required
+                              value={description}
+                              onChange={(e) => setDescription(e.target.value)}
                             />
                           </div>
                         </div>
@@ -89,6 +126,8 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                             <input
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               required
+                              value={location}
+                              onChange={(e) => setLocation(e.target.value)}
                             />
                           </div>
                         </div>
@@ -101,8 +140,55 @@ const PopupModal = ({ slideOver, setSlideOver }: PopupModalProps) => {
                             <input
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               required
+                              value={amount}
+                              onChange={(e) => setAmount(e.target.value)}
                             />
                           </div>
+                        </div>
+
+                        <div className="mb-4 flex flex-row items-center justify-between border-b px-5 pb-4">
+                          <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                            Type
+                          </label>
+                          <div className="relative w-96">
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              required
+                              value={type}
+                              onChange={(e) => setType(e.target.value)}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4 flex flex-row items-center justify-between border-b px-5 pb-4">
+                          <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                            Status
+                          </label>
+                          <div className="relative w-96">
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              required
+                              value={status}
+                              onChange={(e) => setStatus(e.target.value)}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex-grow" />
+
+                        <div className="flex flex-row items-center justify-between px-3 space-x-2">
+                          <button
+                            onClick={() => setSlideOver()}
+                            className="text-slate-900 border border-slate-400 hover:border-slate-900 hover:bg-slate-200 font-medium rounded-md text-sm w-full px-5 py-2.5 text-center"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="submit"
+                            className="text-white bg-orange-500 hover:bg-orange-600 font-medium rounded-md text-sm w-full px-5 py-2.5 text-center"
+                          >
+                            Add Item
+                          </button>
                         </div>
                       </form>
                     </div>
