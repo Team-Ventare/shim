@@ -2,25 +2,37 @@
 
 import { Header } from "../components/Header";
 import React from "react";
+import { Fragment, useEffect, useState } from "react";
+import PopupModal from "./components/PopupModal";
+
 
 export default function PurchaseRequests() {
+  const [createRequestSlideOver, setCreateRequestSlideOver] = useState(false);
+
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-      <Header />
+      
       <div className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 w-full text-center">
-        <div className="mt-3 flex items-center justify-center gap-x-6">
-          <a
-            href="#new"
-            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
+      {createRequestSlideOver ? (
+        <PopupModal
+          slideOver={createRequestSlideOver}
+          setSlideOver={() => setCreateRequestSlideOver(!createRequestSlideOver)}
+        />
+      ) : undefined}
+      <div className="mt-3 flex items-center justify-center gap-x-6">
+          <button
+            // href="#new"
+            onClick={() => setCreateRequestSlideOver(true)}
+            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             CREATE NEW REQUEST
-          </a>
+          </button>
+            
         </div>
         <div className="mt-2 dark:text-white">
           <h1>Need something?</h1>
         </div>
       </div>
-
+        
       <>
         {/* component */}
         <section className="antialiased bg-white text-gray-600 h-full w-full px-4">
@@ -28,9 +40,7 @@ export default function PurchaseRequests() {
             {/* Table */}
             <div className="w-full max-w-8xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
               <header className="px-5 py-4 border-b border-gray-100">
-                <h2 className="font-semibold text-gray-800">
-                  Purchase Requests
-                </h2>
+                <h2 className="font-semibold text-gray-800">Purchase Requests</h2>
               </header>
               <div className="p-3">
                 <div className="overflow-x-auto">
@@ -41,9 +51,10 @@ export default function PurchaseRequests() {
                           <div className="font-semibold text-left">Name</div>
                         </th>
                         <th className="p-2 whitespace-nowrap">
-                          <div className="font-semibold text-left">
-                            Request Title
-                          </div>
+                          <div className="font-semibold text-left">Item Requested</div>
+                        </th>
+                        <th className="p-2 whitespace-nowrap">
+                          <div className="font-semibold text-left">Quantity</div>
                         </th>
                         <th className="p-2 whitespace-nowrap">
                           <div className="font-semibold text-left">Price</div>
@@ -52,9 +63,7 @@ export default function PurchaseRequests() {
                           <div className="font-semibold text-left">Date</div>
                         </th>
                         <th className="p-2 whitespace-nowrap">
-                          <div className="font-semibold text-left">
-                            Request ID
-                          </div>
+                          <div className="font-semibold text-left">Request ID</div>
                         </th>
                       </tr>
                     </thead>
@@ -77,9 +86,10 @@ export default function PurchaseRequests() {
                           </div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
-                          <div className="text-left">
-                            Nitrile Disposable Gloves
-                          </div>
+                          <div className="text-left">Nitrile Disposable Gloves</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">600</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
@@ -111,9 +121,10 @@ export default function PurchaseRequests() {
                           </div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
-                          <div className="text-left">
-                            Digital Blood Pressure Monitor Pro
-                          </div>
+                          <div className="text-left">Digital Blood Pressure Monitor Pro</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">20</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
@@ -148,6 +159,9 @@ export default function PurchaseRequests() {
                           <div className="text-left">Portable Ventilator</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">15</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
                             $2,996.00
                           </div>
@@ -177,9 +191,10 @@ export default function PurchaseRequests() {
                           </div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
-                          <div className="text-left">
-                            Medical Disposable Surgical Masks
-                          </div>
+                          <div className="text-left">Medical Disposable Surgical Masks</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">400</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
@@ -214,6 +229,9 @@ export default function PurchaseRequests() {
                           <div className="text-left">Digital X Ray Machine</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">6</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
                             $4,890.66
                           </div>
@@ -232,7 +250,7 @@ export default function PurchaseRequests() {
             </div>
           </div>
         </section>
-      </>
+        </>
     </div>
   );
 }
