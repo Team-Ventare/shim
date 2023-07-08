@@ -1,18 +1,32 @@
 "use client";
 
 import React from "react";
+import { Fragment, useEffect, useState } from "react";
+import PopupModal from "@/components/inventory/PopupModal";
 
 export default function PurchaseRequests() {
+  const [createRequestSlideOver, setCreateRequestSlideOver] = useState(false);
+
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
       <div className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 w-full text-center">
+        {createRequestSlideOver ? (
+          <PopupModal
+            slideOver={createRequestSlideOver}
+            setSlideOver={() =>
+              setCreateRequestSlideOver(!createRequestSlideOver)
+            }
+            products={[]}
+          />
+        ) : undefined}
         <div className="mt-3 flex items-center justify-center gap-x-6">
-          <a
-            href="#new"
+          <button
+            // href="#new"
+            onClick={() => setCreateRequestSlideOver(true)}
             className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             CREATE NEW REQUEST
-          </a>
+          </button>
         </div>
         <div className="mt-2 dark:text-white">
           <h1>Need something?</h1>
@@ -40,7 +54,12 @@ export default function PurchaseRequests() {
                         </th>
                         <th className="p-2 whitespace-nowrap">
                           <div className="font-semibold text-left">
-                            Request Title
+                            Item Requested
+                          </div>
+                        </th>
+                        <th className="p-2 whitespace-nowrap">
+                          <div className="font-semibold text-left">
+                            Quantity
                           </div>
                         </th>
                         <th className="p-2 whitespace-nowrap">
@@ -80,6 +99,9 @@ export default function PurchaseRequests() {
                           </div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">600</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
                             $62.40
                           </div>
@@ -114,6 +136,9 @@ export default function PurchaseRequests() {
                           </div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">20</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
                             $767.89
                           </div>
@@ -144,6 +169,9 @@ export default function PurchaseRequests() {
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left">Portable Ventilator</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">15</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
@@ -180,6 +208,9 @@ export default function PurchaseRequests() {
                           </div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">400</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
                             $40.66
                           </div>
@@ -210,6 +241,9 @@ export default function PurchaseRequests() {
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left">Digital X Ray Machine</div>
+                        </td>
+                        <td className="p-2 whitespace-nowrap">
+                          <div className="text-left">6</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium text-green-500">
