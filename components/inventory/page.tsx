@@ -2,7 +2,6 @@
 
 import { BsCart3 } from "react-icons/bs";
 import { IoAdd } from "react-icons/io5";
-import { Header } from "../components/Header";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
@@ -47,8 +46,6 @@ export default function Inventory() {
 
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-      <Header />
-
       <div className="mx-auto min-w-screen px-6 py-2 pt-4">
         {/* Start - Notification Stack */}
         <div>

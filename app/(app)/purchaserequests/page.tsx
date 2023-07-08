@@ -1,12 +1,10 @@
 "use client";
 
-import { Header } from "../components/Header";
 import React from "react";
 
 export default function PurchaseRequests() {
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-      <Header />
       <div className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 w-full text-center">
         <div className="mt-3 flex items-center justify-center gap-x-6">
           <a
