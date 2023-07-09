@@ -1,7 +1,6 @@
 "use client";
 
 import { BiLockAlt } from "react-icons/bi";
-import { Header } from "../components/Header";
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { signIn } from "next-auth/react";
@@ -33,8 +32,7 @@ export default function SignIn() {
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
       <div className="mx-auto min-w-screen px-6 py-4 md:px-12 md:py-8 lg:px-24 xl:px-32 2xl:px-40">
-        {/* Sign In Header */}
-        {error ? (
+        {error && (
           <>
             <div className="bg-red-50 dark:bg-gray-800 border border-red-400 p-4 rounded-lg mb-4">
               <div className="flex justify-between">
@@ -51,7 +49,7 @@ export default function SignIn() {
               </div>
             </div>
           </>
-        ) : undefined}
+        )}
 
         <div className="">
           {/* Sign Up Form */}
