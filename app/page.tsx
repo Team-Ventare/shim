@@ -1,9 +1,11 @@
-import { getUserSession } from "@/lib/auth";
+import { NavBar } from "@/components/nav-bar";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
+      <NavBar />
+
       <div className="py-6 flex justify-center">
         <Image src="/scaledshimlogo.png" width={520} height={77} alt="" />
       </div>
