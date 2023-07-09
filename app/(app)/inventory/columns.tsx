@@ -13,11 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
-
-const { toast } = useToast();
-const router = useRouter();
 
 export type Product = {
   id: string;
@@ -92,15 +89,7 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                toast({
-                  title: "Success!",
-                  description: `${product.name} has been added to your cart.`,
-                });
-              }}
-            >
+            <DropdownMenuItem className="cursor-pointer">
               Add to cart
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -108,23 +97,14 @@ export const columns: ColumnDef<Product>[] = [
               className="cursor-pointer"
               onClick={() => {
                 navigator.clipboard.writeText(product.id);
-
-                toast({
-                  title: "Product ID copied",
-                  description:
-                    "The product ID has been copied to your clipboard.",
-                });
               }}
             >
               Copy product ID
             </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                router.push(`/inventory/${product.id}`);
-              }}
-            >
-              View product details
+            <DropdownMenuItem>
+              <Link href={`/inventory/${product.id}`}>
+                View product details
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
