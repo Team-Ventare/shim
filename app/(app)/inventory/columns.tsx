@@ -16,6 +16,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
+const { toast } = useToast();
+const router = useRouter();
+
 export type Product = {
   id: string;
   name: string;
@@ -78,8 +81,6 @@ export const columns: ColumnDef<Product>[] = [
     id: "actions",
     cell: ({ row }) => {
       const product = row.original;
-      const { toast } = useToast();
-      const router = useRouter();
 
       return (
         <DropdownMenu>
