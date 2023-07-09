@@ -1,7 +1,6 @@
 "use client";
 
 import { BiLockAlt, BiLockOpenAlt, BiUser } from "react-icons/bi";
-import { Header } from "../components/Header";
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
@@ -30,27 +29,23 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-      <Header />
-
       <div className="mx-auto min-w-screen px-6 py-4 md:px-12 md:py-8 lg:px-24 xl:px-32 2xl:px-40">
         {/* Sign Up Header */}
-        {showError ? (
-          <>
-            <div className="bg-red-50 dark:bg-gray-800 border border-red-400 p-4 rounded-lg mb-4">
-              <div className="flex justify-between">
-                <p className="text-red-800 dark:text-red-400 text-md">
-                  <span className="font-medium">Oops! </span> {errorMessage}
-                </p>
-                <div className="flex-shrink-0">
-                  <RxCross2
-                    onClick={() => setShowError(false)}
-                    className="text-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 cursor-pointer"
-                  />
-                </div>
+        {showError && (
+          <div className="bg-red-50 dark:bg-gray-800 border border-red-400 p-4 rounded-lg mb-4">
+            <div className="flex justify-between">
+              <p className="text-red-800 dark:text-red-400 text-md">
+                <span className="font-medium">Oops! </span> {errorMessage}
+              </p>
+              <div className="flex-shrink-0">
+                <RxCross2
+                  onClick={() => setShowError(false)}
+                  className="text-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 cursor-pointer"
+                />
               </div>
             </div>
-          </>
-        ) : undefined}
+          </div>
+        )}
 
         {/* Sign Up Form */}
         <form onSubmit={handleSignUp}>
