@@ -15,14 +15,14 @@ async function getData(): Promise<PurchaseRequest[]> {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch suppliers.");
+    throw new Error("Failed to fetch purchase requests.");
   }
 
   const data = await response.json();
   return data;
 }
 
-export default async function InventoryPage() {
+export default async function PurchaseRequestPage() {
   const data = await getData();
   const session = await getUserSession();
 

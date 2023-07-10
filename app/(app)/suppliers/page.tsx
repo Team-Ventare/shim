@@ -21,7 +21,7 @@ async function getData(): Promise<Supplier[]> {
   return data;
 }
 
-export default async function InventoryPage() {
+export default async function SupplierPage() {
   const data = await getData();
   const session = await getUserSession();
 
