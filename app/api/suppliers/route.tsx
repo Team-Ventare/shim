@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 // Fetch Supplier Request (/api/suppliers/)
 export async function GET(request: Request) {
-  const inventory = await prisma.suppliers.findMany();
-  return NextResponse.json(inventory);
+  const suppliers = await prisma.suppliers.findMany();
+  return NextResponse.json(suppliers);
 }
 
 // Add Supplier Request (/api/suppliers/)

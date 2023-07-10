@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 // Fetch Purchase Request (/api/purchaserequests/)
 export async function GET(request: Request) {
-  const requests = await prisma.purchaseRequests.findMany();
-  return NextResponse.json(requests);
+  const purchases = await prisma.purchaseRequests.findMany();
+  return NextResponse.json(purchases);
 }
 
 // New Purchase Request (/api/purchaserequests/)
