@@ -20,7 +20,7 @@ export default async function InventoryPage() {
   return (
     <div className="container mx-auto py-10">
       {session && (
-        <div className="bg-green-50 dark:bg-gray-800 border border-green-400 p-4 rounded-lg mb-2">
+        <div className="bg-green-50 dark:bg-gray-800 border border-green-400 p-4 rounded-lg mb-4">
           <div className="flex justify-between">
             <p className="text-green-800 dark:text-green-400 text-md">
               {JSON.stringify(session)}
