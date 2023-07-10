@@ -7,15 +7,15 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
-  const user = await prisma.user.findUnique({
+  const users = await prisma.users.findUnique({
     where: {
       id: id,
     },
   });
-  return NextResponse.json(user);
+  return NextResponse.json(users);
 }
 
-// Update user (full) (/api/users/[id])
+// Update users (full) (/api/users/[id])
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
@@ -23,7 +23,7 @@ export async function PUT(
   const id = params.id;
   const json = await request.json();
 
-  const updated = await prisma.user.update({
+  const updated = await prisma.users.update({
     where: {
       id: id,
     },
@@ -35,7 +35,7 @@ export async function PUT(
   return NextResponse.json(updated);
 }
 
-// Update user (partial) (/api/users/[id])
+// Update users (partial) (/api/users/[id])
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
@@ -43,7 +43,7 @@ export async function PATCH(
   const id = params.id;
   const json = await request.json();
 
-  const updated = await prisma.user.update({
+  const updated = await prisma.users.update({
     where: {
       id: id,
     },
@@ -55,14 +55,14 @@ export async function PATCH(
   return NextResponse.json(updated);
 }
 
-// Delete user (/api/users/[id])
+// Delete users (/api/users/[id])
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
 
-  const deleted = await prisma.user.delete({
+  const deleted = await prisma.users.delete({
     where: {
       id: id,
     },

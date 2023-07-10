@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 // Fetch Users (/api/users/)
 export async function GET(request: Request) {
-  const users = await prisma.user.findMany();
+  const users = await prisma.users.findMany();
   return NextResponse.json(users);
 }
 
@@ -11,7 +11,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const json = await request.json();
 
-  const created = await prisma.user.create({
+  const created = await prisma.users.create({
     data: json,
   });
 
