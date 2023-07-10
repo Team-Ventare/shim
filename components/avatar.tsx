@@ -26,7 +26,6 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
           )}
           {!user?.image && <AvatarFallback>{user?.name?.at(0)}</AvatarFallback>}
         </RootAvatar>
-        {user && <p className="pr-2">{user.name}</p>}
       </div>
     </DropdownMenuTrigger>
     <DropdownMenuContent className="w-56" align="end" forceMount>
