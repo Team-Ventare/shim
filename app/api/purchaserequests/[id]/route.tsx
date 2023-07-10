@@ -1,13 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// Fetch Inventory Item (/api/inventory/[id])
+// Fetch Purchase Request (/api/purchaseRequests/[id])
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
-  const item = await prisma.inventory.findUnique({
+  const item = await prisma.purchaseRequests.findUnique({
     where: {
       id: id,
     },
@@ -15,7 +15,7 @@ export async function GET(
   return NextResponse.json(item);
 }
 
-// Update Inventory Item (full) (/api/inventory/[id])
+// Update Purchase Request (full) (/api/purchaseRequests/[id])
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
@@ -23,7 +23,7 @@ export async function PUT(
   const id = params.id;
   const json = await request.json();
 
-  const updated = await prisma.inventory.update({
+  const updated = await prisma.purchaseRequests.update({
     where: {
       id: id,
     },
@@ -35,7 +35,7 @@ export async function PUT(
   return NextResponse.json(updated);
 }
 
-// Update Inventory Item (partial) (/api/inventory/[id])
+// Update Purchase Request (partial) (/api/purchaseRequests/[id])
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
@@ -43,7 +43,7 @@ export async function PATCH(
   const id = params.id;
   const json = await request.json();
 
-  const updated = await prisma.inventory.update({
+  const updated = await prisma.purchaseRequests.update({
     where: {
       id: id,
     },
@@ -55,14 +55,14 @@ export async function PATCH(
   return NextResponse.json(updated);
 }
 
-// Delete Inventory Item (/api/inventory/[id])
+// Delete Purchase Request (/api/purchaseRequests/[id])
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
 
-  const deleted = await prisma.inventory.delete({
+  const deleted = await prisma.purchaseRequests.delete({
     where: {
       id: id,
     },

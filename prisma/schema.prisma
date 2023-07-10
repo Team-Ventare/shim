@@ -36,42 +36,41 @@ enum Type {
   OTHER
 }
 
-model User {
-  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  email            String            @unique
-  password         String
-  name             String
-  role             Role              @default(PENDING)
-  purchaseRequests PurchaseRequest[]
-  cartId           String?           @db.Uuid
+model Users {
+  id        String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  email     String             @unique
+  password  String
+  name      String
+  role      Role               @default(PENDING)
+  cart      Cart?              @relation(fields: [cartId], references: [id])
+  requests  PurchaseRequests[]
+  cartId    String?            @db.Uuid
 }
 
-model Inventory {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  name       String
-  amount     Int
-  location   String
-  type       Type
-  status     Status   @default(AVAILABLE)
-  checkedOut String[]
-  Cart       Cart?    @relation(fields: [cartId], references: [id])
-  cartId     String?  @db.Uuid
+model Products {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  amount    Int
+  location  String
+  type      Type
+  status    Status   @default(AVAILABLE)
 }
 
-model PurchaseRequest {
+model PurchaseRequests {
   id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   userId    String    @db.Uuid
   name      String
-  category  Type
   price     Int
+  category  Type
   status    PR_Status @default(PENDING)
-  user      User      @relation(fields: [userId], references: [id])
+  Users     Users?    @relation(fields: [usersId], references: [id])
+  usersId   String?   @db.Uuid
 }
 
 model Suppliers {
@@ -87,8 +86,8 @@ model Suppliers {
 }
 
 model Cart {
-  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  inventory Inventory[]
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Users     Users[]
 }

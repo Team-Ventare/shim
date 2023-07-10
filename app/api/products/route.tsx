@@ -1,17 +1,17 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// Fetch Inventory (/api/inventory/)
+// Fetch Products (/api/products/)
 export async function GET(request: Request) {
-  const inventory = await prisma.inventory.findMany();
-  return NextResponse.json(inventory);
+  const products = await prisma.products.findMany();
+  return NextResponse.json(products);
 }
 
-// Add Inventory Item (/api/inventory/)
+// Add Product (/api/products/)
 export async function POST(request: Request) {
   const json = await request.json();
 
-  const created = await prisma.inventory.create({
+  const created = await prisma.products.create({
     data: json,
   });
 

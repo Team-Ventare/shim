@@ -31,7 +31,7 @@ const users = [
   },
 ];
 
-const inventory = [
+const products = [
   {
     name: "Niltrate 10mg",
     amount: 100,
@@ -55,7 +55,7 @@ const inventory = [
   },
 ];
 
-const purchaseRequest = [
+const purchaseRequests = [
   {
     userId: "ce9d9155-0d37-44cd-a967-9b34822b55d9",
     name: "Latex Gloves",
@@ -102,7 +102,7 @@ async function main() {
 
   const password = await hash("password", 12);
   for (const u of users) {
-    const user = await prisma.user.upsert({
+    const user = await prisma.users.upsert({
       where: { email: u.email },
       update: {
         name: u.name,
@@ -119,8 +119,8 @@ async function main() {
     console.log(`Created user with id: ${user.id}`);
   }
 
-  for (const i of inventory) {
-    const item = await prisma.inventory.create({
+  for (const i of products) {
+    const item = await prisma.products.create({
       data: {
         name: i.name,
         amount: i.amount,
@@ -131,8 +131,8 @@ async function main() {
     console.log(`Created item with id: ${item.id}`);
   }
 
-  for (const p of purchaseRequest) {
-    const purchase = await prisma.purchaseRequest.create({
+  for (const p of purchaseRequests) {
+    const purchase = await prisma.purchaseRequests.create({
       data: {
         name: p.name,
         category: p.category,
