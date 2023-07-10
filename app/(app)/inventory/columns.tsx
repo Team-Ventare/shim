@@ -101,9 +101,7 @@ export const columns: ColumnDef<Product>[] = [
               Copy product ID
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href={`/inventory/${product.id}`}>
-                View product details
-              </Link>
+              <Link href={`/products/${product.id}`}>View product details</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
