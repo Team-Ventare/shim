@@ -33,6 +33,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AddItemSheet from "@/components/inventory/add-item";
+import { DataTableViewOptions } from "@/components/inventory/data-table-view-options";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -80,38 +81,13 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="h-8 w-[150px] lg:w-[250px]"
           />
         </div>
 
-        <div className="space-x-2">
+        <div className="flex space-x-2">
           <AddItemSheet />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Columns
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <DataTableViewOptions table={table} />
         </div>
       </div>
       <div className="rounded-md border">
