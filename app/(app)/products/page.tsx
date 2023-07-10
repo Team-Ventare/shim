@@ -13,7 +13,7 @@ async function getData(): Promise<Product[]> {
   return data;
 }
 
-export default async function InventoryPage() {
+export default async function ProductPage() {
   const data = await getData();
   const session = await getUserSession();
 

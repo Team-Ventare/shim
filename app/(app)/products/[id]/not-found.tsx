@@ -6,7 +6,7 @@ export default function ProjectNotFound() {
       <h2>Not Found</h2>
       <p>Could not find that product.</p>
       <p>
-        View <Link href="/inventory">all products.</Link>.
+        View <Link href="/products">all products.</Link>.
       </p>
     </div>
   );

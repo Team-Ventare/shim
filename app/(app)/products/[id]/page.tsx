@@ -19,6 +19,8 @@ import Hospital from "@/public/hospital.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "../columns";
+import { notFound, redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const checkoutHistory = [
   {
@@ -79,7 +81,7 @@ const checkoutHistory = [
 
 async function getData(id: string): Promise<Product> {
   const response = await fetch(
-    `https://shim-ventare.vercel.app/api/inventory/${id}`
+    `https://shim-ventare.vercel.app/api/products/${id}`
   );
 
   if (!response.ok) {
@@ -96,6 +98,22 @@ export default async function ProductPage({
   params: { id: string };
 }) {
   const data = await getData(params.id);
+
+  async function deleteProduct() {
+    "use server";
+
+    const res = await fetch(
+      `https://shim-ventare.vercel.app/api/products/${params.id}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (res.ok) {
+      revalidatePath("/products");
+      redirect("/products");
+    }
+  }
 
   return (
     <div className="container mx-auto py-10 h-screen">
@@ -132,7 +150,7 @@ export default async function ProductPage({
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
-                  <form>
+                  <form action={deleteProduct}>
                     <Button type="submit" variant="destructive">
                       Delete
                     </Button>
