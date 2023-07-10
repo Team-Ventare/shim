@@ -1,6 +1,14 @@
 import { getUserSession } from "@/lib/auth";
 
-interface Supplier {}
+interface Supplier {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  website: string;
+  notes: string;
+}
 
 async function getData(): Promise<Supplier[]> {
   const response = await fetch("https://shim-ventare.vercel.app/api/suppliers");
@@ -17,5 +25,9 @@ export default async function InventoryPage() {
   const data = await getData();
   const session = await getUserSession();
 
-  return <div className="container mx-auto py-10"></div>;
+  return (
+    <div className="container mx-auto py-10">
+      <p>{JSON.stringify(data)}</p>
+    </div>
+  );
 }
