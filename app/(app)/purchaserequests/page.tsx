@@ -2,11 +2,11 @@ import { getUserSession } from "@/lib/auth";
 
 interface PurchaseRequest {
   id: number;
-  createdAt: string;
   userId: string;
+  name: string;
   price: number;
   category: string;
-  status: string;
+  status: "PENDING" | "APPROVED" | "REJECTED";
 }
 
 async function getData(): Promise<PurchaseRequest[]> {
