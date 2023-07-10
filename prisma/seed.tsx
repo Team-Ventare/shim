@@ -138,9 +138,7 @@ async function main() {
         category: p.category,
         price: p.price,
         status: p.status,
-        user: {
-          connect: { id: p.userId },
-        },
+        userId: p.userId,
       },
     });
     console.log(`Created purchase request with id: ${purchase.id}`);
