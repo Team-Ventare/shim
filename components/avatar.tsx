@@ -3,9 +3,11 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { AvatarFallback, AvatarImage, Avatar as RootAvatar } from "./ui/avatar";
@@ -26,29 +28,35 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
         {user && <p className="pr-2">{user.name}</p>}
       </div>
     </DropdownMenuTrigger>
-    <DropdownMenuContent>
-      <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+    <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuLabel className="font-normal">
+        <div className="flex flex-col space-y-1">
+          <p className="text-sm font-medium leading-none">{user?.name}</p>
+          <p className="text-xs leading-none text-muted-foreground">
+            {user?.email}
+          </p>
+        </div>
+      </DropdownMenuLabel>
       <DropdownMenuSeparator />
-      <DropdownMenuItem
-        asChild
-        className="w-full cursor-pointer hover:bg-slate-100"
-      >
-        <Link href="/admin/profile">Profile</Link>
-      </DropdownMenuItem>
-      <DropdownMenuItem
-        asChild
-        className="w-full cursor-pointer hover:bg-slate-100"
-      >
-        <Link href="/admin/team">Team</Link>
-      </DropdownMenuItem>
-      <DropdownMenuItem
-        asChild
-        className="w-full cursor-pointer hover:bg-slate-100"
-      >
-        <Link href="/admin/billing">Billing</Link>
-      </DropdownMenuItem>
+      <DropdownMenuGroup>
+        <DropdownMenuItem className="cursor-pointer">
+          Profile
+          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
+          Billing
+          <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
+          Settings
+          <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <Logout />
+      <DropdownMenuItem className="cursor-pointer">
+        Log out
+        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+      </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 );
