@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
-import { useToast } from "@/components/ui/use-toast";
 
 export type Product = {
   id: string;

@@ -23,12 +23,7 @@ async function getData(): Promise<PurchaseRequest[]> {
 }
 
 export default async function InventoryPage() {
-  const data = await getData();
   const session = await getUserSession();
 
-  return (
-    <div className="container mx-auto py-10">
-      <p>{JSON.stringify(data)}</p>
-    </div>
-  );
+  return <div className="container mx-auto py-10"></div>;
 }
