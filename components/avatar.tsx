@@ -14,6 +14,7 @@ import { AvatarFallback, AvatarImage, Avatar as RootAvatar } from "./ui/avatar";
 import { Logout } from "./logout";
 import { Session } from "next-auth";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export const Avatar = ({ user }: { user?: Session["user"] }) => (
   <DropdownMenu>
@@ -53,7 +54,7 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem className="cursor-pointer">
+      <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
         Log out
         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
       </DropdownMenuItem>
