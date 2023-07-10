@@ -14,7 +14,7 @@ async function getData(): Promise<Product[]> {
 }
 
 export default async function InventoryPage() {
-  //const data = await getData();
+  const data = await getData();
   const session = await getUserSession();
 
   return (
@@ -28,6 +28,8 @@ export default async function InventoryPage() {
           </div>
         </div>
       )}
+
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }
