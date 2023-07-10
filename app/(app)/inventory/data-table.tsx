@@ -34,6 +34,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AddItemSheet from "@/components/inventory/add-item";
 import { DataTableViewOptions } from "@/components/inventory/data-table-view-options";
+import { DataTablePagination } from "@/components/inventory/data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -72,8 +73,8 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <div className="flex items-center py-4">
+    <div className="space-y-4">
+      <div className="flex items-center">
         <div className="flex items-center flex-grow">
           <Input
             placeholder="Filter names..."
@@ -139,26 +140,8 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-
-        <div className="flex items-center justify-end space-x-2 py-2 pr-2 border-t">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
       </div>
+      <DataTablePagination table={table} />
     </div>
   );
 }
