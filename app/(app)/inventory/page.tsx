@@ -3,7 +3,7 @@ import { Product, columns } from "./columns";
 import { DataTable } from "./data-table";
 
 async function getData(): Promise<Product[]> {
-  const response = await fetch("https://shim-ventare.vercel.app/api/inventory");
+  const response = await fetch("https://shim-ventare.vercel.app/api/products");
 
   if (!response.ok) {
     throw new Error("Failed to fetch inventory");
