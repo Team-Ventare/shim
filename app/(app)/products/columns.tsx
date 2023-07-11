@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { toast } from "@/components/ui/use-toast";
 
 export type Product = {
   id: string;
@@ -88,7 +89,15 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                toast({
+                  title: "Success! Added to cart",
+                  description: `${product.name} has been added to your cart.`,
+                });
+              }}
+            >
               Add to cart
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -96,6 +105,11 @@ export const columns: ColumnDef<Product>[] = [
               className="cursor-pointer"
               onClick={() => {
                 navigator.clipboard.writeText(product.id);
+
+                toast({
+                  title: "Success! Copied product ID",
+                  description: `${product.name} ID has been copied to your clipboard.`,
+                });
               }}
             >
               Copy product ID
