@@ -14,6 +14,7 @@ import { AvatarFallback, AvatarImage, Avatar as RootAvatar } from "./ui/avatar";
 import { Session } from "next-auth";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export const Avatar = ({ user }: { user?: Session["user"] }) => (
   <DropdownMenu>
@@ -38,16 +39,22 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem className="cursor-pointer">
-          <Link href="/user/profile">Profile</Link>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => redirect("/user/profile")}
+        >
+          Profile
           <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
           Billing
           <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">
-          <Link href="/user/account">Account</Link>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => redirect("/user/account")}
+        >
+          Account
           <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuGroup>
