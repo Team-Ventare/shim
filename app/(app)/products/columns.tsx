@@ -51,7 +51,7 @@ export const columns: ColumnDef<Product>[] = [
       const product = row.original;
 
       return (
-        <a href={`/inventory/${product.id}`} className="hover:underline">
+        <a href={`/products/${product.id}`} className="hover:underline">
           {product.name}
         </a>
       );
