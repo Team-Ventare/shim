@@ -1,17 +1,16 @@
-import { Separator } from "@/components/ui/separator";
-import { ProfileForm } from "@/components/user/profile-form";
+import { getUserSession } from "@/lib/auth";
 
-export default function SettingsProfilePage() {
+export default async function ProfilePage() {
+  const session = await getUserSession();
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Profile</h3>
-        <p className="text-sm text-muted-foreground">
-          This is how others will see you on the site.
-        </p>
+    <div className="h-screen w-screen">
+      <div className="flex flex-col items-center justify-center h-full">
+        <h1 className="text-6xl font-bold">Welcome to your profile page!</h1>
+        <h2 className="text-2xl font-bold">
+          Your email is {session.user.email}
+        </h2>
       </div>
-      <Separator />
-      <ProfileForm />
     </div>
   );
 }
