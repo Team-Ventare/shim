@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { AvatarFallback, AvatarImage, Avatar as RootAvatar } from "./ui/avatar";
-import { Logout } from "./logout";
 import { Session } from "next-auth";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -40,7 +39,7 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
         <DropdownMenuItem className="cursor-pointer">
-          Profile
+          <Link href="/user/profile">Profile</Link>
           <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
