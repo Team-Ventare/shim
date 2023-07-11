@@ -47,7 +47,7 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
           <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
-          Settings
+          <Link href="/user/account">Account</Link>
           <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuGroup>
