@@ -209,7 +209,11 @@ export function NotificationsForm() {
               <FormControl>
                 <Checkbox
                   checked={field.value}
-                  onCheckedChange={field.onChange}
+                  onCheckedChange={(value) =>
+                    field.onChange(
+                      value as boolean | ChangeEvent<Element> | undefined
+                    )
+                  }
                 />
               </FormControl>
               <div className="space-y-1 leading-none">
