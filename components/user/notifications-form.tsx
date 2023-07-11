@@ -19,6 +19,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/use-toast";
+import { ChangeEvent } from "react";
 
 const notificationsFormSchema = z.object({
   type: z.enum(["all", "mentions", "none"], {
@@ -69,7 +70,15 @@ export function NotificationsForm() {
               <FormLabel>Notify me about...</FormLabel>
               <FormControl>
                 <RadioGroup
-                  onValueChange={field.onChange}
+                  onValueChange={(value) =>
+                    field.onChange(
+                      value as
+                        | "none"
+                        | "all"
+                        | ChangeEvent<Element>
+                        | "mentions"
+                    )
+                  }
                   defaultValue={field.value}
                   className="flex flex-col space-y-1"
                 >
