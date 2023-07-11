@@ -96,7 +96,9 @@ export function AppearanceForm() {
               </FormDescription>
               <FormMessage />
               <RadioGroup
-                onValueChange={field.onChange}
+                onValueChange={(value) =>
+                  field.onChange(value as "light" | "dark")
+                }
                 defaultValue={field.value}
                 className="grid max-w-md grid-cols-2 gap-8 pt-2"
               >
