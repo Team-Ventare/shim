@@ -75,8 +75,8 @@ export default function AddItemSheet() {
                 <SelectValue placeholder="Select a status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="availble">AVAILABLE</SelectItem>
-                <SelectItem value="checked_out">CHECKED_OUT</SelectItem>
+                <SelectItem value="available">Available</SelectItem>
+                <SelectItem value="checked_out">Checked Out</SelectItem>
               </SelectContent>
             </Select>
           </div>
