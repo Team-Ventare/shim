@@ -29,7 +29,7 @@ export async function PUT(
     },
     // remove data if not sent
     data: {
-      name: json.name || null,
+      title: json.title || null,
     },
   });
   return NextResponse.json(updated);
@@ -49,7 +49,7 @@ export async function PATCH(
     },
     // remove data if not sent
     data: {
-      name: json.name || null,
+      title: json.title || null,
     },
   });
   return NextResponse.json(updated);
