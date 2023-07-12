@@ -3,7 +3,7 @@ import { Supplier, columns } from "./columns";
 import { DataTable } from "./data-table";
 
 async function getData(): Promise<Supplier[]> {
-  const response = await fetch("", {
+  const response = await fetch("https://shim-ventare.vercel.app/api/suppliers", {
     next: { revalidate: 30 },
   });
 
