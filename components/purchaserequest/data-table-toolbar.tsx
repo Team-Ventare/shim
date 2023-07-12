@@ -9,6 +9,7 @@ import { DataTableViewOptions } from "@/components/purchaserequest/data-table-vi
 
 import { priorities, statuses } from "@/components/purchaserequest/data/data" //data
 import { DataTableFacetedFilter } from "@/components/purchaserequest/data-table-faceted-filter"; 
+import AddItemSheet from "./add-item";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -54,6 +55,9 @@ export function DataTableToolbar<TData>({
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
+      </div>
+      <div className="flex space-x-2 h-8 px-2 lg:px-3">
+        <AddItemSheet />
       </div>
       <DataTableViewOptions table={table} />
     </div>
