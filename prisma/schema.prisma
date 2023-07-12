@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,7 +19,7 @@ enum PR_Status {
   REJECTED
 }
 
-enum INV_Status {
+enum Status {
   AVAILABLE
   CHECKED_OUT
 }
@@ -39,37 +36,58 @@ enum Type {
   OTHER
 }
 
-model User {
-  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  email            String            @unique
-  password         String
-  name             String
-  role             Role              @default(PENDING)
-  purchaseRequests PurchaseRequest[]
+model Users {
+  id        String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  email     String             @unique
+  password  String
+  name      String
+  role      Role               @default(PENDING)
+  cart      Cart?              @relation(fields: [cartId], references: [id])
+  requests  PurchaseRequests[]
+  cartId    String?            @db.Uuid
 }
 
-model Inventory {
-  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+model Products {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   name      String
   amount    Int
   location  String
   type      Type
-  status    INV_Status @default(AVAILABLE)
+  status    Status   @default(AVAILABLE)
 }
 
-model PurchaseRequest {
+model PurchaseRequests {
   id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   userId    String    @db.Uuid
   name      String
-  title     String
-  category  Type
   price     Int
+  category  Type
   status    PR_Status @default(PENDING)
-  User      User      @relation(fields: [userId], references: [id])
+  Users     Users?    @relation(fields: [usersId], references: [id])
+  usersId   String?   @db.Uuid
+}
+
+model Suppliers {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  address   String
+  phone     String
+  email     String
+  website   String
+  notes     String
+}
+
+model Cart {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Users     Users[]
 }
