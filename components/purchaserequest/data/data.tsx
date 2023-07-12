@@ -25,22 +25,17 @@ export const labels = [
 
 export const statuses = [
   {
-    value: "backorder",
-    label: "backorder",
-    icon: QuestionMarkCircledIcon,
-  },
-  {
-    value: "pending",
+    value: "PENDING",
     label: "Pending",
     icon: StopwatchIcon,
   },
   {
-    value: "approved",
+    value: "APPROVED",
     label: "Approved",
     icon: CheckCircledIcon,
   },
   {
-    value: "rejected",
+    value: "REJECTED",
     label: "Rejected",
     icon: CrossCircledIcon,
   },
@@ -48,18 +43,18 @@ export const statuses = [
 
 export const priorities = [
   {
+    value: "LOW",
     label: "Low",
-    value: "low",
     icon: ArrowDownIcon,
   },
   {
+    value: "MEDIUM",
     label: "Medium",
-    value: "medium",
     icon: ArrowRightIcon,
   },
   {
+    value: "HIGH",
     label: "High",
-    value: "high",
     icon: ArrowUpIcon,
   },
 ];
