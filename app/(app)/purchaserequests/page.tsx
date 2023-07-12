@@ -1,3 +1,4 @@
+import { getUserSession } from "@/lib/auth";
 import { PurchaseRequest, columns } from "./columns";
 import { DataTable } from "./data-table";
 
@@ -20,20 +21,20 @@ async function getData(): Promise<PurchaseRequest[]> {
 
 export default async function PurchaseRequestPage() {
   const data = await getData();
+  const session = await getUserSession();
 
   return (
-    <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-      <div className="flex items-center justify-between space-y-2">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">
-            ***ADMIN ACCESS ONLY***
-          </h2>
-          <p className="text-muted-foreground">
-            Displaying history of all purchase requests!
-          </p>
+    <div className="container mx-auto py-10">
+      {session && (
+        <div className="bg-blue-50 dark:bg-gray-800 border border-blue-400 p-4 rounded-lg mb-4">
+          <div className="flex justify-between">
+            <p className="text-blue-800 dark:text-blue-400 text-md">
+              {JSON.stringify(session)}
+            </p>
+          </div>
         </div>
-      </div>
-      <DataTable data={data} columns={columns} />
+      )}
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }
