@@ -37,44 +37,40 @@ const products = [
     amount: 100,
     location: "A1",
     type: "CONSMABLE_SUPPLIES",
-    checkedOut: {},
   },
   {
     name: "Nursing Bed",
     amount: 100,
     location: "A1",
     type: "CONSMABLE_SUPPLIES",
-    checkedOut: {},
   },
   {
     name: "Dell Computer",
     amount: 10,
     location: "A1",
     type: "COMPUTERS",
-    checkedOut: {},
   },
 ];
 
 const purchaseRequests = [
   {
-    userId: "ce9d9155-0d37-44cd-a967-9b34822b55d9",
-    name: "Latex Gloves",
-    category: "CONSMABLE_SUPPLIES",
-    price: 50,
+    title: "Latex Gloves",
+    priority: "HIGH",
   },
   {
-    userId: "9fa1ff90-7b45-4b7a-a441-f20f549550e5",
-    name: "Neddles",
-    category: "CONSMABLE_SUPPLIES",
-    price: 100,
+    title: "Neddles",
+    priority: "MEDIUM",
     status: "APPROVED",
   },
   {
-    userId: "101fe5a6-f439-4a66-b382-77aef57a3ab0",
-    name: "Scrubs",
-    category: "OTHER",
-    price: 300,
+    title: "Scrubs",
+    priority: "LOW",
     status: "REJECTED",
+  },
+  {
+    title: "Syringes",
+    priority: "HIGH",
+    status: "BACKLOG",
   },
 ];
 
@@ -93,7 +89,13 @@ const suppliers = [
     phone: "123-456-7890",
     email: "order@walmart.com",
     website: "https://www.walmart.com",
-    notes: "",
+  },
+  {
+    name: "Target",
+    address: "123 Target Way",
+    phone: "123-456-7890",
+    email: "help@target.com",
+    website: "https://www.target.com",
   },
 ];
 
@@ -134,11 +136,9 @@ async function main() {
   for (const p of purchaseRequests) {
     const purchase = await prisma.purchaseRequests.create({
       data: {
-        name: p.name,
-        category: p.category,
-        price: p.price,
+        title: p.title,
+        priority: p.priority,
         status: p.status,
-        userId: p.userId,
       },
     });
     console.log(`Created purchase request with id: ${purchase.id}`);
