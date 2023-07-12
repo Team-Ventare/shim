@@ -20,8 +20,8 @@ export type PurchaseRequest = {
   id: string;
   name: string;
   price: number;
-  category: "CONSUMABLE_SUPPLIES" | "OTHER";
-  status: "AVAILABLE" | "CHECKED_OUT";
+  category: string;
+  status: "PENDING" | "APPROVED" | "REJECTED";
 };
 
 export const columns: ColumnDef<PurchaseRequest>[] = [
@@ -51,7 +51,10 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
       const purchaserequest = row.original;
 
       return (
-        <a href={`/purchaserequests/${purchaserequest.id}`} className="hover:underline">
+        <a
+          href={`/purchaserequests/${purchaserequest.id}`}
+          className="hover:underline"
+        >
           {purchaserequest.name}
         </a>
       );
@@ -60,6 +63,11 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
   {
     accessorKey: "price",
     header: "Price",
+    cell: ({ row }) => {
+      const purchaserequest = row.original;
+
+      return <span>\${purchaserequest.price}</span>;
+    },
   },
   {
     accessorKey: "category",
@@ -84,17 +92,6 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                toast({
-                  title: "Success! Added to cart",
-                  description: `${purchaserequest.name} has been added to your cart.`,
-                });
-              }}
-            >
-              Add to cart
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
@@ -102,15 +99,17 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                 navigator.clipboard.writeText(purchaserequest.id);
 
                 toast({
-                  title: "Success! Copied product ID",
+                  title: "Success! Copied purchase request ID",
                   description: `${purchaserequest.name} ID has been copied to your clipboard.`,
                 });
               }}
             >
-              Copy product ID
+              Copy purchase request id
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href={`/purchaserequests/${purchaserequest.id}`}>View product details</Link>
+              <Link href={`/purchaserequests/${purchaserequest.id}`}>
+                View purchase request details
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

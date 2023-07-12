@@ -4,9 +4,11 @@ import { DataTable } from "./data-table";
 
 async function getData(): Promise<PurchaseRequest[]> {
   const response = await fetch(
-    "https://shim-ventare.vercel.app/api/purchaserequests", {
-      next: {revalidate: 60},
-    });
+    "https://shim-ventare.vercel.app/api/purchaserequests",
+    {
+      next: { revalidate: 30 },
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch purchase requests.");
@@ -22,17 +24,16 @@ export default async function PurchaseRequestPage() {
   const session = await getUserSession();
 
   return (
-<div className="container mx-auto py-10">
+    <div className="container mx-auto py-10">
       {session && (
-        <div className="bg-green-50 dark:bg-gray-800 border border-green-400 p-4 rounded-lg mb-4">
+        <div className="bg-blue-50 dark:bg-gray-800 border border-blue-400 p-4 rounded-lg mb-4">
           <div className="flex justify-between">
-            <p className="text-green-800 dark:text-green-400 text-md">
+            <p className="text-blue-800 dark:text-blue-400 text-md">
               {JSON.stringify(session)}
             </p>
           </div>
         </div>
       )}
-
       <DataTable columns={columns} data={data} />
     </div>
   );
