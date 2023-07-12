@@ -22,6 +22,7 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { toast } from "@/components/ui/use-toast";
 
 export interface PurchaseRequest {
   id: string;
@@ -141,7 +142,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const product = row.original;
+      const request = row.original;
 
       return (
         <DropdownMenu>
@@ -153,20 +154,24 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
-              Add to cart
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                navigator.clipboard.writeText(product.id);
+                navigator.clipboard.writeText(request.id);
+
+                toast({
+                  title: "Request ID copied",
+                  description: `Request ID ${request.id} copied to clipboard`,
+                });
               }}
             >
-              Copy product ID
+              Copy request ID
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/products/${product.id}`}>View product details</Link>
+              <Link href={`/purchaserequests/${request.id}`}>
+                View request details
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

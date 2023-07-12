@@ -24,7 +24,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
 
-export default function AddItemSheet() {
+export default function AddRequestSheet() {
   const [formValues, setFormValues] = React.useState({});
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -72,20 +72,21 @@ export default function AddItemSheet() {
           <SheetHeader>
             <SheetTitle>New Purchase Request</SheetTitle>
             <SheetDescription>
-              Upload purchase request information here. Click save when you are done.
+              Upload purchase request information here. Click save when you are
+              done.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-left">
-                Item
+              <Label htmlFor="title" className="text-left">
+                Title
               </Label>
               <Input
-                id="name"
+                id="title"
                 type="text"
                 className="col-span-3"
                 onChange={(e) =>
-                  setFormValues({ ...formValues, name: e.target.value })
+                  setFormValues({ ...formValues, title: e.target.value })
                 }
               />
             </div>
@@ -99,69 +100,34 @@ export default function AddItemSheet() {
               <Label htmlFor="price" className="text-left">
                 Price
               </Label>
-              <Input
-                id="price"
-                type="integer"
-                className="col-span-3"
-                onChange={(e) =>
-                  setFormValues({
-                    ...formValues,
-                    amount: parseInt(e.target.value),
-                  })
-                }
-              />
+              <Input id="price" type="integer" className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="reason" className="text-left">
                 Reason
               </Label>
-              <Input
-                id="reason"
-                type="text"
-                className="col-span-3"
-                onChange={(e) =>
-                  setFormValues({ ...formValues, location: e.target.value })
-                }
-              />
+              <Input id="reason" type="text" className="col-span-3" />
             </div>
-            
+
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="category" className="text-left">
-                Category
+                Priority
               </Label>
               <Select
                 onValueChange={(value) =>
                   setFormValues((prevFormValues) => ({
                     ...prevFormValues,
-                    type: value.toUpperCase(),
+                    priority: value.toUpperCase(),
                   }))
                 }
               >
                 <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select a category" id="type" />
+                  <SelectValue placeholder="Select priority" id="type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="patient_simulators">
-                    Patient Simulators
-                  </SelectItem>
-                  <SelectItem value="task_trainers">Task Trainers</SelectItem>
-                  <SelectItem value="simulation_equipment">
-                    Simulation Equipment
-                  </SelectItem>
-                  <SelectItem value="medical_furniture">
-                    Medical Furniture
-                  </SelectItem>
-                  <SelectItem value="consmable_supplies">
-                    Consumable Supplies
-                  </SelectItem>
-                  <SelectItem value="nonconsmable_supplies">
-                    Non-consumable Supplies
-                  </SelectItem>
-                  <SelectItem value="computers">Computers</SelectItem>
-                  <SelectItem value="office_supplies">
-                    Office Supplies
-                  </SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
                 </SelectContent>
               </Select>
             </div>

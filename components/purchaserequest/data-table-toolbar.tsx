@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import { Cross2Icon } from "@radix-ui/react-icons"
-import { Table } from "@tanstack/react-table"
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/purchaserequest/data-table-view-options";
 
-import { priorities, statuses } from "@/components/purchaserequest/data/data" //data
-import { DataTableFacetedFilter } from "@/components/purchaserequest/data-table-faceted-filter"; 
-import AddItemSheet from "./add-item";
+import { priorities, statuses } from "@/components/purchaserequest/data/data"; //data
+import { DataTableFacetedFilter } from "@/components/purchaserequest/data-table-faceted-filter";
+import AddRequestSheet from "./add-request";
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<TData>;
 }
 
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0
+  const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
     <div className="flex items-center justify-between">
@@ -57,9 +57,9 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-2 h-8 px-2 lg:px-3">
-        <AddItemSheet />
+        <AddRequestSheet />
       </div>
       <DataTableViewOptions table={table} />
     </div>
-  )
+  );
 }
