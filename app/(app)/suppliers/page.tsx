@@ -1,17 +1,11 @@
 import { getUserSession } from "@/lib/auth";
-
-interface Supplier {
-  id: string;
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
-  website: string;
-  notes: string;
-}
+import { Supplier, columns } from "./columns";
+import { DataTable } from "./data-table";
 
 async function getData(): Promise<Supplier[]> {
-  const response = await fetch("https://shim-ventare.vercel.app/api/suppliers");
+  const response = await fetch("", {
+    next: { revalidate: 30 },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch suppliers.");
@@ -27,7 +21,7 @@ export default async function SupplierPage() {
 
   return (
     <div className="container mx-auto py-10">
-      <p>{JSON.stringify(data)}</p>
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }
