@@ -7,6 +7,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Users {
+  id        String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  email     String             @unique
+  password  String
+  name      String
+  role      Role               @default(PENDING)
+  cartId    String?            @db.Uuid
+  requests  PurchaseRequests[]
+  cart      Cart?              @relation(fields: [cartId], references: [id])
+}
+
+model Products {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  amount    Int
+  location  String
+  type      Type
+  status    Status   @default(AVAILABLE)
+}
+
+model PurchaseRequests {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String    @db.Uuid
+  name      String
+  price     Int
+  category  Type
+  status    PR_Status @default(PENDING)
+  usersId   String?   @db.Uuid
+  Users     Users?    @relation(fields: [usersId], references: [id])
+}
+
+model Suppliers {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  address   String?
+  phone     String?
+  email     String?
+  website   String?
+  notes     String?
+}
+
+model Cart {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Users     Users[]
+}
+
 enum Role {
   ADMIN
   USER
@@ -34,60 +90,4 @@ enum Type {
   COMPUTERS
   OFFICE_SUPPLIES
   OTHER
-}
-
-model Users {
-  id        String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  email     String             @unique
-  password  String
-  name      String
-  role      Role               @default(PENDING)
-  cart      Cart?              @relation(fields: [cartId], references: [id])
-  requests  PurchaseRequests[]
-  cartId    String?            @db.Uuid
-}
-
-model Products {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
-  amount    Int
-  location  String
-  type      Type
-  status    Status   @default(AVAILABLE)
-}
-
-model PurchaseRequests {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  userId    String    @db.Uuid
-  name      String
-  price     Int
-  category  Type
-  status    PR_Status @default(PENDING)
-  Users     Users?    @relation(fields: [usersId], references: [id])
-  usersId   String?   @db.Uuid
-}
-
-model Suppliers {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
-  address   String?
-  phone     String?
-  email     String?
-  website   String?
-  notes     String?
-}
-
-model Cart {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Users     Users[]
 }
