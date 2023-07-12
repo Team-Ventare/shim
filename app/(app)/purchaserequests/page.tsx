@@ -19,6 +19,7 @@ async function getData(): Promise<PurchaseRequest[]> {
   }
 
   const data = await response.json();
+  console.log(data);
   return data;
 }
 
