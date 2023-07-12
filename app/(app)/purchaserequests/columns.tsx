@@ -54,6 +54,19 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "id",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="REQ-ID" />
+    ),
+    cell: ({ row }) => {
+      const id = row.getValue("id") as string;
+
+      return (
+        <Link href={`/purchaserequests/${id}`}>{`REQ-${id.slice(0, 4)}`}</Link>
+      );
+    },
+  },
+  {
     accessorKey: "title",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
