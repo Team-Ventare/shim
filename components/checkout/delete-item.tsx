@@ -16,6 +16,7 @@ import {
 import { Trash2 } from "lucide-react";
 
 import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast"
 import React from "react";
 
 export default function DeleteItem() {
@@ -48,8 +49,12 @@ export default function DeleteItem() {
           <Button 
           onClick={() => {
             toast({
-              title: "Success!",
+              // title: "Success!",
+              // description: `Item(s) has been deleted from your cart.`,
+              variant: "destructive",
+              title: "Deleted from cart.",
               description: `Item(s) has been deleted from your cart.`,
+              action: <ToastAction altText="Undo">Undo</ToastAction>,
             });
           }}
           >
