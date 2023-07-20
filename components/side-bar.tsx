@@ -1,5 +1,5 @@
 import { getUserSession } from "@/lib/auth";
-import { Avatar } from "./avatar";
+import Image from "next/image";
 import Link from "next/link";
 import {
   BackpackIcon,
@@ -11,6 +11,7 @@ import {
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const links = [
   {
@@ -49,17 +50,12 @@ export async function Sidebar() {
   const user = await getUserSession();
 
   return (
-    <div className="border-r w-72 relative">
-      <div className="flex items-center py-2">
-        <Link href="/" className="-m-1.5">
-          <img src="/scaledshimlogo.png" alt="" />
-        </Link>
-      </div>
-      <ul className="px-2">
+    <div className="bg-zinc-900 w-72 relative">
+      <ul className="pt-8 px-2">
         {links.map((link, index) => (
           <li
             key={index}
-            className="text-slate-800 hover:text-slate-900 text-sm flex items-center gap-x-4 cursor-pointer p-2 rounded-md mt-2 hover:bg-slate-100"
+            className="text-zinc-100 hover:text-zinc-50 text-sm flex items-center gap-x-4 cursor-pointer p-2 rounded-md mt-2 hover:bg-zinc-800"
           >
             <span className="text-2xl block float-left">{link.icon}</span>
             <Link href={link.href}>{link.label}</Link>
@@ -69,8 +65,15 @@ export async function Sidebar() {
 
       {user && (
         <div className="bottom-2 absolute px-2 w-full">
-          <Button variant="outline" className="w-full">
-            <span className="flex-grow">{user?.name}</span>
+          <Button
+            variant="outline"
+            className="w-full bg-zinc-900 hover:bg-zinc-800 border-zinc-700 text-zinc-100 hover:text-zinc-50"
+          >
+            <Avatar className="mr-2 h-5 w-5 text-zinc-950">
+              <AvatarImage src={user?.image} referrerPolicy="no-referrer" />
+              <AvatarFallback>{user?.name?.at(0)}</AvatarFallback>
+            </Avatar>
+            {user?.name}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </div>

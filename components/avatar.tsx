@@ -19,7 +19,7 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
   <DropdownMenu>
     <DropdownMenuTrigger className="hover:bg-slate-100 rounded-sm">
       <div className="flex items-center space-x-2">
-        <RootAvatar className="mr-2 h-5 w-5">
+        <RootAvatar>
           {user?.image ? (
             <AvatarImage src={user?.image} referrerPolicy="no-referrer" />
           ) : (
