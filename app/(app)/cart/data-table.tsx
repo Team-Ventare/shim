@@ -32,10 +32,10 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import CheckoutCart from "@/components/checkout/checkout-cart";
-import DeleteItem from "@/components/checkout/delete-item";
-import { DataTableViewOptions } from "@/components/checkout/data-table-view-options";
-import { DataTablePagination } from "@/components/checkout/data-table-pagination";
+import CheckoutCart from "@/components/cart/checkout-cart";
+import DeleteItem from "@/components/cart/delete-item";
+import { DataTableViewOptions } from "@/components/cart/data-table-view-options";
+import { DataTablePagination } from "@/components/cart/data-table-pagination";
 import { CheckCheck } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {

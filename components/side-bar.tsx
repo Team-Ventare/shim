@@ -40,8 +40,8 @@ const links = [
     icon: <PersonIcon />,
   },
   {
-    href: "/checkout",
-    label: "Checkout",
+    href: "/cart",
+    label: "Cart",
     icon: <BackpackIcon />,
   },
 ];
