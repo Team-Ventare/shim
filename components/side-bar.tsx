@@ -50,7 +50,12 @@ export async function Sidebar() {
 
   return (
     <div className="border-r w-72 relative">
-      <ul className="pt-2 px-2">
+      <div className="flex items-center py-2">
+        <Link href="/" className="-m-1.5">
+          <img src="/scaledshimlogo.png" alt="" />
+        </Link>
+      </div>
+      <ul className="px-2">
         {links.map((link, index) => (
           <li
             key={index}
