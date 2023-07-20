@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { AvatarFallback, AvatarImage, Avatar as RootAvatar } from "./ui/avatar";
 import { Session } from "next-auth";
-import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 
@@ -20,11 +19,12 @@ export const Avatar = ({ user }: { user?: Session["user"] }) => (
   <DropdownMenu>
     <DropdownMenuTrigger className="hover:bg-slate-100 rounded-sm">
       <div className="flex items-center space-x-2">
-        <RootAvatar>
-          {user?.image && (
+        <RootAvatar className="mr-2 h-5 w-5">
+          {user?.image ? (
             <AvatarImage src={user?.image} referrerPolicy="no-referrer" />
+          ) : (
+            <AvatarFallback>{user?.name?.at(0)}</AvatarFallback>
           )}
-          {!user?.image && <AvatarFallback>{user?.name?.at(0)}</AvatarFallback>}
         </RootAvatar>
       </div>
     </DropdownMenuTrigger>

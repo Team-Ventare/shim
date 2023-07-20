@@ -1,4 +1,5 @@
 import { NavBar } from "@/components/nav-bar";
+import { Sidebar } from "@/components/side-bar";
 import { Toaster } from "@/components/ui/toaster";
 import { Inter } from "next/font/google";
 
@@ -8,8 +9,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavBar />
-        <main className="h-full">{children}</main>
+        <div className="flex h-screen">
+          <Sidebar />
+          <main className="h-full w-full">{children}</main>
+        </div>
         <Toaster />
       </body>
     </html>
