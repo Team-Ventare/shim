@@ -57,8 +57,12 @@ export async function Sidebar() {
             key={index}
             className="text-zinc-100 hover:text-zinc-50 text-sm flex items-center gap-x-4 cursor-pointer p-2 rounded-md mt-2 hover:bg-zinc-800"
           >
-            <span className="text-2xl block float-left">{link.icon}</span>
-            <Link href={link.href}>{link.label}</Link>
+            <Link href={link.href}>
+              <div className="flex items-center">
+                <span className="text-2xl block float-left">{link.icon}</span>
+                <p className="ml-4">{link.label}</p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
