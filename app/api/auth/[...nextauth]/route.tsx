@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           role: user.role,
+          cart: [],
         };
       },
     }),
@@ -52,6 +53,7 @@ export const authOptions: NextAuthOptions = {
           ...session.user,
           id: token.id,
           role: token.role,
+          cart: token.cart,
         },
       };
     },
@@ -62,6 +64,7 @@ export const authOptions: NextAuthOptions = {
           ...token,
           id: u.id,
           role: u.role,
+          cart: u.cart,
         };
       }
       return token;

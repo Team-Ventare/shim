@@ -5,6 +5,7 @@ export const session = async ({ session, token }: any) => {
     session.user.name = token.name;
     session.user.email = token.email;
     session.user.role = token.role;
+    session.user.cart = token.cart;
     return session;
 };
 
