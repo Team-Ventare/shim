@@ -89,15 +89,7 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                toast({
-                  title: "Success! Added to cart",
-                  description: `${product.name} has been added to your cart.`,
-                });
-              }}
-            >
+            <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
               Add to cart
             </DropdownMenuItem>
             <DropdownMenuSeparator />
