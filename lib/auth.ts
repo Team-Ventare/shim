@@ -1,4 +1,4 @@
-import { getServerSession } from "next-auth";
+import { User, getServerSession } from "next-auth";
 
 export const session = async ({ session, token }: any) => {
     session.user.id = token.id;
@@ -9,13 +9,13 @@ export const session = async ({ session, token }: any) => {
     return session;
 };
 
-export const getUserSession = async () => {
+export const getUserSession = async (): Promise<User> => {
     const authUserSession = await getServerSession({
         callbacks: {
             session
         }
     });
 
-    if (!authUserSession) return null;
+    if (!authUserSession) throw new Error("User not found");
     return authUserSession.user;
 }
