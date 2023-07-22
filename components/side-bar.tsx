@@ -1,5 +1,4 @@
 import { getUserSession } from "@/lib/auth";
-import Image from "next/image";
 import Link from "next/link";
 import {
   BackpackIcon,
@@ -8,6 +7,7 @@ import {
   CubeIcon,
   HomeIcon,
   IdCardIcon,
+  BellIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
@@ -18,6 +18,11 @@ const links = [
     href: "/",
     label: "Home",
     icon: <HomeIcon />,
+  },
+  {
+    href: "/news",
+    label: "News",
+    icon: <BellIcon />,
   },
   {
     href: "/products",
@@ -57,7 +62,7 @@ export async function Sidebar() {
             key={index}
             className="text-zinc-100 hover:text-zinc-50 text-sm flex items-center gap-x-4 cursor-pointer p-2 rounded-md mt-2 hover:bg-zinc-800"
           >
-            <Link href={link.href}>
+            <Link href={link.href} className="w-full">
               <div className="flex items-center">
                 <span className="text-2xl block float-left">{link.icon}</span>
                 <p className="ml-4">{link.label}</p>
