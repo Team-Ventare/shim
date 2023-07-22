@@ -104,58 +104,18 @@ async function main() {
 
   const password = await hash("password", 12);
   for (const u of users) {
-    const user = await prisma.users.upsert({
-      where: { email: u.email },
-      update: {
-        name: u.name,
-        role: u.role,
-        password: password,
-      },
-      create: {
+    const user = await prisma.users.create({
+      data: {
         email: u.email,
         name: u.name,
         role: u.role,
         password: password,
+        cart: {
+          create: {},
+        },
       },
     });
     console.log(`Created user with id: ${user.id}`);
-  }
-
-  for (const i of products) {
-    const item = await prisma.products.create({
-      data: {
-        name: i.name,
-        amount: i.amount,
-        location: i.location,
-        type: i.type,
-      },
-    });
-    console.log(`Created item with id: ${item.id}`);
-  }
-
-  for (const p of purchaseRequests) {
-    const purchase = await prisma.purchaseRequests.create({
-      data: {
-        title: p.title,
-        priority: p.priority,
-        status: p.status,
-      },
-    });
-    console.log(`Created purchase request with id: ${purchase.id}`);
-  }
-
-  for (const s of suppliers) {
-    const supplier = await prisma.suppliers.create({
-      data: {
-        name: s.name,
-        address: s.address,
-        phone: s.phone,
-        email: s.email,
-        website: s.website,
-        notes: s.notes,
-      },
-    });
-    console.log(`Created supplier with id: ${supplier.id}`);
   }
 
   console.log(`Seeding finished.`);

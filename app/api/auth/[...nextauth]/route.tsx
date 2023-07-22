@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           role: user.role,
+          cartId: user.cartId,
         };
       },
     }),
@@ -52,16 +53,18 @@ export const authOptions: NextAuthOptions = {
           ...session.user,
           id: token.id,
           role: token.role,
+          cartId: token.cartId,
         },
       };
     },
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user, trigger, session }) => {
       if (user) {
         const u = user as unknown as any;
         return {
           ...token,
           id: u.id,
           role: u.role,
+          cartId: u.cartId,
         };
       }
       return token;
