@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: ({ session, token }) => {
+    session: ({ session, token, user }) => {
       return {
         ...session,
         user: {
@@ -57,14 +57,21 @@ export const authOptions: NextAuthOptions = {
         },
       };
     },
-    jwt: ({ token, user, trigger, session }) => {
+    jwt: async ({ token, user, session }) => {
       if (user) {
-        const u = user as unknown as any;
+        const us = await prisma.users.findUnique({
+          where: {
+            id: user.id,
+          },
+        });
+
+        if (!us) throw new Error("User not found");
+
         return {
           ...token,
-          id: u.id,
-          role: u.role,
-          cartId: u.cartId,
+          id: us.id,
+          role: us.role,
+          cartId: us.cartId,
         };
       }
       return token;
