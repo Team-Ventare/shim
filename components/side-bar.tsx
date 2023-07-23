@@ -67,13 +67,13 @@ export async function Sidebar() {
       <div className="pt-8 space-y-2">
         {links.map((link, index) => (
           <div
+            key={index}
             className={`w-full ${
               link.spacing ? "border-b border-slate-800 pb-2" : undefined
             }`}
           >
             <div className="px-2">
               <Link
-                key={index}
                 href={link.href}
                 className="w-full text-zinc-100 hover:text-zinc-50 text-sm flex items-center gap-x-2 cursor-pointer p-2 rounded-md hover:bg-zinc-800"
               >
