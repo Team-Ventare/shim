@@ -34,8 +34,8 @@ export function UserAuthFormSignIn({ setError }: { setError: any }) {
         password,
         callbackUrl: "/",
       });
-      if (res?.error) setError();
-      else router.push("/");
+
+      if (res?.ok) router.push("/");
     } catch (error: any) {
       console.error(error);
     }

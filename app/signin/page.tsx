@@ -30,22 +30,6 @@ export default function AuthenticationPage() {
         />
       </div>
       <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-        {error && (
-          <div className="bg-red-50 dark:bg-gray-800 border border-red-400 p-4 rounded-lg mb-4">
-            <div className="flex justify-between">
-              <p className="text-red-800 dark:text-red-400 text-md">
-                <span className="font-medium">Oops! </span>
-                Invalid email or password. Please try again.
-              </p>
-              <div className="flex-shrink-0">
-                <RxCross2
-                  onClick={() => setError(false)}
-                  className="text-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 cursor-pointer"
-                />
-              </div>
-            </div>
-          </div>
-        )}
         <Link
           href="/signup"
           className={cn(
