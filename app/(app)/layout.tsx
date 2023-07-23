@@ -8,13 +8,13 @@ const inter = Inter({ subsets: ["latin"] });
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="flex h-screen">
+      <div className="flex h-screen">
+        <div className="max-h-screen">
           <Sidebar />
-          <main className="h-full w-full">{children}</main>
         </div>
-        <Toaster />
-      </body>
+        <main className="h-full w-full">{children}</main>
+      </div>
+      <Toaster />
     </html>
   );
 }
