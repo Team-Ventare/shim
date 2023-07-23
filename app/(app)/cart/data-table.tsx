@@ -89,9 +89,9 @@ export function DataTable<TData, TValue>({
         </div>
 
         <div className="flex space-x-2">
-          <DataTableViewOptions table={table} />
           <DeleteItem />
           <CheckoutCart />
+          <DataTableViewOptions table={table} />
         </div>
       </div>
       <div className="rounded-md border">

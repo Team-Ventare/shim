@@ -27,7 +27,7 @@ export function UserCommands({ name, image }: { name: string; image: string }) {
           <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-60 p-0 bg-zinc-900 border-zinc-700">
+      <PopoverContent className="w-52 p-0 bg-zinc-900 border-zinc-700">
         <Command className="bg-zinc-900">
           <CommandList>
             <CommandGroup>
