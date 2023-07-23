@@ -2,7 +2,6 @@ import { getUserSession } from "@/lib/auth";
 import Link from "next/link";
 import {
   BackpackIcon,
-  CaretSortIcon,
   CrumpledPaperIcon,
   CubeIcon,
   HomeIcon,
@@ -11,8 +10,7 @@ import {
   PersonIcon,
   LayersIcon,
 } from "@radix-ui/react-icons";
-import { Button } from "./ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { UserCommands } from "./user-commands";
 
 const links = [
   {
@@ -63,7 +61,7 @@ export async function Sidebar() {
   const user = await getUserSession();
 
   return (
-    <div className="bg-zinc-900 w-72 relative">
+    <div className="bg-zinc-900 w-64 relative shrink-0">
       <div className="pt-8 space-y-2">
         {links.map((link, index) => (
           <div
@@ -100,20 +98,7 @@ export async function Sidebar() {
           </div>
         </Link>
 
-        <Button
-          variant="outline"
-          className="w-full bg-zinc-900 hover:bg-zinc-800 border-zinc-700 text-zinc-100 hover:text-zinc-50"
-        >
-          <Avatar className="mr-2 h-5 w-5 text-zinc-950">
-            <AvatarImage
-              src={user.image as string}
-              referrerPolicy="no-referrer"
-            />
-            <AvatarFallback>{user.name?.at(0)}</AvatarFallback>
-          </Avatar>
-          {user?.name}
-          <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-        </Button>
+        <UserCommands name={user?.name} image={user?.image} />
       </div>
     </div>
   );

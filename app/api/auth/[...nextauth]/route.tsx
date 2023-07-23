@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: ({ session, token, user }) => {
+    session: ({ session, token }) => {
       return {
         ...session,
         user: {
@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
         },
       };
     },
-    jwt: async ({ token, user, session }) => {
+    jwt: async ({ token, user }) => {
       if (user) {
         const us = await prisma.users.findUnique({
           where: {

@@ -6,7 +6,7 @@ async function getData(): Promise<Supplier[]> {
   const response = await fetch(
     "https://shim-ventare.vercel.app/api/suppliers",
     {
-      next: { revalidate: 30 },
+      cache: "no-store",
     }
   );
 

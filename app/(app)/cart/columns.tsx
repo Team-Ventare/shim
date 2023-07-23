@@ -15,7 +15,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast"
+import { ToastAction } from "@/components/ui/toast";
 
 import {
   AlertDialog,
@@ -27,7 +27,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 import {
   Dialog,
@@ -37,9 +37,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export type Product = {
   id: string;
@@ -128,57 +127,59 @@ export const columns: ColumnDef<Product>[] = [
             </DropdownMenuItem> */}
 
             <AlertDialog>
-            <AlertDialogTrigger asChild>
-            <Button variant="ghost" className="text-gray-700 pl-2 pr-9 select-none items-center rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
-            >
-               Delete from cart
-            </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Confirm</AlertDialogTitle>
-                <AlertDialogDescription>
-                Are you sure you want to delete the item from your cart?
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>
-                  Cancel
-                </AlertDialogCancel>
-                <AlertDialogAction asChild>
-                <Button 
-                onClick={() => {
-                  toast({
-                    // title: "Success! Deleted from cart",
-                    // description: `${product.name} has been deleted from your cart.`,
-                    variant: "destructive",
-                    title: "Deleted from cart.",
-                    description: `${product.name} has been deleted from your cart.`,
-                    action: <ToastAction altText="Undo">Undo</ToastAction>,
-                  });
-                }}
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 pl-2 pr-9 select-none items-center rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
                 >
-                Confirm
+                  Delete from cart
                 </Button>
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirm</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete the item from your cart?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction asChild>
+                    <Button
+                      onClick={() => {
+                        toast({
+                          // title: "Success! Deleted from cart",
+                          // description: `${product.name} has been deleted from your cart.`,
+                          variant: "destructive",
+                          title: "Deleted from cart.",
+                          description: `${product.name} has been deleted from your cart.`,
+                          action: (
+                            <ToastAction altText="Undo">Undo</ToastAction>
+                          ),
+                        });
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
             </AlertDialog>
 
             <DropdownMenuSeparator />
             <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="ghost" className="text-gray-700 pl-2 pr-24 w-full text-left select-none rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
-              >
-                Edit Item
-              </Button>
-            </DialogTrigger>
+              <DialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 pl-2 pr-24 w-full text-left select-none rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
+                >
+                  Edit Item
+                </Button>
+              </DialogTrigger>
               <DialogContent className="sm:max-w-[250px]">
                 <DialogHeader>
                   <DialogTitle>Edit Item</DialogTitle>
-                  <DialogDescription>
-                    Change the item amount.
-                  </DialogDescription>
+                  <DialogDescription>Change the item amount.</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
@@ -186,11 +187,13 @@ export const columns: ColumnDef<Product>[] = [
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit" className="items-left">Save changes</Button>
+                  <Button type="submit" className="items-left">
+                    Save changes
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-            
+
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"

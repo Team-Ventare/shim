@@ -4,7 +4,7 @@ import { DataTable } from "./data-table";
 
 async function getData(): Promise<Product[]> {
   const response = await fetch("https://shim-ventare.vercel.app/api/products", {
-    next: { revalidate: 30 },
+    cache: "no-store",
   });
 
   if (!response.ok) {

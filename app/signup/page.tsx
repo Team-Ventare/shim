@@ -5,27 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { UserAuthForm } from "@/components/auth/user-auth-form";
+import { UserAuthFormSignUp } from "@/components/auth/user-auth-form";
 
 export default function AuthenticationPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const body = { name, email };
-      await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-    } catch (e: any) {
-      console.error(e);
-    }
-  };
-
   return (
     <div className="h-screen w-screen">
       <div className="md:hidden">
@@ -91,7 +73,7 @@ export default function AuthenticationPage() {
                 Enter your email below to create your account
               </p>
             </div>
-            <UserAuthForm />
+            <UserAuthFormSignUp />
           </div>
         </div>
       </div>
