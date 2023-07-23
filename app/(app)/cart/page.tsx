@@ -24,15 +24,6 @@ export default async function Cart() {
 
   return (
     <div className="container mx-auto py-10">
-      {user && (
-        <div className="bg-blue-50 dark:bg-gray-800 border border-blue-400 p-4 rounded-lg mb-4">
-          <div className="flex justify-between">
-            <p className="text-blue-800 dark:text-blue-400 text-md">
-              {JSON.stringify(user)}
-            </p>
-          </div>
-        </div>
-      )}
       <DataTable columns={columns} data={data} />
     </div>
   );

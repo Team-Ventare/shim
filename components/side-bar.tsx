@@ -61,7 +61,7 @@ export async function Sidebar() {
   const user = await getUserSession();
 
   return (
-    <div className="bg-zinc-900 w-64 relative shrink-0">
+    <div className="bg-zinc-900 w-56 relative shrink-0">
       <div className="pt-8 space-y-2">
         {links.map((link, index) => (
           <div
