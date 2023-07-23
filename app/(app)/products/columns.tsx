@@ -15,6 +15,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
+import { addProductToCart } from "./actions";
 
 export type Product = {
   id: string;
@@ -89,7 +90,12 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                addProductToCart(product.name, product.id);
+              }}
+            >
               Add to cart
             </DropdownMenuItem>
             <DropdownMenuSeparator />
