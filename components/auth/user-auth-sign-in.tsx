@@ -6,26 +6,39 @@ import { Icons } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface FormData {
-  name: string | undefined;
-  email: string;
-  password: string;
-  password_confirmation: string;
+  email: string | undefined;
+  password: string | undefined;
 }
 
-export function UserAuthFormSignUp() {
+export function UserAuthFormSignIn({ setError }: { setError: any }) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState<FormData>({
-    name: undefined,
     email: "",
     password: "",
-    password_confirmation: "",
   });
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
+
+    const { email, password } = formData;
+    try {
+      const res = await signIn("credentials", {
+        redirect: true,
+        email,
+        password,
+        callbackUrl: "/",
+      });
+      if (res?.error) setError();
+      else router.push("/");
+    } catch (error: any) {
+      console.error(error);
+    }
 
     setTimeout(() => {
       setIsLoading(false);
@@ -36,27 +49,6 @@ export function UserAuthFormSignUp() {
     <div className="grid gap-6">
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="name">
-              Name
-            </Label>
-            <Input
-              id="name"
-              placeholder="Name"
-              type="text"
-              autoCapitalize="none"
-              autoComplete="name"
-              autoCorrect="off"
-              disabled={isLoading}
-              value={formData.name}
-              onChange={(event) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  name: event.target.value,
-                }));
-              }}
-            />
-          </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
               Email
@@ -97,30 +89,11 @@ export function UserAuthFormSignUp() {
               }}
             />
           </div>
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="password">
-              Password
-            </Label>
-            <Input
-              id="password-confirmation"
-              placeholder="Password Confirmation"
-              type="password"
-              autoComplete="current-password"
-              disabled={isLoading}
-              value={formData.password_confirmation}
-              onChange={(event) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  password_confirmation: event.target.value,
-                }));
-              }}
-            />
-          </div>
           <Button disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Create Account
+            Sign In
           </Button>
         </div>
       </form>
