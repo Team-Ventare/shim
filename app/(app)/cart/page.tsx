@@ -15,8 +15,7 @@ async function getData(cartId: string): Promise<Product[]> {
   }
 
   const data = await response.json();
-  console.log(data);
-  return data;
+  return data.products;
 }
 
 export default async function Cart() {
