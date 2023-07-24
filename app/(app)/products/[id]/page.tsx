@@ -1,33 +1,16 @@
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { MoreHorizontal } from "lucide-react";
-import Hospital from "@/public/hospital.png";
 import Image from "next/image";
-import Link from "next/link";
 import { Product } from "../columns";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { cn } from "@/lib/utils";
+import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 
 const checkoutHistory = [
   {
@@ -124,14 +107,48 @@ export default async function ProductPage({
 
   return (
     <div className="h-screen py-10">
-      <div className="border-b h-[360px] mt-16">
-        <div className="container pt-12">
-          <h1 className="text-2xl font-semibold">{data.name}</h1>
-          <p className="text-sm text-gray-500">{data.type}</p>
-          <p className="text-sm text-gray-500">{data.location}</p>
-          <p className="text-sm text-gray-500">{data.status}</p>
-          <p className="text-sm text-gray-500">{data.amount}</p>
-          <p className="text-sm text-gray-500">Description</p>
+      <div className="border-b h-[360px] mt-12">
+        <div className="container flex">
+          <Image
+            src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+            alt="Photo by Drew Beamer"
+            className="rounded-md object-cover"
+            width={400}
+            height={(9 / 16) * 400}
+          />
+
+          <div className="ml-8 grid grid-cols-4 gap-8">
+            <div>
+              <label className="block text-sm font-light text-gray-500">
+                Name
+              </label>
+              <p className="mt-1 text-sm font-semibold text-zinc-950">
+                {data.name}
+              </p>
+            </div>
+            <div>
+              <label className="block text-sm font-light text-gray-500">
+                Category
+              </label>
+              <p className="mt-1 text-sm font-semibold text-zinc-950">
+                {data.type}
+              </p>
+            </div>
+            <div>
+              <label className="block text-sm font-light text-gray-500">
+                Quantity
+              </label>
+              <p className="mt-1 text-sm font-semibold text-zinc-950">
+                {data.amount}
+              </p>
+            </div>
+          </div>
+          <div className="flex space-x-2">
+            <Button variant="outline" size="icon">
+              <Pencil1Icon className="h-4 w-4" />
+            </Button>
+            <Button variant="destructive">Delete</Button>
+          </div>
         </div>
       </div>
       <div className="h-[480px]">
