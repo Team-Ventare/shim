@@ -191,6 +191,11 @@ export default async function ProductPage({
               <AccordionTrigger className="p-4">
                 Maintenance History
               </AccordionTrigger>
+              <AccordionContent className="px-2 border-t pt-4">
+                <p className="text-sm font-normal leading-6 text-gray-900">
+                  No maintenance history found.
+                </p>
+              </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
