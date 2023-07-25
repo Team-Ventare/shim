@@ -29,7 +29,6 @@ import { Product } from "@/app/(app)/products/columns";
 export default function EditItemSheet({ product }: { product: Product }) {
   const [formValues, setFormValues] = useState({
     name: product.name,
-    description: "Description",
     amount: product.amount,
     location: product.location,
     status: product.status,
@@ -40,7 +39,7 @@ export default function EditItemSheet({ product }: { product: Product }) {
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await fetch("/api/products", {
+    const response = await fetch(`/api/products/${product.id}`, {
       method: "PUT",
       body: JSON.stringify(formValues),
     });
@@ -101,7 +100,7 @@ export default function EditItemSheet({ product }: { product: Product }) {
                 id="description"
                 type="text"
                 className="col-span-3"
-                defaultValue={formValues.description}
+                defaultValue=""
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">

@@ -13,7 +13,7 @@ import hospital from "../../../../public/hospital.png";
 import Link from "next/link";
 import EditItemSheet from "@/components/inventory/edit-item";
 import DeleteItem from "@/components/inventory/delete-item";
-import { tr } from "date-fns/locale";
+import { revalidatePath } from "next/cache";
 
 const checkoutHistory = [
   {
@@ -74,11 +74,16 @@ const checkoutHistory = [
 
 async function getData(id: string): Promise<Product> {
   const response = await fetch(
-    `https://shim-ventare.vercel.app/api/products/${id}`
+    `https://shim-ventare.vercel.app/api/products/${id}`,
+    {
+      cache: "no-store",
+    }
   );
 
   if (!response.ok) {
     throw new Error("Failed to fetch product");
+  } else {
+    revalidatePath(`/products/${id}`);
   }
 
   const data = await response.json();
