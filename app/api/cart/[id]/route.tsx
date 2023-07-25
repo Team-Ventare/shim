@@ -7,6 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
+
   const cart = await prisma.cart.findUnique({
     where: {
       id: id,
@@ -24,19 +25,27 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
-  const body = await request.json();
+  const json = await request.json();
 
-  const cart = await prisma.cart.update({
+  const updated = await prisma.cart.update({
     where: {
       id: id,
     },
+    include: {
+      products: true,
+    },
     data: {
       products: {
-        connect: [...body.product],
+        connect: [
+          {
+            id: json.pid,
+          },
+        ],
       },
     },
   });
-  return NextResponse.json(cart);
+
+  return NextResponse.json(updated);
 }
 
 // Delete Cart (/api/cart/[id])
