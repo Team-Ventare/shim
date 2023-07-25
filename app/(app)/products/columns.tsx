@@ -93,7 +93,7 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                addProductToCart(product.name, product.id);
+                addProductToCart({ product });
               }}
             >
               Add to cart
