@@ -9,8 +9,27 @@ import { Product } from "../columns";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { cn } from "@/lib/utils";
-import { Pencil1Icon } from "@radix-ui/react-icons";
+import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import hospital from "../../../../public/hospital.png";
+import { MoreHorizontalIcon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 const checkoutHistory = [
   {
@@ -107,47 +126,123 @@ export default async function ProductPage({
 
   return (
     <div className="h-screen py-10">
-      <div className="border-b h-[360px] mt-12">
-        <div className="container flex">
+      <div className="border-b h-[360px] mt-2">
+        <div className="container flex items-center space-x-1 text-sm text-muted-foreground">
+          <Link href="/" className="overflow-hidden whitespace-nowrap">
+            <HomeIcon className="h-4 w-4" />
+          </Link>
+          <ChevronRightIcon className="h-4 w-4" />
+          <Link
+            href="/products"
+            className="overflow-hidden text-ellipsis whitespace-nowrap"
+          >
+            Inventory
+          </Link>
+          <ChevronRightIcon className="h-4 w-4" />
+          <div className="font-medium text-foreground">{data.name}</div>
+        </div>
+        <div className="container flex mt-8">
           <Image
-            src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+            src={hospital}
             alt="Photo by Drew Beamer"
-            className="rounded-md object-cover"
+            className="rounded-sm object-cover"
             width={400}
             height={(9 / 16) * 400}
           />
 
-          <div className="ml-8 grid grid-cols-4 gap-8">
+          <div className="ml-8 grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-light text-gray-500">
+              <Label className="block text-sm font-light text-gray-500">
                 Name
-              </label>
+              </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
                 {data.name}
               </p>
             </div>
             <div>
-              <label className="block text-sm font-light text-gray-500">
-                Category
-              </label>
+              <Label className="block text-sm font-light text-gray-500">
+                Status
+              </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.type}
+                {data.status}
               </p>
             </div>
             <div>
-              <label className="block text-sm font-light text-gray-500">
+              <Label className="block text-sm font-light text-gray-500">
                 Quantity
-              </label>
+              </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
                 {data.amount}
               </p>
             </div>
+            <div>
+              <Label className="block text-sm font-light text-gray-500">
+                Location
+              </Label>
+              <p className="mt-1 text-sm font-semibold text-zinc-950">
+                {data.location}
+              </p>
+            </div>
+            <div>
+              <Label className="block text-sm font-light text-gray-500">
+                Category
+              </Label>
+              <p className="mt-1 text-sm font-semibold text-zinc-950">
+                {data.type}
+              </p>
+            </div>
+            <div className="col-span-3">
+              <Label className="block text-sm font-light text-gray-500">
+                Description
+              </Label>
+              <p className="mt-1 text-sm font-semibold text-zinc-950">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Malesuada nunc vel risus commodo. Proin nibh nisl condimentum
+                id.
+              </p>
+            </div>
           </div>
-          <div className="flex space-x-2">
-            <Button variant="outline" size="icon">
-              <Pencil1Icon className="h-4 w-4" />
-            </Button>
-            <Button variant="destructive">Delete</Button>
+          <div className="flex flex-row items-start space-x-2">
+            <Dialog>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Button variant="outline" size="icon">
+                    <MoreHorizontalIcon className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem className="hover:bg-gray-50 cursor-pointer">
+                    Copy ID
+                  </DropdownMenuItem>
+                  <DialogTrigger asChild>
+                    <DropdownMenuItem className="text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer">
+                      Delete
+                    </DropdownMenuItem>
+                  </DialogTrigger>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className="tracking-normal font-medium">
+                    Do you want to delete this product?
+                  </DialogTitle>
+                  <DialogDescription>
+                    This action cannot be undone. Are you sure you want to
+                    permanently delete this product?
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <form action={deleteProduct}>
+                    <Button type="submit" variant="destructive">
+                      Delete
+                    </Button>
+                  </form>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            <Button variant="outline">Edit</Button>
           </div>
         </div>
       </div>
@@ -208,7 +303,7 @@ export default async function ProductPage({
               <AccordionTrigger className="p-4">
                 Maintenance History
               </AccordionTrigger>
-              <AccordionContent className="px-2 border-t pt-4">
+              <AccordionContent className="px-4 border-t pt-4">
                 <p className="text-sm font-normal leading-6 text-gray-900">
                   No maintenance history found.
                 </p>
