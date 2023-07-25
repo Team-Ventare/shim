@@ -1,5 +1,6 @@
 "use server";
 
+import { prisma } from "@/lib/prisma";
 import { getUserSession } from "@/lib/auth";
 import { Product } from "./columns";
 
@@ -9,35 +10,44 @@ export async function addProductToCart({ product }: { product: Product }) {
   if (!user) {
     throw new Error("You must be signed in to add products to your cart");
   }
+  console.log(user.cartId);
+  console.log(product.id);
 
-  console.log(user);
-  console.log(product);
-
-  const response = await fetch(
+  const req = await fetch(
     `https://shim-ventare.vercel.app/api/cart/${user.cartId}`,
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        product: [
-          {
-            id: product.id,
-            name: product.name,
-            amount: product.amount,
-            location: product.location,
-            type: product.type,
-            status: product.status,
-          },
-        ],
-      }),
+      body: JSON.stringify({ pid: product.id }),
     }
   );
+  const res = await req.json();
 
-  if (!response.ok) {
-    throw new Error("Something went wrong");
+  if (!req.ok) {
+    throw new Error("Failed to add product to cart");
   } else {
-    return response.json();
+    console.log(res);
   }
+
+  /*
+  const cart = await prisma.cart.update({
+    where: {
+      id: user.cartId,
+    },
+    include: {
+      products: true,
+    },
+    data: {
+      products: {
+        connect: [
+          {
+            id: product.id,
+          },
+        ],
+      },
+    },
+  });
+  */
 }
