@@ -6,30 +6,14 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 import { Product } from "../columns";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { cn } from "@/lib/utils";
 import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import hospital from "../../../../public/hospital.png";
-import { MoreHorizontalIcon } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import EditItemSheet from "@/components/inventory/edit-item";
+import DeleteItem from "@/components/inventory/delete-item";
+import { tr } from "date-fns/locale";
 
 const checkoutHistory = [
   {
@@ -108,22 +92,6 @@ export default async function ProductPage({
 }) {
   const data = await getData(params.id);
 
-  async function deleteProduct() {
-    "use server";
-
-    const res = await fetch(
-      `https://shim-ventare.vercel.app/api/products/${params.id}`,
-      {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    if (res.ok) {
-      revalidatePath("/products");
-      redirect("/products");
-    }
-  }
-
   return (
     <div className="h-screen py-10">
       <div className="border-b h-[360px] mt-2">
@@ -143,6 +111,7 @@ export default async function ProductPage({
         </div>
         <div className="container flex mt-8">
           <Image
+            priority={true}
             src={hospital}
             alt="Photo by Drew Beamer"
             className="rounded-sm object-cover"
@@ -204,45 +173,12 @@ export default async function ProductPage({
             </div>
           </div>
           <div className="flex flex-row items-start space-x-2">
-            <Dialog>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Button variant="outline" size="icon">
-                    <MoreHorizontalIcon className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem className="hover:bg-gray-50 cursor-pointer">
-                    Copy ID
-                  </DropdownMenuItem>
-                  <DialogTrigger asChild>
-                    <DropdownMenuItem className="text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer">
-                      Delete
-                    </DropdownMenuItem>
-                  </DialogTrigger>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle className="tracking-normal font-medium">
-                    Do you want to delete this product?
-                  </DialogTitle>
-                  <DialogDescription>
-                    This action cannot be undone. Are you sure you want to
-                    permanently delete this product?
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <form action={deleteProduct}>
-                    <Button type="submit" variant="destructive">
-                      Delete
-                    </Button>
-                  </form>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-
-            <Button variant="outline">Edit</Button>
+            <div>
+              <DeleteItem id={params.id} />
+            </div>
+            <div>
+              <EditItemSheet product={data} />
+            </div>
           </div>
         </div>
       </div>

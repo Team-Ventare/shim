@@ -27,30 +27,7 @@ export async function PUT(
     where: {
       id: id,
     },
-    // remove data if not sent
-    data: {
-      name: json.name || null,
-    },
-  });
-  return NextResponse.json(updated);
-}
-
-// Update Product (partial) (/api/products/[id])
-export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
-  const json = await request.json();
-
-  const updated = await prisma.products.update({
-    where: {
-      id: id,
-    },
-    // remove data if not sent
-    data: {
-      name: json.name || null,
-    },
+    data: json,
   });
   return NextResponse.json(updated);
 }

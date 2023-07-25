@@ -13,27 +13,35 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Plus } from "lucide-react";
 import {
   Select,
   SelectItem,
   SelectValue,
   SelectContent,
   SelectTrigger,
-  SelectLabel,
   SelectGroup,
+  SelectLabel,
 } from "@/components/ui/select";
-import { toast } from "@/components/ui/use-toast";
-import React from "react";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { Product } from "@/app/(app)/products/columns";
 
-export default function AddItemSheet() {
-  const [formValues, setFormValues] = React.useState({});
+export default function EditItemSheet({ product }: { product: Product }) {
+  const [formValues, setFormValues] = useState({
+    name: product.name,
+    description: "Description",
+    amount: product.amount,
+    location: product.location,
+    status: product.status,
+    type: product.type,
+  });
+  const { toast } = useToast();
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const response = await fetch("/api/products", {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(formValues),
     });
 
@@ -60,21 +68,14 @@ export default function AddItemSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto hidden h-8 lg:flex"
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          New Item
-        </Button>
+        <Button variant="outline">Edit</Button>
       </SheetTrigger>
       <SheetContent>
         <form onSubmit={onSumbit}>
           <SheetHeader>
-            <SheetTitle>New product</SheetTitle>
+            <SheetTitle>Edit Product</SheetTitle>
             <SheetDescription>
-              Upload product information here. Click save when you are done.
+              Edit product information here. Click save when you are done.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4">
@@ -86,6 +87,7 @@ export default function AddItemSheet() {
                 id="name"
                 type="text"
                 className="col-span-3"
+                defaultValue={formValues.name}
                 onChange={(e) =>
                   setFormValues({ ...formValues, name: e.target.value })
                 }
@@ -95,7 +97,12 @@ export default function AddItemSheet() {
               <Label htmlFor="description" className="text-left">
                 Description
               </Label>
-              <Input id="description" type="text" className="col-span-3" />
+              <Input
+                id="description"
+                type="text"
+                className="col-span-3"
+                defaultValue={formValues.description}
+              />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="amount" className="text-left">
@@ -105,6 +112,7 @@ export default function AddItemSheet() {
                 id="amount"
                 type="integer"
                 className="col-span-3"
+                defaultValue={formValues.amount}
                 onChange={(e) =>
                   setFormValues({
                     ...formValues,
@@ -121,6 +129,7 @@ export default function AddItemSheet() {
                 id="location"
                 type="text"
                 className="col-span-3"
+                defaultValue={formValues.location}
                 onChange={(e) =>
                   setFormValues({ ...formValues, location: e.target.value })
                 }
@@ -139,7 +148,7 @@ export default function AddItemSheet() {
                 }
               >
                 <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select a status" />
+                  <SelectValue placeholder={formValues.status} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -163,7 +172,7 @@ export default function AddItemSheet() {
                 }
               >
                 <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select a type" id="type" />
+                  <SelectValue placeholder={formValues.type} id="type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -196,7 +205,7 @@ export default function AddItemSheet() {
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Save product</Button>
+              <Button type="submit">Save changes</Button>
             </SheetClose>
           </SheetFooter>
         </form>
