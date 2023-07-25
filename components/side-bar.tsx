@@ -61,8 +61,8 @@ export async function Sidebar() {
   const user = await getUserSession();
 
   return (
-    <div className="bg-zinc-900 w-56 relative shrink-0">
-      <div className="pt-8 space-y-2">
+    <div className="bg-zinc-900 w-56 shrink-0 h-screen">
+      <div className="pt-2 space-y-2">
         {links.map((link, index) => (
           <div
             key={index}
@@ -85,7 +85,7 @@ export async function Sidebar() {
         ))}
       </div>
 
-      <div className="bottom-2 absolute px-2 w-full space-y-2 border-t border-slate-800">
+      <div className="bottom-2 absolute px-2 w-56 space-y-2 border-t border-slate-800">
         <Link
           href="/dashboard"
           className="text-zinc-100 hover:text-zinc-50 text-sm flex items-center gap-x-2 cursor-pointer p-2 rounded-md mt-2 hover:bg-zinc-800"
