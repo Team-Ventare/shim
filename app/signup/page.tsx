@@ -1,257 +1,81 @@
 "use client";
 
-import { BiLockAlt, BiLockOpenAlt, BiUser } from "react-icons/bi";
 import React, { useState } from "react";
-import { RxCross2 } from "react-icons/rx";
+import Image from "next/image";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { UserAuthFormSignUp } from "@/components/auth/user-auth-form";
 
-export default function SignUp() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const body = { name, email };
-      await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-    } catch (e: any) {
-      console.error(e);
-    }
-  };
-
+export default function AuthenticationPage() {
   return (
-    <div className="min-h-screen min-w-screen max-w-screen bg-white dark:bg-slate-900">
-      <div className="mx-auto min-w-screen px-6 py-4 md:px-12 md:py-8 lg:px-24 xl:px-32 2xl:px-40">
-        {/* Sign Up Header */}
-        {showError && (
-          <div className="bg-red-50 dark:bg-gray-800 border border-red-400 p-4 rounded-lg mb-4">
-            <div className="flex justify-between">
-              <p className="text-red-800 dark:text-red-400 text-md">
-                <span className="font-medium">Oops! </span> {errorMessage}
+    <div className="h-screen w-screen">
+      <div className="md:hidden">
+        <Image
+          src="/authentication-light.png"
+          width={1280}
+          height={843}
+          alt="Authentication"
+          className="block dark:hidden"
+        />
+        <Image
+          src="/authentication-dark.png"
+          width={1280}
+          height={843}
+          alt="Authentication"
+          className="hidden dark:block"
+        />
+      </div>
+      <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+        <Link
+          href="/signin"
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            "absolute right-4 top-4 md:right-8 md:top-8"
+          )}
+        >
+          Login
+        </Link>
+        <div className="relative hidden h-screen flex-col bg-muted p-10 text-white dark:border-r lg:flex">
+          <div className="absolute inset-0 bg-zinc-900" />
+          <div className="relative z-20 flex items-center text-lg font-medium">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mr-2 h-6 w-6"
+            >
+              <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+            </svg>
+            S.H.I.M Inc
+          </div>
+          <div className="relative z-20 mt-auto">
+            <blockquote className="space-y-2">
+              <p className="text-lg">
+                &ldquo;This application has saved me and my team countless hours
+                of work and helped me deliver immense productivity.&rdquo;
               </p>
-              <div className="flex-shrink-0">
-                <RxCross2
-                  onClick={() => setShowError(false)}
-                  className="text-lg bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400 cursor-pointer"
-                />
-              </div>
+              <footer className="text-sm">Nicholas Moreland</footer>
+            </blockquote>
+          </div>
+        </div>
+        <div className="lg:p-8">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+            <div className="flex flex-col space-y-2 text-center">
+              <h1 className="text-2xl font-semibold tracking-tight">
+                Create an account
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Enter your email below to create your account
+              </p>
             </div>
+            <UserAuthFormSignUp />
           </div>
-        )}
-
-        {/* Sign Up Form */}
-        <form onSubmit={handleSignUp}>
-          {/* Name Field */}
-          <div className="grid gap-6 mb-6">
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Full Name
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <BiUser className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                </div>
-                <input
-                  type="text"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="John Doe"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-          {/* Email Field */}
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Email
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  aria-hidden="true"
-                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                </svg>
-              </div>
-              <input
-                type="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="john.doe@company.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          </div>
-          {/* Password Field */}
-          <div className="mb-6">
-            {password.length == 0 ? (
-              <>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <BiLockOpenAlt className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  </div>
-                  <input
-                    type="password"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="•••••••••"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                {password.length >= 6 ? (
-                  <>
-                    <label className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">
-                      Password
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <BiLockAlt className="w-5 h-5 text-green-500 dark:text-green-400" />
-                      </div>
-                      <input
-                        type="password"
-                        className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-green-500"
-                        placeholder="•••••••••"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-green-600 dark:text-green-500">
-                      <span className="font-medium">Well done! </span>
-                      Your password meets our requirements.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <label className="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">
-                      Password
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <BiLockOpenAlt className="w-5 h-5 text-red-500 dark:text-red-400" />
-                      </div>
-                      <input
-                        type="password"
-                        className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full pl-10 p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                        placeholder="•••••••••"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                      <span className="font-medium">Oh, snapp! </span>
-                      Your password must be atleast six characters.
-                    </p>
-                  </>
-                )}
-              </>
-            )}
-          </div>
-          {/* Password Confirm Field */}
-          <div className="mb-6">
-            {passwordConfirm.length == 0 ? (
-              <>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Confirm Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <BiLockOpenAlt className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  </div>
-                  <input
-                    type="password"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="•••••••••"
-                    required
-                    value={passwordConfirm}
-                    onChange={(e) => setPasswordConfirm(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                {password === passwordConfirm ? (
-                  <>
-                    <label className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">
-                      Confirm Password
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <BiLockAlt className="w-5 h-5 text-green-500 dark:text-green-400" />
-                      </div>
-                      <input
-                        type="password"
-                        className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-green-500"
-                        placeholder="•••••••••"
-                        required
-                        value={passwordConfirm}
-                        onChange={(e) => setPasswordConfirm(e.target.value)}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-green-600 dark:text-green-500">
-                      <span className="font-medium">Well done! </span>
-                      Both passwords match our requirements.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <label className="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">
-                      Confirm Password
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <BiLockOpenAlt className="w-5 h-5 text-red-500 dark:text-red-400" />
-                      </div>
-                      <input
-                        type="password"
-                        className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full pl-10 p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
-                        placeholder="•••••••••"
-                        required
-                        value={passwordConfirm}
-                        onChange={(e) => setPasswordConfirm(e.target.value)}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-                      <span className="font-medium">Oh, snapp! </span>
-                      Both passwords must match.
-                    </p>
-                  </>
-                )}
-              </>
-            )}
-          </div>
-          {/* Sign Up Button */}
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Create Account
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );

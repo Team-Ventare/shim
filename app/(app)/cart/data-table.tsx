@@ -23,10 +23,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import AddItemSheet from "@/components/inventory/add-item";
-import { DataTableViewOptions } from "@/components/inventory/data-table-view-options";
-import { DataTablePagination } from "@/components/inventory/data-table-pagination";
+import CheckoutCart from "@/components/cart/checkout-cart";
+import DeleteItem from "@/components/cart/delete-item";
+import { DataTableViewOptions } from "@/components/cart/data-table-view-options";
+import { DataTablePagination } from "@/components/cart/data-table-pagination";
+import { CheckCheck } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -79,7 +89,8 @@ export function DataTable<TData, TValue>({
         </div>
 
         <div className="flex space-x-2">
-          <AddItemSheet />
+          <DeleteItem />
+          <CheckoutCart />
           <DataTableViewOptions table={table} />
         </div>
       </div>

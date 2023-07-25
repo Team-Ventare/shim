@@ -15,6 +15,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
+import { addProductToCart } from "./actions";
 
 export type Product = {
   id: string;
@@ -22,7 +23,7 @@ export type Product = {
   amount: number;
   location: string;
   type: string;
-  status: "AVAILABLE" | "CHECKED_OUT";
+  status: string;
 };
 
 export const columns: ColumnDef<Product>[] = [
@@ -92,10 +93,7 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                toast({
-                  title: "Success! Added to cart",
-                  description: `${product.name} has been added to your cart.`,
-                });
+                addProductToCart(product.name, product.id);
               }}
             >
               Add to cart

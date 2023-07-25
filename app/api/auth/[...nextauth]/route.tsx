@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           role: user.role,
+          cartId: user.cartId,
         };
       },
     }),
@@ -52,16 +53,25 @@ export const authOptions: NextAuthOptions = {
           ...session.user,
           id: token.id,
           role: token.role,
+          cartId: token.cartId,
         },
       };
     },
-    jwt: ({ token, user }) => {
+    jwt: async ({ token, user }) => {
       if (user) {
-        const u = user as unknown as any;
+        const us = await prisma.users.findUnique({
+          where: {
+            id: user.id,
+          },
+        });
+
+        if (!us) throw new Error("User not found");
+
         return {
           ...token,
-          id: u.id,
-          role: u.role,
+          id: us.id,
+          role: us.role,
+          cartId: us.cartId,
         };
       }
       return token;
