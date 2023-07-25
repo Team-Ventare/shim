@@ -23,7 +23,7 @@ export type Product = {
   amount: number;
   location: string;
   type: string;
-  status: "AVAILABLE" | "CHECKED_OUT";
+  status: string;
 };
 
 export const columns: ColumnDef<Product>[] = [
