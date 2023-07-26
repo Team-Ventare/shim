@@ -96,30 +96,30 @@ export default function AddSupplierSheet() {
               <Input id="description" type="text" className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="address" className="text-left">
-                Address
+              <Label htmlFor="title" className="text-left">
+                Title
               </Label>
               <Input
-                id="address"
+                id="title"
                 type="text"
                 className="col-span-3"
                 onChange={(e) =>
                   setFormValues({
-                    ...formValues, address: e.target.value
+                    ...formValues, title: e.target.value
                   })
                 }
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="phone" className="text-left">
-                Phone
+              <Label htmlFor="vendor" className="text-left">
+                Vendor
               </Label>
               <Input
-                id="phone"
+                id="vendor"
                 type="text"
                 className="col-span-3"
                 onChange={(e) =>
-                  setFormValues({ ...formValues, phone: e.target.value })
+                  setFormValues({ ...formValues, vendor: e.target.value })
                 }
               />
             </div>
@@ -133,32 +133,6 @@ export default function AddSupplierSheet() {
                 className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, email: e.target.value })
-                }
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="website" className="text-left">
-                Website
-              </Label>
-              <Input
-                id="website"
-                type="text"
-                className="col-span-3"
-                onChange={(e) =>
-                  setFormValues({ ...formValues, website: e.target.value })
-                }
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="notes" className="text-left">
-                Notes
-              </Label>
-              <Input
-                id="notes"
-                type="text"
-                className="col-span-3"
-                onChange={(e) =>
-                  setFormValues({ ...formValues, notes: e.target.value })
                 }
               />
             </div>

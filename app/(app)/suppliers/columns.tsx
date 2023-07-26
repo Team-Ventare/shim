@@ -60,24 +60,16 @@ export const columns: ColumnDef<Supplier>[] = [
     },
   },
   {
-    accessorKey: "address",
-    header: "Address",
+    accessorKey: "title",
+    header: "Title",
   },
   {
-    accessorKey: "phone",
-    header: "Phone",
+    accessorKey: "vendor",
+    header: "Vendor",
   },
   {
     accessorKey: "email",
     header: "Email",
-  },
-  {
-    accessorKey: "website",
-    header: "Website",
-  },
-  {
-    accessorKey: "notes",
-    header: "Notes",
   },
   {
     id: "actions",

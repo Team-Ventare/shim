@@ -57,11 +57,9 @@ CREATE TABLE "Suppliers" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "name" STRING NOT NULL,
-    "address" STRING NOT NULL,
-    "phone" STRING NOT NULL,
+    "title" STRING NOT NULL,
+    "vendor" STRING NOT NULL,
     "email" STRING NOT NULL,
-    "website" STRING NOT NULL,
-    "notes" STRING
 
     CONSTRAINT "Suppliers_pkey" PRIMARY KEY ("id")
 );
