@@ -25,7 +25,6 @@ import {
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Product } from "@/app/(app)/products/columns";
-import { revalidatePath } from "next/cache";
 
 export default function EditItemSheet({ product }: { product: Product }) {
   const [formValues, setFormValues] = useState({
@@ -46,7 +45,6 @@ export default function EditItemSheet({ product }: { product: Product }) {
     });
 
     if (response.ok) {
-      revalidatePath(`/products/${product.id}`);
       toast({
         title: "You submitted the following values:",
         description: (
