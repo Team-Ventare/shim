@@ -16,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { addProductToCart } from "./actions";
+import { ToastAction } from "@/components/ui/toast";
 
 export type Product = {
   id: string;
@@ -92,8 +93,24 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => {
-                addProductToCart({ product });
+              onClick={async () => {
+                const res = await addProductToCart({ product });
+
+                if (res.error) {
+                  toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: "There was a problem with your request.",
+                    action: (
+                      <ToastAction altText="Try again">Try again</ToastAction>
+                    ),
+                  });
+                } else {
+                  toast({
+                    title: "Success! Added to cart",
+                    description: `${product.name} has been added to your cart.`,
+                  });
+                }
               }}
             >
               Add to cart
