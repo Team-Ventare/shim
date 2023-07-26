@@ -19,7 +19,7 @@ export async function GET(
   return NextResponse.json(cart);
 }
 
-// Update Cart (full) (/api/cart/[id])
+// Add Product to Cart (full) (/api/cart/[id])
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
@@ -48,7 +48,7 @@ export async function PUT(
   return NextResponse.json(updated);
 }
 
-// Delete Cart (/api/cart/[id])
+// Delete Product from Cart (/api/cart/[id])
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
