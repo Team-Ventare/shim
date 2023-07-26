@@ -62,3 +62,32 @@ export async function DELETE(
   });
   return NextResponse.json(deleted);
 }
+
+// Delete Item From Cart(/api/cart/[id])
+// export async function DELETE(
+//   request: Request,
+//   { params }: { params: { id: string } }
+// ) {
+//   const id = params.id;
+//   const json = await request.json();
+
+//   const deleted = await prisma.cart.update({
+//     where: {
+//       id: id,
+//     },
+//     data: {
+//       products: {
+//         disconnect: [
+//           {
+//             id: json.pid,
+//           },
+//         ],
+//       },
+//     },
+//     include: {
+//       products: true,
+//     },
+//   });
+
+//   return NextResponse.json(deleted);
+// }
