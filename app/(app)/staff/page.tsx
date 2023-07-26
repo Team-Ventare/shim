@@ -1,54 +1,30 @@
 const people = [
   {
-    name: "Leslie Alexander",
-    email: "leslie.alexander@example.com",
-    role: "Co-Founder / CEO",
+    name: "Jacquelyn Donaldson",
+    email: "jacquelyn.donaldson@uta.edu",
+    office: "UH 530C",
+    role: "Simulation Inventory Spec.",
     imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    lastSeen: "3h ago",
-    lastSeenDateTime: "2023-01-23T13:23Z",
-  },
-  {
-    name: "Michael Foster",
-    email: "michael.foster@example.com",
-    role: "Co-Founder / CTO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    lastSeen: "3h ago",
-    lastSeenDateTime: "2023-01-23T13:23Z",
-  },
-  {
-    name: "Dries Vincent",
-    email: "dries.vincent@example.com",
-    role: "Business Relations",
-    imageUrl:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      "https://cdn.web.uta.edu/-/media/project/website/conhi/images/people/headshots-128x128/jackie_donaldson.ashx?revision=d5a8f237-2ca8-4082-9f03-0a6f95b53681",
     lastSeen: null,
+    phone: "817-272-9430",
   },
   {
-    name: "Lindsay Walton",
-    email: "lindsay.walton@example.com",
-    role: "Front-end Developer",
+    name: "Karen Caddell",
+    email: "kcaddell@uta.edu",
+    office: "UH 549",
+    role: "Administrative Assistant",
     imageUrl:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    lastSeen: "3h ago",
-    lastSeenDateTime: "2023-01-23T13:23Z",
+      "https://cdn.web.uta.edu/-/media/project/website/conhi/images/people/headshots-128x128/karen_caddell.ashx?revision=23a9d179-05a9-457d-9a48-44f495e90d85",
+    lastSeen: null,
+    phone: "817-272-9420"
   },
   {
-    name: "Courtney Henry",
-    email: "courtney.henry@example.com",
-    role: "Designer",
+    name: "Jennifer Roye, MSN, RN, CHSE, CNE",
+    email: "roye@uta.edu",
+    role: "Assistant Dean for Simulation and Technology",
     imageUrl:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    lastSeen: "3h ago",
-    lastSeenDateTime: "2023-01-23T13:23Z",
-  },
-  {
-    name: "Tom Cook",
-    email: "tom.cook@example.com",
-    role: "Director of Product",
-    imageUrl:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      "https://cdn.web.uta.edu/-/media/project/website/conhi/images/people/headshots-128x128/roye_jennifer_headshot_128px.ashx?revision=a7a57753-21f2-4db2-ac50-e4baf7df7473",
     lastSeen: null,
   },
 ];
@@ -79,7 +55,7 @@ export default function StaffPage() {
               {person.lastSeen ? (
                 <p className="mt-1 text-xs leading-5 text-gray-500">
                   Last seen{" "}
-                  <time dateTime={person.lastSeenDateTime}>
+                  <time dateTime={person.lastSeen}>
                     {person.lastSeen}
                   </time>
                 </p>

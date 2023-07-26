@@ -15,16 +15,16 @@ model Users {
   password  String
   name      String
   role      Role     @default(PENDING)
-  cart      Cart     @relation(fields: [cartId], references: [id])
   cartId    String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  cart      Cart     @relation(fields: [cartId], references: [id])
 }
 
 model Cart {
   id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  products  Products[]
   user      Users?
+  products  Products[] @relation("CartToProducts")
 }
 
 model Products {
@@ -36,7 +36,7 @@ model Products {
   location  String
   type      Type
   status    Status   @default(AVAILABLE)
-  carts     Cart[]
+  carts     Cart[]   @relation("CartToProducts")
 }
 
 model PurchaseRequests {
@@ -53,11 +53,9 @@ model Suppliers {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
-  address   String?
-  phone     String?
   email     String?
-  website   String?
-  notes     String?
+  title     String?
+  vendor    String?
 }
 
 enum Role {
