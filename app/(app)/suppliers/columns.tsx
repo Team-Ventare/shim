@@ -19,11 +19,9 @@ import { toast } from "@/components/ui/use-toast";
 export interface Supplier {
     id: string;
     name: string;
-    address: string;
-    phone: string;
+    title: string;
+    vendor: string;
     email: string;
-    website: string;
-    notes: string;
   }
 
 export const columns: ColumnDef<Supplier>[] = [
@@ -60,24 +58,16 @@ export const columns: ColumnDef<Supplier>[] = [
     },
   },
   {
-    accessorKey: "address",
-    header: "Address",
+    accessorKey: "title",
+    header: "Title",
   },
   {
-    accessorKey: "phone",
-    header: "Phone",
+    accessorKey: "vendor",
+    header: "Vendor",
   },
   {
     accessorKey: "email",
     header: "Email",
-  },
-  {
-    accessorKey: "website",
-    header: "Website",
-  },
-  {
-    accessorKey: "notes",
-    header: "Notes",
   },
   {
     id: "actions",
