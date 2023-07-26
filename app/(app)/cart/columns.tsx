@@ -136,17 +136,28 @@ export const columns: ColumnDef<Product>[] = [
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction asChild>
                     <Button
-                      onClick={() => {
-                        //this toast will be moved to the actions file in the future
-                        toast({
-                          variant: "destructive",
-                          title: "Deleted from cart.",
-                          description: `${product.name} has been deleted from your cart.`,
-                          action: (
-                            <ToastAction altText="Undo">Undo</ToastAction>
-                          ),
-                        });
-                        //deleteFromCart({product});
+                      className="cursor-pointer"
+                      onClick={async () => {
+                        const res = await deleteFromCart({ product });
+
+                        if (res.error) {
+                          toast({
+                            variant: "destructive",
+                            title: "Uh oh! Something went wrong.",
+                            description:
+                              "There was a problem with your request.",
+                            action: (
+                              <ToastAction altText="Try again">
+                                Try again
+                              </ToastAction>
+                            ),
+                          });
+                        } else {
+                          toast({
+                            title: "Success! Removed from cart",
+                            description: `${product.name} has been removed from your cart.`,
+                          });
+                        }
                       }}
                     >
                       Confirm
@@ -178,19 +189,21 @@ export const columns: ColumnDef<Product>[] = [
                 </div>
                 <DialogFooter>
                   <DialogClose asChild>
-                    <Button 
-                    onClick={() => {
-                      //this toast will be moved to the actions file in the future
-                      toast({
-                        variant: "destructive",
-                        title: "Item Updated.",
-                        description: `${product.name} has been updated in your cart.`,
-                        action: (
-                          <ToastAction altText="Undo">Undo</ToastAction>
-                        ),
-                      });
-                    }}
-                    >Save changes</Button>
+                    <Button
+                      onClick={() => {
+                        //this toast will be moved to the actions file in the future
+                        toast({
+                          variant: "destructive",
+                          title: "Item Updated.",
+                          description: `${product.name} has been updated in your cart.`,
+                          action: (
+                            <ToastAction altText="Undo">Undo</ToastAction>
+                          ),
+                        });
+                      }}
+                    >
+                      Save changes
+                    </Button>
                   </DialogClose>
                 </DialogFooter>
               </DialogContent>

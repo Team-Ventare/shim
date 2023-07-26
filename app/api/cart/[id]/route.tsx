@@ -54,40 +54,25 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
+  const json = await request.json();
 
-  const deleted = await prisma.cart.delete({
+  const updated = await prisma.cart.update({
     where: {
       id: id,
     },
+    include: {
+      products: true,
+    },
+    data: {
+      products: {
+        disconnect: [
+          {
+            id: json.pid,
+          },
+        ],
+      },
+    },
   });
-  return NextResponse.json(deleted);
+
+  return NextResponse.json(updated);
 }
-
-// Delete Item From Cart(/api/cart/[id])
-// export async function DELETE(
-//   request: Request,
-//   { params }: { params: { id: string } }
-// ) {
-//   const id = params.id;
-//   const json = await request.json();
-
-//   const deleted = await prisma.cart.update({
-//     where: {
-//       id: id,
-//     },
-//     data: {
-//       products: {
-//         disconnect: [
-//           {
-//             id: json.pid,
-//           },
-//         ],
-//       },
-//     },
-//     include: {
-//       products: true,
-//     },
-//   });
-
-//   return NextResponse.json(deleted);
-// }
