@@ -19,11 +19,9 @@ import { toast } from "@/components/ui/use-toast";
 export interface Supplier {
     id: string;
     name: string;
-    address: string;
-    phone: string;
+    title: string;
+    vendor: string;
     email: string;
-    website: string;
-    notes: string;
   }
 
 export const columns: ColumnDef<Supplier>[] = [
