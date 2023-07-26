@@ -7,6 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
+
   const cart = await prisma.cart.findUnique({
     where: {
       id: id,
@@ -23,58 +24,28 @@ export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const cartId = params.id;
-  const { productId: productId } = await request.json();
+  const id = params.id;
+  const json = await request.json();
 
-  try {
-    const cart = await prisma.cart.findUnique({
-      where: {
-        id: cartId,
-      },
-      include: {
-        products: true,
-      },
-    });
-
-    if (!cart) {
-      return NextResponse.json({ error: "Cart not found" }, { status: 404 });
-    }
-
-    const productExists = cart.products.some(
-      (product) => product.id === productId
-    );
-
-    if (productExists) {
-      return NextResponse.json(
-        { error: "Product already exists in the cart" },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    // Connect the product to the cart
-    const updatedCart = await prisma.cart.update({
-      where: {
-        id: cartId,
-      },
-      data: {
-        products: {
-          connect: {
-            id: productId,
+  const updated = await prisma.cart.update({
+    where: {
+      id: id,
+    },
+    include: {
+      products: true,
+    },
+    data: {
+      products: {
+        connect: [
+          {
+            id: json.pid,
           },
-        },
+        ],
       },
-      include: {
-        products: true, // Include the connected products in the response
-      },
-    });
+    },
+  });
 
-    return NextResponse.json(JSON.stringify(updatedCart), { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
-  }
+  return NextResponse.json(updated);
 }
 
 // Delete Cart (/api/cart/[id])
@@ -91,3 +62,32 @@ export async function DELETE(
   });
   return NextResponse.json(deleted);
 }
+
+// Delete Item From Cart(/api/cart/[id])
+// export async function DELETE(
+//   request: Request,
+//   { params }: { params: { id: string } }
+// ) {
+//   const id = params.id;
+//   const json = await request.json();
+
+//   const deleted = await prisma.cart.update({
+//     where: {
+//       id: id,
+//     },
+//     data: {
+//       products: {
+//         disconnect: [
+//           {
+//             id: json.pid,
+//           },
+//         ],
+//       },
+//     },
+//     include: {
+//       products: true,
+//     },
+//   });
+
+//   return NextResponse.json(deleted);
+// }

@@ -16,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { deleteFromCart } from "./actions";
 
 import {
   AlertDialog,
@@ -37,6 +38,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
@@ -114,23 +116,11 @@ export const columns: ColumnDef<Product>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-            {/* <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                toast({
-                  title: "Success! Deleted from cart",
-                  description: `${product.name} has been deleted from your cart.`,
-                });
-              }}
-            >
-              Delete from cart
-            </DropdownMenuItem> */}
-
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="text-gray-700 pl-2 pr-9 select-none items-center rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
+                  className="text-gray-700 pl-2 pr-12 select-none items-center rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
                 >
                   Delete from cart
                 </Button>
@@ -147,9 +137,8 @@ export const columns: ColumnDef<Product>[] = [
                   <AlertDialogAction asChild>
                     <Button
                       onClick={() => {
+                        //this toast will be moved to the actions file in the future
                         toast({
-                          // title: "Success! Deleted from cart",
-                          // description: `${product.name} has been deleted from your cart.`,
                           variant: "destructive",
                           title: "Deleted from cart.",
                           description: `${product.name} has been deleted from your cart.`,
@@ -157,6 +146,7 @@ export const columns: ColumnDef<Product>[] = [
                             <ToastAction altText="Undo">Undo</ToastAction>
                           ),
                         });
+                        //deleteFromCart({product});
                       }}
                     >
                       Confirm
@@ -187,9 +177,21 @@ export const columns: ColumnDef<Product>[] = [
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit" className="items-left">
-                    Save changes
-                  </Button>
+                  <DialogClose asChild>
+                    <Button 
+                    onClick={() => {
+                      //this toast will be moved to the actions file in the future
+                      toast({
+                        variant: "destructive",
+                        title: "Item Updated.",
+                        description: `${product.name} has been updated in your cart.`,
+                        action: (
+                          <ToastAction altText="Undo">Undo</ToastAction>
+                        ),
+                      });
+                    }}
+                    >Save changes</Button>
+                  </DialogClose>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -209,6 +211,7 @@ export const columns: ColumnDef<Product>[] = [
               Copy product ID
             </DropdownMenuItem>
             <DropdownMenuItem>
+              {/* this should probably be removed in the future or link to something else that does not let them delete the item from inventory */}
               <Link href={`/products/${product.id}`}>View product details</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
