@@ -22,10 +22,12 @@ const people = [
   {
     name: "Jennifer Roye, MSN, RN, CHSE, CNE",
     email: "roye@uta.edu",
+    office: "W Mitchel St. and S West St, Office #305F",
     role: "Assistant Dean for Simulation and Technology",
     imageUrl:
       "https://cdn.web.uta.edu/-/media/project/website/conhi/images/people/headshots-128x128/roye_jennifer_headshot_128px.ashx?revision=a7a57753-21f2-4db2-ac50-e4baf7df7473",
     lastSeen: null,
+    phone: "817-272-0022",
   },
 ];
 
