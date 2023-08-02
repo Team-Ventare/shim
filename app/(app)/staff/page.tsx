@@ -33,46 +33,53 @@ const people = [
 
 export default function StaffPage() {
   return (
-    <div className="container mx-auto my-16 py-16 lg:px-32 items-center justify-center">
-      <ul role="list" className="divide-y divide-gray-100">
-        {people.map((person) => (
-          <li key={person.email} className="flex justify-between gap-x-6 py-5">
-            <div className="flex gap-x-4">
-              <img
-                className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                src={person.imageUrl}
-                alt=""
-              />
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">
-                  {person.name}
-                </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  {person.email}
-                </p>
-              </div>
-            </div>
-            <div className="hidden sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm leading-6 text-gray-900">{person.role}</p>
-              {person.lastSeen ? (
-                <div className="mt-1 flex items-center gap-x-1.5">
-                <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+    <> 
+      <header className="bg-orange-500 h-20">
+        <h1 className="text-white text-2xl lg:px-5 py-6"> 
+          Personnel
+        </h1> 
+      </header>
+      <div className="container min-w-full mx-8 my-8 py-16 lg:px-16 items-center justify-center">
+        <ul role="list" className="divide-y divide-gray-100">
+          {people.map((person) => (
+            <li key={person.email} className="flex justify-between gap-x-6 py-5">
+              <div className="flex gap-x-4">
+                <img
+                  className="h-24 w-24 flex-none rounded-full bg-gray-50"
+                  src={person.imageUrl}
+                  alt=""
+                />
+                <div className="min-w-0 flex-auto">
+                  <p className="text-sm font-semibold leading-6 text-gray-900">
+                    {person.name}
+                  </p>
+                  <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                    {person.email}
+                  </p>
                 </div>
-                <p className="text-xs leading-5 text-gray-500">Online</p>
               </div>
-              ) : (
-                <div className="mt-1 flex items-center gap-x-1.5">
-                  <div className="flex-none rounded-full bg-red-500/20 p-1">
-                    <div className="h-1.5 w-1.5 rounded-full bg-red-500" />
+              <div className="hidden sm:flex sm:flex-col sm:items-end">
+                <p className="text-sm leading-6 text-gray-900">{person.role}</p>
+                {person.lastSeen ? (
+                  <div className="mt-1 flex items-center gap-x-1.5">
+                  <div className="flex-none rounded-full bg-emerald-500/20 p-1">
+                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </div>
-                  <p className="text-xs leading-5 text-gray-500">Offline</p>
+                  <p className="text-xs leading-5 text-gray-500">Online</p>
                 </div>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+                ) : (
+                  <div className="mt-1 flex items-center gap-x-1.5">
+                    <div className="flex-none rounded-full bg-red-500/20 p-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                    </div>
+                    <p className="text-xs leading-5 text-gray-500">Offline</p>
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
