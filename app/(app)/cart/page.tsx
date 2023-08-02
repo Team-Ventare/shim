@@ -1,6 +1,7 @@
 import { getUserSession } from "@/lib/auth";
-import { Product, columns } from "./columns";
+import { columns } from "./columns";
 import { DataTable } from "./data-table";
+import { Product } from "../products/columns";
 
 async function getData(cartId: string): Promise<Product[]> {
   const response = await fetch(

@@ -1,31 +1,50 @@
 "use client";
 
 import * as React from "react";
-
 import { Icons } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
+import { createUser } from "./create-user";
+import { ca } from "date-fns/locale";
 
 interface FormData {
   name: string | undefined;
-  email: string;
-  password: string;
-  password_confirmation: string;
+  email: string | undefined;
+  password: string | undefined;
+  password_confirmation: string | undefined;
 }
 
 export function UserAuthFormSignUp() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState<FormData>({
     name: undefined,
-    email: "",
-    password: "",
-    password_confirmation: "",
+    email: undefined,
+    password: undefined,
+    password_confirmation: undefined,
   });
+  const [error, setError] = React.useState<string | null>(null);
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
+
+    const { name, email, password, password_confirmation } = formData;
+    if (!name || !email || !password || !password_confirmation) {
+      setError("Please fill in all fields");
+    }
+
+    if (password !== password_confirmation) {
+      setError("Passwords do not match");
+    }
+    try {
+      const status = await createUser({ data: formData });
+      console.log(status);
+    } catch (error: any) {
+      setError(error.message);
+    }
 
     setTimeout(() => {
       setIsLoading(false);

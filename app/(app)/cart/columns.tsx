@@ -41,15 +41,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-
-export type Product = {
-  id: string;
-  name: string;
-  amount: number;
-  location: string;
-  type: string;
-  status: "AVAILABLE" | "CHECKED_OUT";
-};
+import { Product } from "../products/columns";
 
 export const columns: ColumnDef<Product>[] = [
   {
