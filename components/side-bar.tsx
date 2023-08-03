@@ -22,17 +22,12 @@ const links = [
     href: "/news",
     label: "News",
     icon: <BellIcon />,
+  },
+  {
+    href: "/staff",
+    label: "Staff",
+    icon: <PersonIcon />,
     spacing: true,
-  },
-  {
-    href: "/cart",
-    label: "Cart",
-    icon: <BackpackIcon />,
-  },
-  {
-    href: "/products",
-    label: "Inventory",
-    icon: <CubeIcon />,
   },
   {
     href: "/purchaserequests",
@@ -40,9 +35,14 @@ const links = [
     icon: <CrumpledPaperIcon />,
   },
   {
-    href: "/maintenance",
-    label: "Maintenance",
-    icon: <LayersIcon />,
+    href: "/products",
+    label: "Inventory",
+    icon: <CubeIcon />,
+  },
+  {
+    href: "/cart",
+    label: "Cart",
+    icon: <BackpackIcon />,
     spacing: true,
   },
   {
@@ -51,9 +51,9 @@ const links = [
     icon: <IdCardIcon />,
   },
   {
-    href: "/staff",
-    label: "Staff",
-    icon: <PersonIcon />,
+    href: "/maintenance",
+    label: "Maintenance",
+    icon: <LayersIcon />,
   },
 ];
 
@@ -61,13 +61,13 @@ export async function Sidebar() {
   const user = await getUserSession();
 
   return (
-    <div className="bg-zinc-900 w-56 shrink-0 h-screen">
+    <div className="bg-zinc-900 w-56 shrink-0 h-screen border-r border-zinc-800">
       <div className="pt-2 space-y-2">
         {links.map((link, index) => (
           <div
             key={index}
             className={`w-full ${
-              link.spacing ? "border-b border-slate-800 pb-2" : undefined
+              link.spacing ? "border-b border-zinc-800 pb-2" : undefined
             }`}
           >
             <div className="px-2">
@@ -85,7 +85,7 @@ export async function Sidebar() {
         ))}
       </div>
 
-      <div className="bottom-2 absolute px-2 w-56 space-y-2 border-t border-slate-800">
+      <div className="bottom-2 absolute px-2 w-56 space-y-2 border-t border-zinc-800">
         <Link
           href="/dashboard"
           className="text-zinc-100 hover:text-zinc-50 text-sm flex items-center gap-x-2 cursor-pointer p-2 rounded-md mt-2 hover:bg-zinc-800"

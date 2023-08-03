@@ -1,8 +1,8 @@
 "use server";
 
 import { getUserSession } from "@/lib/auth";
-import { Product } from "./columns";
 import { revalidatePath } from "next/cache";
+import { Product } from "../products/columns";
 
 export async function deleteFromCart({ product }: { product: Product }) {
   const user = await getUserSession();
