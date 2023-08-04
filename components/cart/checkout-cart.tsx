@@ -14,12 +14,50 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { ShoppingCart } from "lucide-react";
-
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
+import { deleteItemFromCart } from "@/app/(app)/cart/actions";
 import React from "react";
 
-export default function CheckoutCart() {
-  
+export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
+  async function cartCheckout() {
+    var test:boolean = true;
+    
+    if(selectedRows.length===0){
+      test=false;
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description:
+          "No products selected."
+        });
+    }
+    else{
+      selectedRows.forEach(async (row: any) => {
+        const res = await deleteItemFromCart({ product: row.original });
+        if (res.error) {
+          toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description:
+            "Product(s) could not be checked out.",
+          action: (
+            <ToastAction altText="Try again">
+              Try again
+            </ToastAction>
+          ),
+        });
+      }
+      });
+      if(test)
+      {
+      toast({
+        title: "Success! Removed from cart.",
+        description: `${selectedRows.length} product(s) have been checked out.`,
+      });
+      }
+    }
+  }
 
   return (
     <AlertDialog>
@@ -45,15 +83,11 @@ export default function CheckoutCart() {
           Cancel
         </AlertDialogCancel>
         <AlertDialogAction asChild>
-          <Button 
-          onClick={() => {
-            toast({
-              title: "Success!",
-              description: `Item(s) checked out.`,
-            });
-          }}
-          >
-          Confirm
+          <Button
+              className="cursor-pointer"
+              onClick={async () => {cartCheckout();}}
+            >
+              Confirm
           </Button>
         </AlertDialogAction>
       </AlertDialogFooter>

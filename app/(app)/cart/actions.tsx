@@ -4,7 +4,7 @@ import { getUserSession } from "@/lib/auth";
 import { Product } from "./columns";
 import { revalidatePath } from "next/cache";
 
-export async function deleteFromCart({ product }: { product: Product }) {
+export async function deleteItemFromCart({ product }: { product: Product }) {
   const user = await getUserSession();
 
   if (!user) {
