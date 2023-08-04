@@ -7,70 +7,27 @@ const users = [
   {
     email: "nmoreland18@outlook.com",
     name: "Nicholas Moreland",
-    role: "ADMIN",
+    role: "Admin",
   },
   {
     email: "enobong.mbosowo@gmail.com",
     name: "Enobong Mbosowo",
-    role: "ADMIN",
+    role: "Admin",
   },
   {
     email: "alexisbarragan@gmail.com",
     name: "Alexis Barragan",
-    role: "ADMIN",
+    role: "Admin",
   },
   {
     email: "coronabryan2002@gmail.com",
     name: "Bryan Corona",
-    role: "ADMIN",
+    role: "Admin",
   },
   {
     email: "dev.henrytran@gmail.com",
     name: "Henry Tran",
-    role: "ADMIN",
-  },
-];
-
-const products = [
-  {
-    name: "Niltrate 10mg",
-    amount: 100,
-    location: "A1",
-    type: "CONSMABLE_SUPPLIES",
-  },
-  {
-    name: "Nursing Bed",
-    amount: 100,
-    location: "A1",
-    type: "CONSMABLE_SUPPLIES",
-  },
-  {
-    name: "Dell Computer",
-    amount: 10,
-    location: "A1",
-    type: "COMPUTERS",
-  },
-];
-
-const purchaseRequests = [
-  {
-    title: "Latex Gloves",
-    priority: "HIGH",
-  },
-  {
-    title: "Neddles",
-    priority: "MEDIUM",
-    status: "APPROVED",
-  },
-  {
-    title: "Scrubs",
-    priority: "LOW",
-    status: "REJECTED",
-  },
-  {
-    title: "Syringes",
-    priority: "HIGH",
-    status: "BACKLOG",
+    role: "Admin",
   },
 ];
 

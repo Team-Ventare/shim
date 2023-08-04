@@ -60,13 +60,9 @@ export default function AddItemSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto hidden h-8 lg:flex"
-        >
+        <Button>
           <Plus className="mr-2 h-4 w-4" />
-          New Item
+          Add Item
         </Button>
       </SheetTrigger>
       <SheetContent>
@@ -181,8 +177,8 @@ export default function AddItemSheet() {
                     <SelectItem value="consmable_supplies">
                       Consumable Supplies
                     </SelectItem>
-                    <SelectItem value="nonconsmable_supplies">
-                      Non-consumable Supplies
+                    <SelectItem value="nonconsumable_supplies">
+                      Nonconsumable Supplies
                     </SelectItem>
                     <SelectItem value="computers">Computers</SelectItem>
                     <SelectItem value="office_supplies">
