@@ -74,6 +74,9 @@ enum PR_Proirity {
   LOW
   MEDIUM
   HIGH
+  Low
+  Medium
+  High
 }
 
 enum Status {

@@ -14,7 +14,7 @@ export function UserList({ users }: { users: User[] }) {
     switch (role) {
       case "ADMIN":
         return (
-          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-100 px-1.5 py-0.5 text-xs font-medium text-red-700">
+          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
             <svg
               className="h-1.5 w-1.5 fill-red-500"
               viewBox="0 0 6 6"
@@ -27,7 +27,7 @@ export function UserList({ users }: { users: User[] }) {
         );
       case "USER":
         return (
-          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-100 px-1.5 py-0.5 text-xs font-medium text-green-700">
+          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">
             <svg
               className="h-1.5 w-1.5 fill-green-500"
               viewBox="0 0 6 6"
@@ -40,7 +40,7 @@ export function UserList({ users }: { users: User[] }) {
         );
       default:
         return (
-          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-yellow-100 px-1.5 py-0.5 text-xs font-medium text-yellow-800">
+          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-yellow-50 px-1.5 py-0.5 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/10">
             <svg
               className="h-1.5 w-1.5 fill-yellow-500"
               viewBox="0 0 6 6"
@@ -63,14 +63,14 @@ export function UserList({ users }: { users: User[] }) {
           This page is still under construction. Please check back later.
         </AlertDescription>
       </Alert>
-      <div className="sm:flex sm:items-center p;-2">
+      <div className="sm:flex sm:items-center p-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
             Users
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title,
-            email and role.
+            A list of all the users in your database including their name,
+            title, email and role.
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">

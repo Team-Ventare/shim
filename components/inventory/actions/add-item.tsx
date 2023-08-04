@@ -60,13 +60,9 @@ export default function AddItemSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto hidden h-8 lg:flex"
-        >
+        <Button>
           <Plus className="mr-2 h-4 w-4" />
-          New Item
+          Add Item
         </Button>
       </SheetTrigger>
       <SheetContent>

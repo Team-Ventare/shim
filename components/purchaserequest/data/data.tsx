@@ -4,7 +4,6 @@ import {
   ArrowUpIcon,
   CheckCircledIcon,
   CrossCircledIcon,
-  QuestionMarkCircledIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
 
