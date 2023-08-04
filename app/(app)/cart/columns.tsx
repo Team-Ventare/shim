@@ -16,7 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { deleteFromCart } from "./actions";
+import { deleteItemFromCart } from "./actions";
 
 import {
   AlertDialog,
@@ -130,14 +130,14 @@ export const columns: ColumnDef<Product>[] = [
                     <Button
                       className="cursor-pointer"
                       onClick={async () => {
-                        const res = await deleteFromCart({ product });
+                        const res = await deleteItemFromCart({ product });
 
                         if (res.error) {
                           toast({
                             variant: "destructive",
                             title: "Uh oh! Something went wrong.",
                             description:
-                              "There was a problem with your request.",
+                              "Product could not be removed.",
                             action: (
                               <ToastAction altText="Try again">
                                 Try again
@@ -146,7 +146,7 @@ export const columns: ColumnDef<Product>[] = [
                           });
                         } else {
                           toast({
-                            title: "Success! Removed from cart",
+                            title: "Success! Removed from cart.",
                             description: `${product.name} has been removed from your cart.`,
                           });
                         }

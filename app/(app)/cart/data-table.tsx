@@ -89,8 +89,8 @@ export function DataTable<TData, TValue>({
         </div>
 
         <div className="flex space-x-2">
-          <DeleteItem />
-          <CheckoutCart />
+          <DeleteItem selectedRows={table.getSelectedRowModel().rows} />
+          <CheckoutCart selectedRows={table.getSelectedRowModel().rows}/>
           <DataTableViewOptions table={table} />
         </div>
       </div>
