@@ -79,28 +79,6 @@ export const columns: ColumnDef<Product>[] = [
     ),
   },
   {
-    accessorKey: "type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-    cell: ({ row }) => {
-      const type = types.find((type) => type.value === row.getValue("type"));
-
-      if (!type) {
-        return null;
-      }
-
-      return (
-        <div className="flex items center">
-          <span>{type.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
     accessorKey: "status",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
@@ -114,11 +92,25 @@ export const columns: ColumnDef<Product>[] = [
         return null;
       }
 
-      return (
-        <div className="flex w-[100px] items center">
-          <span>{status.label}</span>
-        </div>
-      );
+      return status.view();
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "type",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Type" />
+    ),
+    cell: ({ row }) => {
+      const type = types.find((type) => type.value === row.getValue("type"));
+
+      if (!type) {
+        return null;
+      }
+
+      return type.view();
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
