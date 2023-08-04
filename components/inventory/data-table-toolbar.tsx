@@ -4,10 +4,11 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import AddToCartButton from "./actions/add-to-cart";
 import { statuses, types } from "./data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
+import AddManyProducts from "./actions/add-many-products-to-cart";
+import { Product } from "@/app/(app)/products/columns";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -55,7 +56,7 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-2">
-        <AddToCartButton />
+        <AddManyProducts selected={table.getSelectedRowModel().rows} />
         <DataTableViewOptions table={table} />
       </div>
     </div>

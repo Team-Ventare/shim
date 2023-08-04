@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
-import { addProductToCart } from "./actions";
+import { addProductToCart } from "../../../components/inventory/actions/add-product-to-cart";
 import { ToastAction } from "@/components/ui/toast";
 import { DataTableColumnHeader } from "@/components/inventory/data-table-column-header";
 import { statuses, types } from "@/components/inventory/data";

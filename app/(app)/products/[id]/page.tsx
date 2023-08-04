@@ -11,8 +11,8 @@ import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
 import hospital from "../../../../public/hospital.png";
 import Link from "next/link";
-import EditItemSheet from "@/components/inventory/actions/edit-item";
-import DeleteItem from "@/components/inventory/actions/delete-item";
+import EditItemSheet from "@/components/inventory/actions/edit-product";
+import DeleteItem from "@/components/inventory/actions/delete-product";
 import { revalidatePath } from "next/cache";
 
 const checkoutHistory = [

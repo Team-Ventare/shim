@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserSession } from "@/lib/auth";
-import { Product } from "./columns";
+import { Product } from "../../../app/(app)/products/columns";
 import { revalidatePath } from "next/cache";
 
 export async function addProductToCart({ product }: { product: Product }) {
