@@ -92,7 +92,7 @@ export const types = [
   },
   {
     value: "NONCONSUMABLE_SUPPLIES",
-    label: "Non-Consumable Supplies",
+    label: "Nonconsumable Supplies",
     view: () => {
       return (
         <div className="w-fit flex items-center gap-x-1.5 rounded-md bg-fuchsia-100 px-1.5 py-0.5 text-xs font-medium text-fuchsia-700 ring-1 ring-inset ring-fuchsia-300">

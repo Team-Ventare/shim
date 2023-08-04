@@ -177,8 +177,8 @@ export default function AddItemSheet() {
                     <SelectItem value="consmable_supplies">
                       Consumable Supplies
                     </SelectItem>
-                    <SelectItem value="nonconsmable_supplies">
-                      Non-consumable Supplies
+                    <SelectItem value="nonconsumable_supplies">
+                      Nonconsumable Supplies
                     </SelectItem>
                     <SelectItem value="computers">Computers</SelectItem>
                     <SelectItem value="office_supplies">
