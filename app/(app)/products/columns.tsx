@@ -134,8 +134,17 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={async () => {
-                const res = await addProductToCart({ product });
+                if (product.status === "CHECKED_OUT") {
+                  toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: "You can't add a checked out product to cart.",
+                  });
 
+                  return;
+                }
+
+                const res = await addProductToCart({ product });
                 if (res.error) {
                   toast({
                     variant: "destructive",
