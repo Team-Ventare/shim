@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
-import { addProductToCart } from "./actions";
+import { addProductToCart } from "../../../components/inventory/actions/add-product-to-cart";
 import { ToastAction } from "@/components/ui/toast";
 import { DataTableColumnHeader } from "@/components/inventory/data-table-column-header";
 import { statuses, types } from "@/components/inventory/data";
@@ -134,8 +134,17 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={async () => {
-                const res = await addProductToCart({ product });
+                if (product.status === "CHECKED_OUT") {
+                  toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: "You can't add a checked out product to cart.",
+                  });
 
+                  return;
+                }
+
+                const res = await addProductToCart({ product });
                 if (res.error) {
                   toast({
                     variant: "destructive",

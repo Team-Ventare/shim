@@ -18,7 +18,7 @@ import { MoreHorizontalIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export default function DeleteItem({ id }: { id: string }) {
+export default function DeleteProduct({ id }: { id: string }) {
   async function deleteProduct() {
     "use server";
 

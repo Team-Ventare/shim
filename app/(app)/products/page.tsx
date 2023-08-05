@@ -1,7 +1,7 @@
 import { getUserSession } from "@/lib/auth";
 import { Product, columns } from "./columns";
 import { DataTable } from "./data-table";
-import AddItemSheet from "@/components/inventory/actions/add-item";
+import AddNewProduct from "@/components/inventory/actions/add-new-product";
 
 async function getData(): Promise<Product[]> {
   const response = await fetch("https://shim-ventare.vercel.app/api/products", {
@@ -33,7 +33,7 @@ export default async function ProductPage() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <AddItemSheet />
+          <AddNewProduct />
         </div>
       </div>
       <div className="pt-6">

@@ -20,7 +20,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { useEffect } from "react";
 
 interface DataTableFacetedFilter<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -38,10 +37,6 @@ export function DataTableFacetedFilter<TData, TValue>({
 }: DataTableFacetedFilter<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
-
-  useEffect(() => {
-    console.log(column);
-  }, [selectedValues, facets, options]);
 
   return (
     <Popover>
