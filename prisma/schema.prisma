@@ -8,15 +8,17 @@ datasource db {
 }
 
 model Users {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  password  String
-  name      String
-  role      Role     @default(PENDING)
-  cartId    String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  cart      Cart     @relation(fields: [cartId], references: [id])
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  email            String            @unique
+  password         String
+  name             String
+  role             Role              @default(PENDING)
+  cartId           String            @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  CheckoutHistory  CheckoutHistory?
+  PurchaseRequests PurchaseRequests?
+  cart             Cart              @relation(fields: [cartId], references: [id])
 }
 
 model Cart {
@@ -28,15 +30,16 @@ model Cart {
 }
 
 model Products {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
-  amount    Int
-  location  String
-  type      Type
-  status    Status   @default(AVAILABLE)
-  carts     Cart[]   @relation("CartToProducts")
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  name            String
+  amount          Int
+  location        String
+  type            Type
+  status          Status            @default(AVAILABLE)
+  carts           Cart[]            @relation("CartToProducts")
+  CheckoutHistory CheckoutHistory[]
 }
 
 model PurchaseRequests {
@@ -46,6 +49,8 @@ model PurchaseRequests {
   title     String
   priority  PR_Proirity
   status    PR_Status   @default(PENDING)
+  userId    String      @unique @db.Uuid
+  Users     Users       @relation(fields: [userId], references: [id])
 }
 
 model Suppliers {
@@ -56,6 +61,16 @@ model Suppliers {
   email     String?
   title     String?
   vendor    String?
+}
+
+model CheckoutHistory {
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime   @default(now())
+  updatedAt DateTime
+  course    String
+  userId    String     @unique @db.Uuid
+  Users     Users      @relation(fields: [userId], references: [id])
+  Products  Products[]
 }
 
 enum Role {
@@ -74,9 +89,6 @@ enum PR_Proirity {
   LOW
   MEDIUM
   HIGH
-  Low
-  Medium
-  High
 }
 
 enum Status {
