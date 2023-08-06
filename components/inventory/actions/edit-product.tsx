@@ -67,7 +67,7 @@ export default function EditProduct({ product }: { product: Product }) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Edit</Button>
+        <Button>Edit</Button>
       </SheetTrigger>
       <SheetContent>
         <form onSubmit={onSumbit}>

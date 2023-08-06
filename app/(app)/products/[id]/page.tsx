@@ -14,6 +14,9 @@ import Link from "next/link";
 import EditItemSheet from "@/components/inventory/actions/edit-product";
 import DeleteItem from "@/components/inventory/actions/delete-product";
 import { revalidatePath } from "next/cache";
+import { prisma } from "@/lib/prisma";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { statuses, types } from "@/components/inventory/data";
 
 const checkoutHistory = [
   {
@@ -90,12 +93,36 @@ async function getData(id: string): Promise<Product> {
   return data;
 }
 
+async function getCheckoutHistory(id: string) {
+  const data = await prisma.checkoutHistory.findMany({
+    where: {
+      Products: {
+        some: {
+          id: id,
+        },
+      },
+    },
+    include: {
+      Users: true,
+    },
+  });
+
+  return data;
+}
+
 export default async function ProductPage({
   params,
 }: {
   params: { id: string };
 }) {
   const data = await getData(params.id);
+  const history = await getCheckoutHistory(params.id);
+  const status = statuses.find((status) => status.value === data.status);
+  const type = types.find((type) => type.value === data.type);
+
+  if (!status || !type) {
+    return null;
+  }
 
   return (
     <div className="h-screen py-10">
@@ -138,15 +165,15 @@ export default async function ProductPage({
                 Status
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.status}
+                {status.view()}
               </p>
             </div>
             <div>
               <Label className="block text-sm font-light text-gray-500">
-                Quantity
+                Category
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.amount}
+                {type.view()}
               </p>
             </div>
             <div>
@@ -159,10 +186,10 @@ export default async function ProductPage({
             </div>
             <div>
               <Label className="block text-sm font-light text-gray-500">
-                Category
+                Quantity
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.type}
+                {data.amount}
               </p>
             </div>
             <div className="col-span-3">
@@ -200,7 +227,7 @@ export default async function ProductPage({
               <AccordionTrigger className="p-4">
                 Checkout History
               </AccordionTrigger>
-              {checkoutHistory.map((person, index) => {
+              {history.map((object, index) => {
                 return (
                   <AccordionContent
                     key={index}
@@ -210,29 +237,31 @@ export default async function ProductPage({
                     )}
                   >
                     <div className="flex justify-between gap-x-6">
-                      <div className="flex gap-x-4">
-                        <Image
-                          height={48}
-                          width={48}
-                          className="flex-none rounded-full bg-gray-50"
-                          src={person.imageUrl}
-                          alt=""
-                        />
+                      <div className="flex gap-x-2 justify-center">
+                        <Avatar className="h-10 w-10 text-zinc-950 flex-shrink-0">
+                          <AvatarImage
+                            src={undefined}
+                            referrerPolicy="no-referrer"
+                          />
+                          <AvatarFallback>
+                            {object.Users.name.at(0)}
+                          </AvatarFallback>
+                        </Avatar>
                         <div className="min-w-0 flex-auto">
                           <p className="text-sm font-normal leading-6 text-gray-900">
-                            {person.name}
+                            {object.Users.name}
                           </p>
                           <p className="truncate text-xs leading-5 text-gray-500">
-                            {person.email}
+                            {object.Users.email}
                           </p>
                         </div>
                       </div>
                       <div className="hidden sm:flex sm:flex-col sm:items-end">
                         <p className="text-sm leading-6 text-gray-900">
-                          {person.room}
+                          {object.course}
                         </p>
                         <p className="text-xs leading-5 text-gray-500">
-                          Checked out {person.checkout}
+                          {object.createdAt.toDateString()}
                         </p>
                       </div>
                     </div>

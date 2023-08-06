@@ -1,4 +1,3 @@
-import { getUserSession } from "@/lib/auth";
 import { Product, columns } from "./columns";
 import { DataTable } from "./data-table";
 import AddNewProduct from "@/components/inventory/actions/add-new-product";
@@ -18,7 +17,6 @@ async function getData(): Promise<Product[]> {
 
 export default async function ProductPage() {
   const data = await getData();
-  const session = await getUserSession();
 
   return (
     <div className="container mx-auto py-6">
