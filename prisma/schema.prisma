@@ -16,7 +16,7 @@ model Users {
   name             String
   role             Role              @default(PENDING)
   cartId           String            @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  CheckoutHistory  CheckoutHistory?
+  CheckoutHistory  CheckoutHistory[]
   PurchaseRequests PurchaseRequests?
   cart             Cart              @relation(fields: [cartId], references: [id])
 }
@@ -39,7 +39,7 @@ model Products {
   type            Type
   status          Status            @default(AVAILABLE)
   carts           Cart[]            @relation("CartToProducts")
-  CheckoutHistory CheckoutHistory[]
+  CheckoutHistory CheckoutHistory[] @relation("CheckoutHistoryToProducts")
 }
 
 model PurchaseRequests {
@@ -68,9 +68,9 @@ model CheckoutHistory {
   createdAt DateTime   @default(now())
   updatedAt DateTime
   course    String
-  userId    String     @unique @db.Uuid
+  userId    String     @db.Uuid
   Users     Users      @relation(fields: [userId], references: [id])
-  Products  Products[]
+  Products  Products[] @relation("CheckoutHistoryToProducts")
 }
 
 enum Role {
