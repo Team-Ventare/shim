@@ -13,67 +13,9 @@ import hospital from "../../../../public/hospital.png";
 import Link from "next/link";
 import EditItemSheet from "@/components/inventory/actions/edit-product";
 import DeleteItem from "@/components/inventory/actions/delete-product";
-import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { statuses, types } from "@/components/inventory/data";
-
-const checkoutHistory = [
-  {
-    name: "Leslie Alexander",
-    email: "leslie.alexander@example.com",
-    role: "ADMIN",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    checkout: "3h ago",
-    room: "Room 203",
-  },
-  {
-    name: "Michael Foster",
-    email: "michael.foster@example.com",
-    role: "Co-Founder / CTO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    checkout: "2d ago",
-    room: "Room 202",
-  },
-  {
-    name: "Dries Vincent",
-    email: "dries.vincent@example.com",
-    role: "Business Relations",
-    imageUrl:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    checkout: "5d ago",
-    room: "Room 201",
-  },
-  {
-    name: "Lindsay Walton",
-    email: "lindsay.walton@example.com",
-    role: "Front-end Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    checkout: "1w ago",
-    room: "Room 102",
-  },
-  {
-    name: "Courtney Henry",
-    email: "courtney.henry@example.com",
-    role: "Designer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    checkout: "2w ago",
-    room: "Room 101",
-  },
-  {
-    name: "Tom Cook",
-    email: "tom.cook@example.com",
-    role: "Director of Product",
-    imageUrl:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    checkout: "2w ago",
-    room: "Room 203",
-  },
-];
 
 async function getData(id: string): Promise<Product> {
   const response = await fetch(
@@ -85,8 +27,6 @@ async function getData(id: string): Promise<Product> {
 
   if (!response.ok) {
     throw new Error("Failed to fetch product");
-  } else {
-    revalidatePath(`/products/${id}`);
   }
 
   const data = await response.json();
@@ -96,14 +36,14 @@ async function getData(id: string): Promise<Product> {
 async function getCheckoutHistory(id: string) {
   const data = await prisma.checkoutHistory.findMany({
     where: {
-      Products: {
+      products: {
         some: {
           id: id,
         },
       },
     },
     include: {
-      Users: true,
+      users: true,
     },
   });
 
@@ -244,15 +184,15 @@ export default async function ProductPage({
                             referrerPolicy="no-referrer"
                           />
                           <AvatarFallback>
-                            {object.Users.name.at(0)}
+                            {object.users.name.at(0)}
                           </AvatarFallback>
                         </Avatar>
                         <div className="min-w-0 flex-auto">
                           <p className="text-sm font-normal leading-6 text-gray-900">
-                            {object.Users.name}
+                            {object.users.name}
                           </p>
                           <p className="truncate text-xs leading-5 text-gray-500">
-                            {object.Users.email}
+                            {object.users.email}
                           </p>
                         </div>
                       </div>
