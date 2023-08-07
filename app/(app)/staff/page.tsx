@@ -49,8 +49,8 @@ export default function StaffPage() {
                   src={person.imageUrl}
                   alt=""
                 />
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">
+                <div className="min-w-0 py-4 flex-auto">
+                  <p className="text-xl font-semibold leading-6 text-gray-900">
                     {person.name}
                   </p>
                   <p className="mt-1 truncate text-xs leading-5 text-gray-500">
