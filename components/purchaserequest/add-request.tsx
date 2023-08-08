@@ -24,12 +24,13 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
 
-export default function AddRequestSheet() {
+export default function AddRequestSheet({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    console.log(formValues);
     const response = await fetch("/api/purchaserequests", {
       method: "POST",
       body: JSON.stringify(formValues),
@@ -134,7 +135,12 @@ export default function AddRequestSheet() {
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Save purchase request</Button>
+              <Button
+                type="submit"
+                onClick={() => setFormValues({ ...formValues, userId: userId })}
+              >
+                Save purchase request
+              </Button>
             </SheetClose>
           </SheetFooter>
         </form>

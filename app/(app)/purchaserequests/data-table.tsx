@@ -29,11 +29,13 @@ import { DataTableToolbar } from "@/components/purchaserequest/data-table-toolba
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  userId: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  userId,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -67,7 +69,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} userId={userId} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

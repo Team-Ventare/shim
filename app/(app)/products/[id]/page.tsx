@@ -16,6 +16,7 @@ import DeleteItem from "@/components/inventory/actions/delete-product";
 import { prisma } from "@/lib/prisma";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { statuses, types } from "@/components/inventory/data";
+import { stat } from "fs";
 
 async function getData(id: string): Promise<Product> {
   const response = await fetch(
@@ -66,7 +67,6 @@ export default async function ProductPage({
   if (!status || !type) {
     return null;
   }
-
   return (
     <div className="h-screen py-10">
       <div className="border-b h-[360px] mt-2">

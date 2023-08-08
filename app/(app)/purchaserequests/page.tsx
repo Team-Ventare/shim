@@ -20,11 +20,11 @@ async function getData(): Promise<PurchaseRequest[]> {
 
 export default async function PurchaseRequestPage() {
   const data = await getData();
-  const session = await getUserSession();
+  const user = await getUserSession();
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={data} userId={user.id} />
     </div>
   );
 }

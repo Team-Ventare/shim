@@ -13,10 +13,12 @@ import AddRequestSheet from "./add-request";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  userId: string;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  userId,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -57,7 +59,7 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-2 h-8 px-2 lg:px-3">
-        <AddRequestSheet />
+        <AddRequestSheet userId={userId} />
       </div>
       <DataTableViewOptions table={table} />
     </div>
