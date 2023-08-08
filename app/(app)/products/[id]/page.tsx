@@ -45,6 +45,9 @@ async function getCheckoutHistory(id: string) {
     include: {
       users: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return data;
