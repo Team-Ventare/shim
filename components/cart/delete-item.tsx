@@ -47,7 +47,6 @@ export default function DeleteItem({ selectedRows }: { selectedRows: any }) {
           });
         } else {
           //remove the checkmark from the selected rows
-          selectedRows.forEach((row: any) => { row.toggleSelected(false); });
           refreshCart();
           toast({
           variant: "destructive",
@@ -61,6 +60,9 @@ export default function DeleteItem({ selectedRows }: { selectedRows: any }) {
             ),
           });
         }
+        setTimeout(() => {
+          selectedRows.forEach((row: any) => { row.toggleSelected(false); });
+        }, 1500);
       });
     }
   }

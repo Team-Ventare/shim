@@ -37,7 +37,9 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
       selectedRows.forEach(async (row: any) => {deleteItemFromCart({ product: row.original });});
       refreshCart();
       //remove the checkmark from the selected rows
-      selectedRows.forEach((row: any) => { row.toggleSelected(false); });
+      setTimeout(() => {
+        selectedRows.forEach((row: any) => { row.toggleSelected(false); });
+      }, 1500);
       toast({
         title: "Success!",
         description: `${selectedRows.length} product(s) have been checked out.`,
