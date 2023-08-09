@@ -66,7 +66,7 @@ model Suppliers {
 model CheckoutHistory {
   id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime   @default(now())
-  updatedAt DateTime
+  updatedAt DateTime   @updatedAt
   course    String
   userId    String     @db.Uuid
   users     Users      @relation(fields: [userId], references: [id])

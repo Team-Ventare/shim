@@ -16,21 +16,19 @@ import {
 import { Trash2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"
-import { deleteItemFromCart } from "@/app/(app)/cart/actions";
+import { deleteItemFromCart, refreshCart } from "@/app/(app)/cart/actions";
 import React from "react";
 
 export default function DeleteItem({ selectedRows }: { selectedRows: any }) {
   async function cartDelete() {
-    var test:boolean = true; //maybe there are better methods to run this function
-    
     if(selectedRows.length===0){
-      test=false;
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description:
-          "No products selected."
+          "No products selected to delete."
         });
+      return;
     }
     else{
       selectedRows.forEach(async (row: any) => {
@@ -45,17 +43,27 @@ export default function DeleteItem({ selectedRows }: { selectedRows: any }) {
             <ToastAction altText="Try again">
               Try again
             </ToastAction>
-          ),
-        });
-      }
+            ),
+          });
+        } else {
+          //remove the checkmark from the selected rows
+          refreshCart();
+          toast({
+          variant: "destructive",
+          title: "Removed from cart.",
+          description:
+          `${row.original.name} has been removed from your cart.`,
+          action: (
+            <ToastAction altText="Try again">
+              Undo
+            </ToastAction>
+            ),
+          });
+        }
+        setTimeout(() => {
+          selectedRows.forEach((row: any) => { row.toggleSelected(false); });
+        }, 1500);
       });
-      if(test)
-      {
-      toast({
-        title: "Success! Removed from cart.",
-        description: `${selectedRows.length} product(s) have been removed from your cart.`,
-      });
-      }
     }
   }
 
@@ -75,7 +83,7 @@ export default function DeleteItem({ selectedRows }: { selectedRows: any }) {
       <AlertDialogHeader>
         <AlertDialogTitle>Confirm</AlertDialogTitle>
         <AlertDialogDescription>
-        Are you sure you want to delete the selected item(s) from your cart?
+        Are you sure you want to delete the selected item(s)?
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>

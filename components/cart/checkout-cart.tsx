@@ -16,46 +16,34 @@ import {
 import { ShoppingCart } from "lucide-react";
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
-import { deleteItemFromCart } from "@/app/(app)/cart/actions";
+import { checkoutItems, deleteItemFromCart, refreshCart } from "@/app/(app)/cart/actions";
 import React from "react";
 
 export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
   async function cartCheckout() {
-    var test:boolean = true;
-    
     if(selectedRows.length===0){
-      test=false;
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description:
           "No products selected."
-        });
+      });
     }
     else{
-      selectedRows.forEach(async (row: any) => {
-        const res = await deleteItemFromCart({ product: row.original });
-        if (res.error) {
-          toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description:
-            "Product(s) could not be checked out.",
-          action: (
-            <ToastAction altText="Try again">
-              Try again
-            </ToastAction>
-          ),
-        });
-      }
-      });
-      if(test)
-      {
+      //get the ids of the selected rows
+      const ids = selectedRows.map((row: any) => row.original.id); 
+      const res = await checkoutItems({ ids });
+      //there might be a better way to delete but ill leave it for now
+      selectedRows.forEach(async (row: any) => {deleteItemFromCart({ product: row.original });});
+      refreshCart();
+      //remove the checkmark from the selected rows
+      setTimeout(() => {
+        selectedRows.forEach((row: any) => { row.toggleSelected(false); });
+      }, 1500);
       toast({
-        title: "Success! Removed from cart.",
+        title: "Success!",
         description: `${selectedRows.length} product(s) have been checked out.`,
       });
-      }
     }
   }
 
