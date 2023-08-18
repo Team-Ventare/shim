@@ -16,8 +16,10 @@ import {
 import { ShoppingCart } from "lucide-react";
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
-import { checkoutItems, deleteItemFromCart, refreshCart } from "@/app/(app)/cart/actions";
 import React from "react";
+import { checkoutItems } from "./checkout-items";
+import { deleteItemFromCart } from "./delete-item";
+import { refreshCart } from "./refresh-cart";
 
 export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
   async function cartCheckout() {
@@ -36,10 +38,11 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
       //there might be a better way to delete but ill leave it for now
       selectedRows.forEach(async (row: any) => {deleteItemFromCart({ product: row.original });});
       refreshCart();
-      //remove the checkmark from the selected rows
-      setTimeout(() => {
-        selectedRows.forEach((row: any) => { row.toggleSelected(false); });
-      }, 1500);
+      //remove the checkmark from the selected rows SETTIMEOUT WILL GIVE AN ERROR
+      // setTimeout(() => {
+      //   selectedRows.forEach((row: any) => { row.toggleSelected(false); });
+      // }, 1500);
+      selectedRows.forEach((row: any) => { row.toggleSelected(false); });
       toast({
         title: "Success!",
         description: `${selectedRows.length} product(s) have been checked out.`,

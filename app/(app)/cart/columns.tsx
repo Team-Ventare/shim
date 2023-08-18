@@ -16,7 +16,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { deleteItemFromCart } from "./actions";
 
 import {
   AlertDialog,
@@ -44,6 +43,8 @@ import { Input } from "@/components/ui/input";
 import { Product } from "../products/columns";
 import { DataTableColumnHeader } from "@/components/inventory/data-table-column-header";
 import { statuses, types } from "@/components/inventory/data";
+import { deleteItemFromCart } from "@/components/cart/actions/delete-item";
+import { refreshCart } from "@/components/cart/actions/refresh-cart";
 
 
 export const columns: ColumnDef<Product>[] = [
@@ -187,6 +188,7 @@ export const columns: ColumnDef<Product>[] = [
                             ),
                           });
                         } else {
+                          refreshCart();
                           toast({
                             title: "Success! Removed from cart.",
                             description: `${product.name} has been removed from your cart.`,
