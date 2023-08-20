@@ -28,7 +28,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
     return (
     <div>
     {selectedRows.map((row: any) => (
-      <div className="grid gap-2 py-2">
+      <div className="grid gap-2 py-2" key={row.original.id}>
       <Input
       id="products"
       type="text"
@@ -37,7 +37,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
       readOnly
       />
       </div>
-    ))}
+      ))}
     </div>
     )
   }
