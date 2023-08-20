@@ -61,15 +61,13 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
     else{
       const res = await checkoutItems(formValues);
       if (res.ok) {
+        //there might be a better way to delete but ill leave it for now
+        selectedRows.forEach(async (row: any) => {deleteItemFromCart({ product: row.original });});
+        refreshCart();
+        selectedRows.forEach((row: any) => { row.toggleSelected(false); });
         toast({
-          title: "You submitted the following values:",
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">
-                {JSON.stringify(formValues, null, 2)}
-              </code>
-            </pre>
-          ),
+          title: "Success!",
+          description: `${selectedRows.length} product(s) have been checked out.`,
         });
       } else {
         toast({
@@ -78,14 +76,6 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
           description: "There was a problem with your request.",
         });
       }
-      //there might be a better way to delete but ill leave it for now
-      // selectedRows.forEach(async (row: any) => {deleteItemFromCart({ product: row.original });});
-      // refreshCart();
-      // selectedRows.forEach((row: any) => { row.toggleSelected(false); });
-      // toast({
-      //   title: "Success!",
-      //   description: `${selectedRows.length} product(s) have been checked out.`,
-      // });
     }
   };
 
