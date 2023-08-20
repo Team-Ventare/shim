@@ -55,7 +55,7 @@ export default function DeleteManyItems({ selectedRows }: { selectedRows: any })
           description:
           `${row.original.name} has been removed from your cart.`,
           action: (
-            <ToastAction altText="Try again">
+            <ToastAction altText="Undo">
               Undo
             </ToastAction>
             ),

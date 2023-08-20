@@ -150,21 +150,25 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button
+                {/* <Button
                   variant="ghost"
                   className="text-gray-700 pl-2 pr-12 select-none items-center rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
                 >
                   Delete from cart
-                </Button>
+                </Button> */}
+                <DropdownMenuItem className="cursor-pointer"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  Delete from cart
+                </DropdownMenuItem>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirm</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to delete the item from your cart?
+                    Are you sure you want to delete {product.name} from your cart?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -206,12 +210,17 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuSeparator />
             <Dialog>
               <DialogTrigger asChild>
-                <Button
+                {/* <Button
                   variant="ghost"
                   className="text-gray-700 pl-2 pr-24 w-full text-left select-none rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
                 >
                   Edit Item
-                </Button>
+                </Button> */}
+                <DropdownMenuItem className="cursor-pointer"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  Edit Item
+                </DropdownMenuItem>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[250px]">
                 <DialogHeader>
