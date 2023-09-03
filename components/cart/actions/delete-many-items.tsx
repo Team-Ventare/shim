@@ -16,10 +16,11 @@ import {
 import { Trash2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"
-import { deleteItemFromCart, refreshCart } from "@/app/(app)/cart/actions";
 import React from "react";
+import { deleteItemFromCart } from "./delete-item";
+import { refreshCart } from "./refresh-cart";
 
-export default function DeleteItem({ selectedRows }: { selectedRows: any }) {
+export default function DeleteManyItems({ selectedRows }: { selectedRows: any }) {
   async function cartDelete() {
     if(selectedRows.length===0){
       toast({
@@ -54,15 +55,16 @@ export default function DeleteItem({ selectedRows }: { selectedRows: any }) {
           description:
           `${row.original.name} has been removed from your cart.`,
           action: (
-            <ToastAction altText="Try again">
+            <ToastAction altText="Undo">
               Undo
             </ToastAction>
             ),
           });
         }
-        setTimeout(() => {
-          selectedRows.forEach((row: any) => { row.toggleSelected(false); });
-        }, 1500);
+        // setTimeout(() => {
+        //   selectedRows.forEach((row: any) => { row.toggleSelected(false); });
+        // }, 1500);
+        selectedRows.forEach((row: any) => { row.toggleSelected(false);});
       });
     }
   }

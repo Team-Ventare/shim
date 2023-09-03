@@ -16,7 +16,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { deleteItemFromCart } from "./actions";
 
 import {
   AlertDialog,
@@ -44,6 +43,8 @@ import { Input } from "@/components/ui/input";
 import { Product } from "../products/columns";
 import { DataTableColumnHeader } from "@/components/inventory/data-table-column-header";
 import { statuses, types } from "@/components/inventory/data";
+import { deleteItemFromCart } from "@/components/cart/actions/delete-item";
+import { refreshCart } from "@/components/cart/actions/refresh-cart";
 
 
 export const columns: ColumnDef<Product>[] = [
@@ -149,21 +150,25 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button
+                {/* <Button
                   variant="ghost"
                   className="text-gray-700 pl-2 pr-12 select-none items-center rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
                 >
                   Delete from cart
-                </Button>
+                </Button> */}
+                <DropdownMenuItem className="cursor-pointer"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  Delete from cart
+                </DropdownMenuItem>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirm</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to delete the item from your cart?
+                    Are you sure you want to delete {product.name} from your cart?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -187,6 +192,7 @@ export const columns: ColumnDef<Product>[] = [
                             ),
                           });
                         } else {
+                          refreshCart();
                           toast({
                             title: "Success! Removed from cart.",
                             description: `${product.name} has been removed from your cart.`,
@@ -204,12 +210,17 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuSeparator />
             <Dialog>
               <DialogTrigger asChild>
-                <Button
+                {/* <Button
                   variant="ghost"
                   className="text-gray-700 pl-2 pr-24 w-full text-left select-none rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
                 >
                   Edit Item
-                </Button>
+                </Button> */}
+                <DropdownMenuItem className="cursor-pointer"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  Edit Item
+                </DropdownMenuItem>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[250px]">
                 <DialogHeader>
