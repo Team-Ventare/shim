@@ -32,11 +32,11 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import CheckoutCart from "@/components/cart/checkout-cart";
-import DeleteItem from "@/components/cart/delete-item";
 import { DataTableViewOptions } from "@/components/cart/data-table-view-options";
 import { DataTablePagination } from "@/components/cart/data-table-pagination";
 import { CheckCheck } from "lucide-react";
+import DeleteManyItems from "@/components/cart/actions/delete-many-items";
+import CheckoutCart from "@/components/cart/actions/checkout-cart";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -89,7 +89,7 @@ export function DataTable<TData, TValue>({
         </div>
 
         <div className="flex space-x-2">
-          <DeleteItem selectedRows={table.getSelectedRowModel().rows} />
+          <DeleteManyItems selectedRows={table.getSelectedRowModel().rows} />
           <CheckoutCart selectedRows={table.getSelectedRowModel().rows}/>
           <DataTableViewOptions table={table} />
         </div>
