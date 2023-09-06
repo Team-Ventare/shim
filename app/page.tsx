@@ -1,5 +1,3 @@
-import { Sidebar } from "@/components/side-bar";
-
 import Image from "next/image";
 import {
   AcademicCapIcon,
@@ -72,7 +70,7 @@ const actions = [
 export default function Home() {
   return (
     <div className="flex flex-row h-screen w-screen max-h-screen max-w-screen">
-      <Sidebar />
+
       <div className="flex flex-col py-32 sm:py-0 px-6 pt-14 lg:px-8 w-full">
         <div className="flex justify-center">
           <Image src="/scaledshimlogo.png" width={520} height={77} alt="" />
