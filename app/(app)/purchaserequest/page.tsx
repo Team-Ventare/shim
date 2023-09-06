@@ -11,7 +11,7 @@ async function getData(): Promise<PurchaseRequest[]> {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch inventory");
+    throw new Error("Failed to fetch purchase request.");
   }
 
   const data = await response.json();
