@@ -30,7 +30,7 @@ const links = [
     spacing: true,
   },
   {
-    href: "/purchaserequests",
+    href: "/requests",
     label: "Purchase Requests",
     icon: <CrumpledPaperIcon />,
   },
