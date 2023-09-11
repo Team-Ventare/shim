@@ -22,8 +22,6 @@ export default async function PurchaseRequestPage() {
   const data = await getData();
   const user = await getUserSession();
 
-  console.log(data);
-
   return (
     <div className="container mx-auto py-6">
       <div className="sm:flex sm:items-center py-2">

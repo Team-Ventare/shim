@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export interface PurchaseRequest {
   id: string;
@@ -24,6 +25,14 @@ export interface PurchaseRequest {
   priority: string;
   label: string;
 }
+
+export type User = {
+  id: string;
+  name: string;
+  email: number;
+  role: string;
+  image: string;
+};
 
 export const columns: ColumnDef<PurchaseRequest>[] = [
   {
@@ -103,18 +112,34 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
     },
   },
   {
-    accessorKey: "user",
+    accessorKey: "users",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="User" />
     ),
     cell: ({ row }) => {
-      const user = row.getValue("user");
+      const user: User = row.getValue("users");
 
       if (!user) {
         return null;
       }
 
-      console.log(user);
+      return (
+        <Button
+          variant="outline"
+          className="hover:bg-zinc-800 text-zinc-800 hover:text-zinc-50"
+        >
+          <div className="flex items-center space-x-2">
+            <Avatar className="mr-2 h-7 w-7 text-zinc-950">
+              <AvatarImage
+                src={user.image as string}
+                referrerPolicy="no-referrer"
+              />
+              <AvatarFallback>{user.name.at(0)}</AvatarFallback>
+            </Avatar>
+            {user.name}
+          </div>
+        </Button>
+      );
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
