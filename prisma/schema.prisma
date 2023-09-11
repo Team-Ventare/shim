@@ -17,7 +17,7 @@ model Users {
   role             Role              @default(PENDING)
   cartId           String            @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   checkoutHistory  CheckoutHistory[]
-  purchaseRequests PurchaseRequests?
+  purchaseRequests PurchaseRequests[]
   cart             Cart              @relation(fields: [cartId], references: [id])
 }
 
@@ -49,7 +49,7 @@ model PurchaseRequests {
   title     String
   priority  PR_Proirity
   status    PR_Status   @default(PENDING)
-  userId    String      @unique @db.Uuid
+  userId    String      @db.Uuid
   users     Users       @relation(fields: [userId], references: [id])
 }
 
