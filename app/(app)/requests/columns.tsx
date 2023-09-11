@@ -1,15 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-
-import {
-  labels,
-  priorities,
-  statuses,
-} from "@/components/purchaserequest/data/data";
+import { priorities, statuses } from "@/components/purchaserequest/data";
 import { DataTableColumnHeader } from "@/components/purchaserequest/data-table-column-header";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
@@ -55,29 +48,13 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="REQ-ID" />
-    ),
-    cell: ({ row }) => {
-      const id = row.getValue("id") as string;
-
-      return (
-        <Link href={`/purchaserequests/${id}`}>{`REQ-${id.slice(0, 4)}`}</Link>
-      );
-    },
-  },
-  {
     accessorKey: "title",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
-
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
           </span>
@@ -99,14 +76,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
         return null;
       }
 
-      return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
-        </div>
-      );
+      return status.view();
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -126,14 +96,25 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
         return null;
       }
 
-      return (
-        <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{priority.label}</span>
-        </div>
-      );
+      return priority.view();
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "user",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="User" />
+    ),
+    cell: ({ row }) => {
+      const user = row.getValue("user");
+
+      if (!user) {
+        return null;
+      }
+
+      console.log(user);
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

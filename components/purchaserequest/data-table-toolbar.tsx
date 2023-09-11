@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/purchaserequest/data-table-view-options";
 
-import { priorities, statuses } from "@/components/purchaserequest/data/data"; //data
+import { priorities, statuses } from "@/components/purchaserequest/data"; //data
 import { DataTableFacetedFilter } from "@/components/purchaserequest/data-table-faceted-filter";
 import AddRequestSheet from "./add-request";
 

@@ -22,9 +22,24 @@ export default async function PurchaseRequestPage() {
   const data = await getData();
   const user = await getUserSession();
 
+  console.log(data);
+
   return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} userId={user.id} />
+    <div className="container mx-auto py-6">
+      <div className="sm:flex sm:items-center py-2">
+        <div className="sm:flex-auto">
+          <h1 className="text-base font-semibold leading-6 text-gray-900">
+            Purchase Requests
+          </h1>
+          <p className="mt-2 text-sm text-gray-700">
+            A list of all the purchase requests in your database including their
+            title, status, priority and user.
+          </p>
+        </div>
+      </div>
+      <div className="pt-6">
+        <DataTable columns={columns} data={data} userId={user.id} />
+      </div>
     </div>
   );
 }
