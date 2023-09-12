@@ -11,6 +11,11 @@ export async function GET(
     where: {
       id: id,
     },
+    include: {
+      cart: true,
+      checkoutHistory: true,
+      purchaseRequests: true,
+    },
   });
   return NextResponse.json(users);
 }

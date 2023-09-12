@@ -1,6 +1,8 @@
 import { Sidebar } from "@/components/side-bar";
+import NewSidebar from "@/components/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Inter } from "next/font/google";
+import { Providers } from "../providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -8,13 +10,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex">
-          <div className="fixed">
-            <Sidebar />
+        <Providers>
+          <div className="flex flex-row">
+            <div className="fixed flex-none w-full lg:w-28">
+              <NewSidebar />
+            </div>
+            <div className="w-full lg:ml-72 mx-auto sm:mt-16 lg:mt-0">
+              {children}
+            </div>
           </div>
-          <main className="ml-56 w-full">{children}</main>
-        </div>
-        <Toaster />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
