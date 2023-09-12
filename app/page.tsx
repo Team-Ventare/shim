@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/side-bar";
+import Sidebar from "@/components/sidebar";
 import {
   BellAlertIcon,
   HomeIcon,
@@ -13,37 +13,37 @@ import homePNG from "../public/home.png";
 
 const features = [
   {
-    name: "Dashboard",
+    name: "Dashboard.",
     description:
       "Access a consolidated overview of essential metrics and insights, empowering you to make informed decisions.",
     icon: HomeIcon,
   },
   {
-    name: "Inventory",
+    name: "Inventory.",
     description:
       "Dive into a world of products and resources, and navigate our inventory effortlessly to find what you need.",
     icon: WindowIcon,
   },
   {
-    name: "Maintenance",
+    name: "Maintenance.",
     description:
       "Experience seamless upkeep and improvements through our dedicated maintenance services for a thriving environment.",
     icon: WrenchIcon,
   },
   {
-    name: "News",
+    name: "News.",
     description:
       "Stay up-to-date with the latest happenings and important announcements that shape our community.",
     icon: BellAlertIcon,
   },
   {
-    name: "Purchase Requests",
+    name: "Purchase Requests.",
     description:
       "Seamlessly manage and track your purchase requests, ensuring a streamlined and efficient procurement process.",
     icon: TicketIcon,
   },
   {
-    name: "Staff",
+    name: "Staff.",
     description:
       "Discover the faces behind our organization's success - a diverse and talented staff dedicated to serving you.",
     icon: UserGroupIcon,
@@ -52,12 +52,12 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="flex">
-      <div className="fixed">
+    <div className="flex flex-row">
+      <div className="fixed flex-none w-full lg:w-28">
         <Sidebar />
       </div>
 
-      <div className="ml-56 w-full py-16 sm:py-20">
+      <div className="w-full lg:ml-72 mx-auto mt-16 lg:mt-0 py-8">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
             <h2 className="text-base font-semibold leading-7 text-indigo-600">

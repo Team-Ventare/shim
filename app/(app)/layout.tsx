@@ -1,5 +1,4 @@
-import { Sidebar } from "@/components/side-bar";
-import NewSidebar from "@/components/sidebar";
+import Sidebar from "@/components/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Inter } from "next/font/google";
 import { Providers } from "../providers";
@@ -13,7 +12,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <Providers>
           <div className="flex flex-row">
             <div className="fixed flex-none w-full lg:w-28">
-              <NewSidebar />
+              <Sidebar />
             </div>
             <div className="w-full lg:ml-72 mx-auto mt-16 lg:mt-0">
               {children}
