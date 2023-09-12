@@ -7,6 +7,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BuildingStorefrontIcon,
+  ChevronUpIcon,
   ClipboardDocumentListIcon,
   HomeModernIcon,
   NewspaperIcon,
@@ -18,41 +19,38 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Skeleton } from "./ui/skeleton";
+import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
 
 const navigation = [
-  { name: "Home", href: "/", icon: HomeModernIcon, current: true },
-  { name: "News", href: "/news", icon: NewspaperIcon, current: false },
-  { name: "Cart", href: "/cart", icon: ShoppingCartIcon, current: false },
+  { name: "Home", href: "/", icon: HomeModernIcon },
+  { name: "News", href: "/news", icon: NewspaperIcon },
+  { name: "Cart", href: "/cart", icon: ShoppingCartIcon },
   {
     name: "Inventory",
     href: "/products",
     icon: BuildingStorefrontIcon,
-    current: false,
   },
   {
     name: "Order Requests",
     href: "/requests",
     icon: ClipboardDocumentListIcon,
-    current: false,
   },
-  { name: "Staff", href: "/staff", icon: UsersIcon, current: false },
-  { name: "Suppliers", href: "/suppliers", icon: TruckIcon, current: false },
+  { name: "Staff", href: "/staff", icon: UsersIcon },
+  { name: "Suppliers", href: "/suppliers", icon: TruckIcon },
   {
     name: "Maintenance",
     href: "/maintenance",
     icon: WrenchIcon,
-    current: false,
   },
 ];
 
 export default function NewSidebar() {
+  const pathname = usePathname();
   const { data: session, status } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  console.log(session);
 
   return (
     <>
@@ -124,10 +122,10 @@ export default function NewSidebar() {
                           <ul role="list" className="-mx-2 space-y-1">
                             {navigation.map((item) => (
                               <li key={item.name}>
-                                <a
+                                <Link
                                   href={item.href}
                                   className={cn(
-                                    item.current
+                                    item.href === pathname
                                       ? "bg-gray-50 text-indigo-600"
                                       : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -135,7 +133,7 @@ export default function NewSidebar() {
                                 >
                                   <item.icon
                                     className={cn(
-                                      item.current
+                                      item.href === pathname
                                         ? "text-indigo-600"
                                         : "text-gray-400 group-hover:text-indigo-600",
                                       "h-6 w-6 shrink-0"
@@ -143,7 +141,7 @@ export default function NewSidebar() {
                                     aria-hidden="true"
                                   />
                                   {item.name}
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -179,10 +177,10 @@ export default function NewSidebar() {
                   <ul role="list" className="-mx-2 space-y-1">
                     {navigation.slice(0, 2).map((item) => (
                       <li key={item.name}>
-                        <a
+                        <Link
                           href={item.href}
                           className={cn(
-                            item.current
+                            item.href === pathname
                               ? "bg-gray-50 text-indigo-600"
                               : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -190,7 +188,7 @@ export default function NewSidebar() {
                         >
                           <item.icon
                             className={cn(
-                              item.current
+                              item.href === pathname
                                 ? "text-indigo-600"
                                 : "text-gray-400 group-hover:text-indigo-600",
                               "h-6 w-6 shrink-0"
@@ -198,7 +196,7 @@ export default function NewSidebar() {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -210,10 +208,10 @@ export default function NewSidebar() {
                   <ul role="list" className="-mx-2 space-y-1">
                     {navigation.slice(2, 5).map((item) => (
                       <li key={item.name}>
-                        <a
+                        <Link
                           href={item.href}
                           className={cn(
-                            item.current
+                            item.href === pathname
                               ? "bg-gray-50 text-indigo-600"
                               : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -221,7 +219,7 @@ export default function NewSidebar() {
                         >
                           <item.icon
                             className={cn(
-                              item.current
+                              item.href === pathname
                                 ? "text-indigo-600"
                                 : "text-gray-400 group-hover:text-indigo-600",
                               "h-6 w-6 shrink-0"
@@ -229,7 +227,14 @@ export default function NewSidebar() {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                          {item.href === "/cart" && (
+                            <>
+                              <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600">
+                                {session?.user.cart.products?.length || 0}
+                              </span>
+                            </>
+                          )}
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -241,10 +246,10 @@ export default function NewSidebar() {
                   <ul role="list" className="-mx-2 space-y-1">
                     {navigation.slice(5, 8).map((item) => (
                       <li key={item.name}>
-                        <a
+                        <Link
                           href={item.href}
                           className={cn(
-                            item.current
+                            item.href === pathname
                               ? "bg-gray-50 text-indigo-600"
                               : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -252,7 +257,7 @@ export default function NewSidebar() {
                         >
                           <item.icon
                             className={cn(
-                              item.current
+                              item.href === pathname
                                 ? "text-indigo-600"
                                 : "text-gray-400 group-hover:text-indigo-600",
                               "h-6 w-6 shrink-0"
@@ -260,7 +265,7 @@ export default function NewSidebar() {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -289,7 +294,10 @@ export default function NewSidebar() {
                         </AvatarFallback>
                       </Avatar>
                       <span aria-hidden="true">{session?.user.name}</span>
-                      {session?.user.cart.length}
+
+                      <Button variant="ghost" size="icon">
+                        <ChevronUpIcon className="h-4 w-4" />
+                      </Button>
                     </Link>
                   )}
                 </li>

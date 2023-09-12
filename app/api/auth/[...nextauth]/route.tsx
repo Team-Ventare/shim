@@ -50,6 +50,7 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           role: user.role,
           cart: user.cart,
+          cartId: user.cartId,
         };
       },
     }),
@@ -63,6 +64,7 @@ export const authOptions: NextAuthOptions = {
           id: token.id,
           role: token.role,
           cart: token.cart,
+          cartId: token.cartId,
         },
       };
     },
@@ -88,6 +90,7 @@ export const authOptions: NextAuthOptions = {
           id: us.id,
           role: us.role,
           cart: us.cart,
+          cartId: us.cartId,
         };
       }
       return token;

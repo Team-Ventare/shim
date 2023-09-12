@@ -1,3 +1,4 @@
+import { Product } from "@/app/(app)/products/columns";
 import NextAuth from "next-auth";
 
 declare module "next-auth" {
@@ -10,7 +11,10 @@ declare module "next-auth" {
       email: string;
       name: string;
       role: string;
-      cart: Object[];
+      cartId: string;
+      cart: {
+        products: Product[];
+      };
     };
   }
 }
