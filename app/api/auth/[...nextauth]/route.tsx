@@ -26,7 +26,16 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials.password) return null;
 
         const user = await prisma.users.findUnique({
-          where: { email: credentials.email },
+          where: {
+            email: credentials.email,
+          },
+          include: {
+            cart: {
+              include: {
+                products: true,
+              },
+            },
+          },
         });
 
         if (!user) return null;
@@ -40,7 +49,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           role: user.role,
-          cartId: user.cartId,
+          cart: user.cart,
         };
       },
     }),
@@ -53,7 +62,7 @@ export const authOptions: NextAuthOptions = {
           ...session.user,
           id: token.id,
           role: token.role,
-          cartId: token.cartId,
+          cart: token.cart,
         },
       };
     },
@@ -63,6 +72,13 @@ export const authOptions: NextAuthOptions = {
           where: {
             id: user.id,
           },
+          include: {
+            cart: {
+              include: {
+                products: true,
+              },
+            },
+          },
         });
 
         if (!us) throw new Error("User not found");
@@ -71,7 +87,7 @@ export const authOptions: NextAuthOptions = {
           ...token,
           id: us.id,
           role: us.role,
-          cartId: us.cartId,
+          cart: us.cart,
         };
       }
       return token;

@@ -53,7 +53,6 @@ export default function NewSidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   console.log(session);
-  console.log(status);
 
   return (
     <>
@@ -282,15 +281,15 @@ export default function NewSidebar() {
                     >
                       <Avatar className="h-10 w-10 text-zinc-950">
                         <AvatarImage
-                          src={session?.user?.image as string}
+                          src={session?.user.image as string}
                           referrerPolicy="no-referrer"
                         />
                         <AvatarFallback>
                           {session?.user?.name?.at(0)}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="sr-only">Your profile</span>
-                      <span aria-hidden="true">{session?.user?.name}</span>
+                      <span aria-hidden="true">{session?.user.name}</span>
+                      {session?.user.cart.length}
                     </Link>
                   )}
                 </li>

@@ -15,7 +15,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="fixed flex-none w-full lg:w-28">
               <NewSidebar />
             </div>
-            <div className="w-full lg:ml-72 mx-auto sm:mt-16 lg:mt-0">
+            <div className="w-full lg:ml-72 mx-auto mt-16 lg:mt-0">
               {children}
             </div>
           </div>
