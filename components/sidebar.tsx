@@ -130,7 +130,77 @@ export default function Sidebar() {
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.map((item) => (
+                            {navigation.slice(0, 2).map((item) => (
+                              <li key={item.name}>
+                                <Link
+                                  href={item.href}
+                                  className={cn(
+                                    item.href === pathname
+                                      ? "bg-gray-50 text-indigo-600"
+                                      : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                  )}
+                                >
+                                  <item.icon
+                                    className={cn(
+                                      item.href === pathname
+                                        ? "text-indigo-600"
+                                        : "text-gray-400 group-hover:text-indigo-600",
+                                      "h-6 w-6 shrink-0"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                  {item.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                        <li>
+                          <div className="text-xs font-semibold leading-6 text-gray-400">
+                            Console
+                          </div>
+                          <ul role="list" className="-mx-2 space-y-1">
+                            {navigation.slice(2, 5).map((item) => (
+                              <li key={item.name}>
+                                <Link
+                                  href={item.href}
+                                  className={cn(
+                                    item.href === pathname
+                                      ? "bg-gray-50 text-indigo-600"
+                                      : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                  )}
+                                >
+                                  <item.icon
+                                    className={cn(
+                                      item.href === pathname
+                                        ? "text-indigo-600"
+                                        : "text-gray-400 group-hover:text-indigo-600",
+                                      "h-6 w-6 shrink-0"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                  {item.name}
+                                  {item.href === "/cart" && (
+                                    <>
+                                      <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600">
+                                        {session?.user.cart.products?.length ||
+                                          0}
+                                      </span>
+                                    </>
+                                  )}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                        <li>
+                          <div className="text-xs font-semibold leading-6 text-gray-400">
+                            Support
+                          </div>
+                          <ul role="list" className="-mx-2 space-y-1">
+                            {navigation.slice(5, 8).map((item) => (
                               <li key={item.name}>
                                 <Link
                                   href={item.href}
