@@ -44,7 +44,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
   const [formValues, setFormValues] = React.useState({
     course: "",
     userId: "",
-    products: selectedRows.map((row: any) => row.original.id),
+    products: "",
   });
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -59,6 +59,8 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
       });
     }
     else{
+      formValues.products = selectedRows.map((row: any) => row.original.id);
+      //console.log(formValues);
       const res = await checkoutItems(formValues);
       if (res.ok) {
         //there might be a better way to delete but ill leave it for now
