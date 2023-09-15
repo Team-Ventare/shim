@@ -175,19 +175,6 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(request.id);
-
-                toast({
-                  title: "Request ID copied",
-                  description: `Request ID ${request.id} copied to clipboard`,
-                });
-              }}
-            >
-              Copy request ID
-            </DropdownMenuItem>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem className="cursor-pointer"
@@ -243,6 +230,19 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
               <Link href={`/purchaserequests/${request.id}`}>
                 View request details
               </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(request.id);
+
+                toast({
+                  title: "Request ID copied",
+                  description: `Request ID ${request.id} copied to clipboard`,
+                });
+              }}
+            >
+              Copy request ID
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
