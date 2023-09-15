@@ -29,7 +29,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 import { deletePR } from "@/components/purchaserequest/actions/delete_request";
 import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
 
@@ -177,7 +176,8 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <DropdownMenuItem className="cursor-pointer"
+                <DropdownMenuItem
+                  className="cursor-pointer"
                   onSelect={(e) => e.preventDefault()}
                 >
                   Delete request
@@ -196,7 +196,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                     <Button
                       className="cursor-pointer"
                       onClick={async () => {
-                        const res = await deletePR({ id: request.id});
+                        const res = await deletePR({ id: request.id });
 
                         if (res.error) {
                           toast({
@@ -223,9 +223,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
             </AlertDialog>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/purchaserequests/${request.id}`}>
-                View request details
-              </Link>
+              <Link href={`/requests/${request.id}`}>View request details</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
