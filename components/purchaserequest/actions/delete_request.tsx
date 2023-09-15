@@ -6,7 +6,7 @@ import { getUserSession } from "@/lib/auth";
 export async function deletePR({ id }: { id: string }) {
     const session = await getUserSession();
     const req = await fetch(
-        `https://shim-ventare.vercel.app/api/purchaserequest/${id}`,
+        `https://shim-ventare.vercel.app/api/purchaserequests/${id}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
