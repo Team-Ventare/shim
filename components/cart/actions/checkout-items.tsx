@@ -11,7 +11,7 @@ export async function checkoutItems(formValues: any) {
     throw new Error("You must be signed in to add products to your cart");
   }
   
-  //console.log(formValues);
+  console.log(formValues);
   const req = await fetch("https://shim-ventare.vercel.app/api/checkouthistory", {
     method: "POST",
     body: JSON.stringify(formValues),

@@ -204,17 +204,13 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                             title: "Uh oh! Something went wrong.",
                             description:
                               "Purchase request could not be removed.",
-                            action: (
-                              <ToastAction altText="Try again">
-                                Try again
-                              </ToastAction>
-                            ),
                           });
                         } else {
                           refresh_PR();
                           toast({
+                            variant: "destructive",
                             title: "Success!",
-                            description: `Purchase request has been removed from your cart.`,
+                            description: `${request.title} has been deleted.`,
                           });
                         }
                       }}

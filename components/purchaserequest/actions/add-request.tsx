@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
+import { refresh_PR } from "./refresh_page";
 
 export default function AddRequestSheet({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
@@ -37,6 +38,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
     });
 
     if (response.ok) {
+      refresh_PR();
       toast({
         title: "You submitted the following values:",
         description: (

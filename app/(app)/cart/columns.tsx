@@ -194,8 +194,14 @@ export const columns: ColumnDef<Product>[] = [
                         } else {
                           refreshCart();
                           toast({
+                            variant: "destructive",
                             title: "Success! Removed from cart.",
                             description: `${product.name} has been removed from your cart.`,
+                            action: (
+                              <ToastAction altText="Try again">
+                                Try again
+                              </ToastAction>
+                            ),
                           });
                         }
                       }}
