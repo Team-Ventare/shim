@@ -15,8 +15,23 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { toast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { deletePR } from "@/components/purchaserequest/actions/delete_request";
+import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
 
 export interface PurchaseRequest {
   id: string;
@@ -173,6 +188,56 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
             >
               Copy request ID
             </DropdownMenuItem>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem className="cursor-pointer"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  Delete request
+                </DropdownMenuItem>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirm</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete {request.title}?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction asChild>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={async () => {
+                        const res = await deletePR({ id: request.id});
+
+                        if (res.error) {
+                          toast({
+                            variant: "destructive",
+                            title: "Uh oh! Something went wrong.",
+                            description:
+                              "Purchase request could not be removed.",
+                            action: (
+                              <ToastAction altText="Try again">
+                                Try again
+                              </ToastAction>
+                            ),
+                          });
+                        } else {
+                          refresh_PR();
+                          toast({
+                            title: "Success!",
+                            description: `Purchase request has been removed from your cart.`,
+                          });
+                        }
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Link href={`/purchaserequests/${request.id}`}>
