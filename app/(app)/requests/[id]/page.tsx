@@ -21,7 +21,7 @@ async function getData(id: string): Promise<PurchaseRequest> {
   if (!response.ok) {
     throw new Error("Failed to fetch product");
   } else {
-    revalidatePath(`/products/${id}`);
+    revalidatePath(`/requests/${id}`);
   }
 
   const data = await response.json();
@@ -87,22 +87,7 @@ export default async function PurchaseRequestPage({
                 {data.title}
                 <p className="text-xs leading-5 text-gray-500">
                   <br />
-                  Raindrops the size of bullets thundered on the castle windows
-                  for days on end; the lake rose, the flower beds turned into
-                  muddy streams, and Hagrid's pumpkins swelled to the size of
-                  garden sheds. Oliver Wood's enthusiasm for regular training
-                  sessions, however, was not dampened, which was why Harry was
-                  to be found, late one stormy Saturday afternoon a few days
-                  before Halloween, returning to Gryffindor Tower, drenched to
-                  the skin and splattered with mud. Raindrops the size of
-                  bullets thundered on the castle windows for days on end; the
-                  lake rose, the flower beds turned into muddy streams, and
-                  Hagrid's pumpkins swelled to the size of garden sheds. Oliver
-                  Wood's enthusiasm for regular training sessions, however, was
-                  not dampened, which was why Harry was to be found, late one
-                  stormy Saturday afternoon a few days before Halloween,
-                  returning to Gryffindor Tower, drenched to the skin and
-                  splattered with mud.
+                  Description
                 </p>
               </p>
             </div>
