@@ -12,7 +12,11 @@ export async function GET(
       id: id,
     },
     include: {
-      cart: true,
+      cart: {
+        include: {
+          products: true,
+        },
+      },
       checkoutHistory: true,
       purchaseRequests: true,
     },
