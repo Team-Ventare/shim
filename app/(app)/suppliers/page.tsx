@@ -1,4 +1,3 @@
-import { getUserSession } from "@/lib/auth";
 import { Supplier, columns } from "./columns";
 import { DataTable } from "./data-table";
 
@@ -20,7 +19,6 @@ async function getData(): Promise<Supplier[]> {
 
 export default async function SupplierPage() {
   const data = await getData();
-  const session = await getUserSession();
 
   return (
     <div className="container mx-auto py-6">
