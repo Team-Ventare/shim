@@ -2,7 +2,6 @@ import Sidebar from "@/components/sidebar";
 import {
   BellAlertIcon,
   HomeIcon,
-  InboxIcon,
   TicketIcon,
   UserGroupIcon,
   WindowIcon,
@@ -10,6 +9,9 @@ import {
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import homePNG from "../public/home.png";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { User } from "./(app)/dashboard/page";
 
 const features = [
   {
@@ -50,11 +52,31 @@ const features = [
   },
 ];
 
-export default function Home() {
+async function getData(id: string): Promise<User> {
+  const response = await fetch(
+    `https://shim-ventare.vercel.app/api/users/${id}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return null;
+  }
+  const user = await getData(session.user.id);
+
   return (
     <div className="flex flex-row">
       <div className="fixed flex-none w-full lg:w-28">
-        <Sidebar />
+        <Sidebar user={user} />
       </div>
 
       <div className="w-full lg:ml-72 mx-auto mt-16 lg:mt-0 py-8">
