@@ -1,13 +1,19 @@
 "use server";
 
 import DashboardLayout from "@/components/dashboard/dashboard";
+import { Product } from "../products/columns";
 
 export type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
   status: string;
+  id: string;
+  image: string | undefined;
+  email: string;
+  name: string;
+  role: string;
+  cartId: string;
+  cart: {
+    products: Product[];
+  };
 };
 
 async function getUsers() {

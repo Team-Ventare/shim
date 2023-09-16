@@ -18,9 +18,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Skeleton } from "./ui/skeleton";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { signOut } from "next-auth/react";
@@ -33,6 +31,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { User } from "@/app/(app)/dashboard/page";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeModernIcon },
@@ -57,9 +56,8 @@ const navigation = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ user }: { user: User }) {
   const pathname = usePathname();
-  const { data: session, status } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -185,8 +183,7 @@ export default function Sidebar() {
                                   {item.href === "/cart" && (
                                     <>
                                       <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600">
-                                        {session?.user.cart.products?.length ||
-                                          0}
+                                        {user.cart.products?.length || 0}
                                       </span>
                                     </>
                                   )}
@@ -310,7 +307,7 @@ export default function Sidebar() {
                           {item.href === "/cart" && (
                             <>
                               <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600">
-                                {session?.user.cart.products?.length || 0}
+                                {user.cart.products?.length || 0}
                               </span>
                             </>
                           )}
@@ -351,57 +348,45 @@ export default function Sidebar() {
                   </ul>
                 </li>
                 <li className="-mx-6 mt-auto">
-                  {status === "loading" ? (
-                    <div className="flex items-center space-x-4 px-6 py-3">
-                      <Skeleton className="h-10 w-10 rounded-full" />
-                      <div className="space-y-2">
-                        <Skeleton className="h-4 w-[160px]" />
-                        <Skeleton className="h-4 w-[120px]" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex items-center space-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
-                      <Avatar className="h-10 w-10 text-zinc-950">
-                        <AvatarImage
-                          src={session?.user.image as string}
-                          referrerPolicy="no-referrer"
-                        />
-                        <AvatarFallback>
-                          {session?.user?.name?.at(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span aria-hidden="true">{session?.user.name}</span>
+                  <div className="flex items-center space-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
+                    <Avatar className="h-10 w-10 text-zinc-950">
+                      <AvatarImage
+                        src={user.image as string}
+                        referrerPolicy="no-referrer"
+                      />
+                      <AvatarFallback>{user.name.at(0)}</AvatarFallback>
+                    </Avatar>
+                    <span aria-hidden="true">{user.name}</span>
 
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="outline" size="icon">
-                            <ChevronUpIcon className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-48">
-                          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuGroup>
-                            <DropdownMenuItem className="cursor-pointer">
-                              Profile
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer">
-                              Settings
-                            </DropdownMenuItem>
-                          </DropdownMenuGroup>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuGroup>
-                            <DropdownMenuItem
-                              className="cursor-pointer"
-                              onSelect={() => signOut()}
-                            >
-                              Sign out
-                            </DropdownMenuItem>
-                          </DropdownMenuGroup>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  )}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="icon">
+                          <ChevronUpIcon className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-48">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem className="cursor-pointer">
+                            Profile
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            Settings
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            className="cursor-pointer"
+                            onSelect={() => signOut()}
+                          >
+                            Sign out
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </li>
               </ul>
             </nav>
