@@ -32,7 +32,6 @@ export default async function AppLayout({
     return null;
   }
   const user = await getData(session.user.id);
-  console.log(user);
 
   return (
     <html lang="en">
