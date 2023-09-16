@@ -23,8 +23,20 @@ export default async function SupplierPage() {
   const session = await getUserSession();
 
   return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+    <div className="container mx-auto py-6">
+      <div className="sm:flex sm:items-center py-2">
+        <div className="sm:flex-auto">
+          <h1 className="text-base font-semibold leading-6 text-gray-900">
+            Suppliers
+          </h1>
+          <p className="mt-2 text-sm text-gray-700">
+            A list of all local suppliers and their contact information.
+          </p>
+        </div>
+      </div>
+      <div className="pt-6">
+        <DataTable columns={columns} data={data} />
+      </div>
     </div>
   );
 }
