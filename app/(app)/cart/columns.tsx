@@ -198,8 +198,8 @@ export const columns: ColumnDef<Product>[] = [
                             title: "Success! Removed from cart.",
                             description: `${product.name} has been removed from your cart.`,
                             action: (
-                              <ToastAction altText="Try again">
-                                Try again
+                              <ToastAction altText="undo">
+                                Undo
                               </ToastAction>
                             ),
                           });
