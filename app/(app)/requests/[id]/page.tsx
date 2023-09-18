@@ -34,6 +34,7 @@ export default async function PurchaseRequestPage({
   params: { id: string };
 }) {
   const data = await getData(params.id);
+  console.log(data);
 
   return (
     <div className="h-screen py-10">
@@ -87,7 +88,7 @@ export default async function PurchaseRequestPage({
                 {data.title}
                 <p className="text-xs leading-5 text-gray-500">
                   <br />
-                  Description
+                  {data.description}
                 </p>
               </p>
             </div>
