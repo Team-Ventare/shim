@@ -42,9 +42,9 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
     )
   }
   const [formValues, setFormValues] = React.useState({
-    course: "",
-    userId: "",
-    products: "",
+    course: '',
+    userId: '',
+    products: ''
   });
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -59,10 +59,10 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
       });
     }
     else{
-      formValues.products = selectedRows.map((row: any) => row.original.id);
-      //console.log(formValues);
+      //add the selected products to the form values in the structure of [{"id": "product id"}]
+      formValues.products = selectedRows.map((row: any) => ({"id": row.original.id}));
       const res = await checkoutItems(formValues);
-      if (res.ok) {
+      if (res) {
         //there might be a better way to delete but ill leave it for now
         selectedRows.forEach(async (row: any) => {deleteItemFromCart({ product: row.original });});
         refreshCart();
@@ -75,7 +75,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
-          description: "There was a problem with your request.",
+          description: "There was a problem with your request. Please try again.",
         });
       }
     }

@@ -8,17 +8,17 @@ datasource db {
 }
 
 model Users {
-  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  email            String            @unique
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  email            String             @unique
   password         String
   name             String
-  role             Role              @default(PENDING)
-  cartId           String            @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role             Role               @default(PENDING)
+  cartId           String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   checkoutHistory  CheckoutHistory[]
   purchaseRequests PurchaseRequests[]
-  cart             Cart              @relation(fields: [cartId], references: [id])
+  cart             Cart               @relation(fields: [cartId], references: [id])
 }
 
 model Cart {
@@ -43,14 +43,17 @@ model Products {
 }
 
 model PurchaseRequests {
-  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  title     String
-  priority  PR_Proirity
-  status    PR_Status   @default(PENDING)
-  userId    String      @db.Uuid
-  users     Users       @relation(fields: [userId], references: [id])
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  title       String
+  priority    PR_Proirity
+  status      PR_Status   @default(PENDING)
+  userId      String      @db.Uuid
+  description String
+  price       String
+  reason      String
+  users       Users       @relation(fields: [userId], references: [id])
 }
 
 model Suppliers {

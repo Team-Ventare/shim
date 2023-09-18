@@ -38,6 +38,9 @@ export interface PurchaseRequest {
   status: string;
   priority: string;
   label: string;
+  description: string;
+  price: string;
+  reason: string;
 }
 
 export type User = {

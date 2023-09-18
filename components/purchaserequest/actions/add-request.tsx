@@ -31,7 +31,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(formValues);
+    //console.log(formValues);
     const response = await fetch("/api/purchaserequests", {
       method: "POST",
       body: JSON.stringify(formValues),
@@ -97,19 +97,37 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               <Label htmlFor="description" className="text-left">
                 Description
               </Label>
-              <Input id="description" type="text" className="col-span-3" />
+              <Input 
+                id="description" 
+                type="text" 
+                className="col-span-3"
+                onChange={(e) =>
+                  setFormValues({ ...formValues, description: e.target.value })
+                } />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="price" className="text-left">
                 Price
               </Label>
-              <Input id="price" type="integer" className="col-span-3" />
+              <Input 
+                id="price" 
+                type="integer" 
+                className="col-span-3"
+                onChange={(e) =>
+                  setFormValues({ ...formValues, price: e.target.value })
+                } />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="reason" className="text-left">
                 Reason
               </Label>
-              <Input id="reason" type="text" className="col-span-3" />
+              <Input 
+                id="reason" 
+                type="text" 
+                className="col-span-3"
+                onChange={(e) =>
+                  setFormValues({ ...formValues, reason: e.target.value })
+                } />
             </div>
 
             <div className="grid grid-cols-4 items-center gap-4">
