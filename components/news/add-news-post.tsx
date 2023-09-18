@@ -73,30 +73,28 @@ export default function AddNewsPost() {
               Create a new post to share with your team.
             </SheetDescription>
           </SheetHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-left">
-                Title
-              </Label>
+          <div className="grid gap-4 py-4 mt-2">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
                 type="text"
-                className="col-span-3"
+                placeholder="Title"
                 onChange={(e) =>
                   setFormValues({ ...formValues, title: e.target.value })
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-left">
-                Description
-              </Label>
-              <Input id="description" type="text" className="col-span-3" />
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="description">Description</Label>
+              <Input id="description" type="text" placeholder="Description" />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="type" className="text-left">
-                Label
-              </Label>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="picture">Picture</Label>
+              <Input id="picture" type="file" />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="type">Label</Label>
               <Select
                 onValueChange={(value) =>
                   setFormValues((prevFormValues) => ({
@@ -139,7 +137,9 @@ export default function AddNewsPost() {
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Upload</Button>
+              <Button type="submit" className="w-full max-w-sm">
+                Post
+              </Button>
             </SheetClose>
           </SheetFooter>
         </form>

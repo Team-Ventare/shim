@@ -54,7 +54,7 @@ async function getData() {
   return data;
 }
 
-export default async function NewsPage() {
+export default function NewsPage() {
   return (
     <div className="container mx-auto py-6">
       <div className="sm:flex sm:items-center py-2">
