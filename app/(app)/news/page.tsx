@@ -1,3 +1,5 @@
+import AddNewsPost from "@/components/news/add-news-post";
+
 const posts = [
   {
     id: 1,
@@ -63,6 +65,9 @@ export default async function NewsPage() {
           <p className="mt-2 text-sm text-gray-700">
             Your weekly dose of news updates from the smart hospital.
           </p>
+        </div>
+        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <AddNewsPost />
         </div>
       </div>
       <div className="mt-8 space-y-20 lg:mt-12 lg:space-y-20">
