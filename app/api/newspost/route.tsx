@@ -3,7 +3,14 @@ import { NextResponse } from "next/server";
 
 // Fetch News Posts (/api/newspost/)
 export async function GET(request: Request) {
-  const newsposts = await prisma.news.findMany();
+  const newsposts = await prisma.news.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      users: true,
+    },
+  });
   return NextResponse.json(newsposts);
 }
 
