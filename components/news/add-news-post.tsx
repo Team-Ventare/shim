@@ -25,14 +25,15 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
+import { Textarea } from "../ui/textarea";
 
-export default function AddNewsPost() {
+export default function AddNewsPost({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await fetch("/api/products", {
+    const response = await fetch("/api/news", {
       method: "POST",
       body: JSON.stringify(formValues),
     });
@@ -87,7 +88,13 @@ export default function AddNewsPost() {
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="description">Description</Label>
-              <Input id="description" type="text" placeholder="Description" />
+              <Textarea
+                id="description"
+                placeholder="Description"
+                onChange={(e) =>
+                  setFormValues({ ...formValues, description: e.target.value })
+                }
+              />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="picture">Picture</Label>

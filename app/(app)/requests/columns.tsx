@@ -31,6 +31,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { deletePR } from "@/components/purchaserequest/actions/delete_request";
 import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
+import { User } from "next-auth";
 
 export interface PurchaseRequest {
   id: string;
@@ -42,14 +43,6 @@ export interface PurchaseRequest {
   price: string;
   reason: string;
 }
-
-export type User = {
-  id: string;
-  name: string;
-  email: number;
-  role: string;
-  image: string;
-};
 
 export const columns: ColumnDef<PurchaseRequest>[] = [
   {
@@ -151,7 +144,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                 src={user.image as string}
                 referrerPolicy="no-referrer"
               />
-              <AvatarFallback>{user.name.at(0)}</AvatarFallback>
+              <AvatarFallback>{user.name?.at(0)}</AvatarFallback>
             </Avatar>
             {user.name}
           </div>
