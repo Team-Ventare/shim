@@ -34,6 +34,8 @@ import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
 
 export interface PurchaseRequest {
   id: string;
+  createdAt: Date;
+  updatedAt: Date;
   title: string;
   status: string;
   priority: string;
