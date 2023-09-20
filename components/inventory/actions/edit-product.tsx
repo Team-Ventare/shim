@@ -63,7 +63,7 @@ export default function EditProduct({ product }: { product: Product }) {
       });
     }
   };
-
+  
   return (
     <Sheet>
       <SheetTrigger asChild>

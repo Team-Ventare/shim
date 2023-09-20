@@ -143,7 +143,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
                 }
               >
                 <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select priority" id="type" />
+                  <SelectValue placeholder="Select priority" id="priority" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="low">Low</SelectItem>

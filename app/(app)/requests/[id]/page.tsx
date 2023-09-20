@@ -15,6 +15,8 @@ import { priorities, statuses } from "@/components/purchaserequest/data";
 import { getUserSession } from "@/lib/auth";
 import { use } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import EditRequest from "@/components/purchaserequest/actions/edit_request";
+import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
 
 async function getData(id: string): Promise<PurchaseRequest> {
   const response = await fetch(
@@ -44,7 +46,7 @@ export default async function PurchaseRequestPage({
   const user = await getUserSession();
   const status = statuses.find((s) => s.value === data.status);
   const priority = priorities.find((s) => s.value === data.priority);
-  console.log(data);
+  //console.log(data);
 
   if (!status||!priority) {
     return <div>Not found</div>;
@@ -67,17 +69,17 @@ export default async function PurchaseRequestPage({
           <div className="font-medium text-foreground">{data.title}</div>
         </div>
         <div className="container flex mt-8">
-          <div>
+          <div className="flex flex-col items-center justify-center ml-10 mr-10">
             <Image
               priority={true}
               src={stretcher}
               alt="Photo by Drew Beamer"
               className="rounded-sm object-cover"
               width={300}
-              height={300}
+              height={(9 / 16) * 300}
             />
           </div>
-          <div className="ml-8 grid grid-cols-3 gap-4">
+          <div className="ml-8 mr-6 grid grid-cols-1 gap-4">
             <div>
               <Label className="block text-sm font-light text-gray-500">
                 Title
@@ -104,58 +106,29 @@ export default async function PurchaseRequestPage({
             </div>
             <div>
               <Label className="block text-sm font-light text-gray-500">
-                Requester
-              </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {user.name}
-              </p>
-            </div>
-            <div>
-              <Label className="block text-sm font-light text-gray-500">
                 Price
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
                 ${data.price}
               </p>
             </div>
-            {/* add image*/}
-            {/* <div>
+            <div>
               <Label className="block text-sm font-light text-gray-500">
-                Reason
+                Requester
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.reason}
+                {user.name}
               </p>
             </div>
-            <div className="col-span-3">
-              <Label className="block text-sm font-light text-gray-500">
-                Description
-              </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.description}
-              </p>
-            </div> */}
           </div>
           <div className="flex flex-row items-start space-x-2">
-            {/* <div>
-              <div className="relative inline-block text-left">
-                <div>
-                  <button
-                    type="button"
-                    className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-zinc-950 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
-                    id="menu-button"
-                    aria-expanded="true"
-                    aria-haspopup="true"
-                  >
-                    Accept
-                    <ChevronRightIcon
-                      className="-mr-1 ml-2 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div> */}
+            <div className="float-right" >
+              <ChangeRequestStatus request={data} />
+            </div>
+            <div className="float-right" >
+              {/*if the stauts of the request is not pending, disable this button*/}
+              <EditRequest request={data} />
+            </div>
           </div>
         </div>
       </div>
@@ -174,9 +147,9 @@ export default async function PurchaseRequestPage({
               </AccordionTrigger>
               <AccordionContent className="px-4 border-t pt-4">
               <div>
-                <Label className="block text-sm font-light text-gray-500">
+                {/* <Label className="block text-sm font-light text-gray-500">
                   Description
-                </Label>
+                </Label> */}
                 <p className="mt-1 text-sm font-semibold text-zinc-950">
                   {data.description}
                 </p>
@@ -195,7 +168,6 @@ export default async function PurchaseRequestPage({
               <AccordionTrigger className="p-4">
                 Requester Information
               </AccordionTrigger>
-              {/* <AccordionContent className="px-4 border-t pt-4"> */}
               <AccordionContent className="px-4 border-t pt-4">
                 <div className="flex justify-between gap-x-6">
                   <div className="flex gap-x-2 justify-center">
@@ -219,7 +191,6 @@ export default async function PurchaseRequestPage({
                   </div>
                   <div className="hidden sm:flex sm:flex-col sm:items-end">
                     <p className="text-sm leading-6 text-gray-900">
-                      {/* show user role and have first letter upper case while the rest lower case */}
                       Role: {user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}
                     </p>
                     <p className="text-xs leading-5 text-gray-500">

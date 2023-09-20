@@ -30,9 +30,13 @@ export async function PUT(
     where: {
       id: id,
     },
-    // remove data if not sent
     data: {
       title: json.title || null,
+      priority: json.priority || null,
+      price: json.price || null,
+      status: json.status || "PENDING",
+      description: json.description || null,
+      reason: json.reason || null,
     },
   });
   return NextResponse.json(updated);
