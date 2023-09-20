@@ -4,11 +4,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Image from "next/image";
+import stretcher from "../../../../public/stretcher.png";
 import { PurchaseRequest } from "../columns";
 import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import { priorities, statuses } from "@/components/purchaserequest/data";
+import { getUserSession } from "@/lib/auth";
+import { use } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import EditRequest from "@/components/purchaserequest/actions/edit_request";
+import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
 
 async function getData(id: string): Promise<PurchaseRequest> {
   const response = await fetch(
@@ -34,11 +42,18 @@ export default async function PurchaseRequestPage({
   params: { id: string };
 }) {
   const data = await getData(params.id);
-  console.log(data);
+  //get user session
+  const user = await getUserSession();
+  const status = statuses.find((s) => s.value === data.status);
+  const priority = priorities.find((s) => s.value === data.priority);
+  //console.log(data);
 
+  if (!status||!priority) {
+    return <div>Not found</div>;
+  }
   return (
     <div className="h-screen py-10">
-      <div className="border-b h-[400px] pb-0 mt-2">
+      <div className="border-b h-[360px] mt-2">
         <div className="container flex items-center space-x-1 text-sm text-muted-foreground">
           <Link href="/" className="overflow-hidden whitespace-nowrap">
             <HomeIcon className="h-4 w-4" />
@@ -54,13 +69,23 @@ export default async function PurchaseRequestPage({
           <div className="font-medium text-foreground">{data.title}</div>
         </div>
         <div className="container flex mt-8">
-          <div className="ml-8 grid grid-cols-3 gap-4">
+          <div className="flex flex-col items-center justify-center ml-10 mr-10">
+            <Image
+              priority={true}
+              src={stretcher}
+              alt="Photo by Drew Beamer"
+              className="rounded-sm object-cover"
+              width={300}
+              height={(9 / 16) * 300}
+            />
+          </div>
+          <div className="ml-8 mr-6 grid grid-cols-1 gap-4">
             <div>
               <Label className="block text-sm font-light text-gray-500">
-                Purchase Request ID
+                Title
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.id}
+                {data.title}
               </p>
             </div>
             <div>
@@ -68,7 +93,7 @@ export default async function PurchaseRequestPage({
                 Status
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.status}
+                {status.view()}
               </p>
             </div>
             <div>
@@ -76,28 +101,40 @@ export default async function PurchaseRequestPage({
                 Priority
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.priority}
+                {priority.view()}
               </p>
             </div>
-
-            <div className="col-span-3">
+            <div>
               <Label className="block text-sm font-light text-gray-500">
-                Description
+                Price
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.title}
-                <p className="text-xs leading-5 text-gray-500">
-                  <br />
-                  {data.description}
-                </p>
+                ${data.price}
               </p>
+            </div>
+            <div>
+              <Label className="block text-sm font-light text-gray-500">
+                Requester
+              </Label>
+              <p className="mt-1 text-sm font-semibold text-zinc-950">
+                {user.name}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row items-start space-x-2">
+            <div className="float-right" >
+              <ChangeRequestStatus request={data} />
+            </div>
+            <div className="float-right" >
+              {/*if the stauts of the request is not pending, disable this button*/}
+              <EditRequest request={data} />
             </div>
           </div>
         </div>
       </div>
       <div className="h-[480px] py-2">
         <div className="container py-12">
-          <h1 className="text-2xl font-semibold">Request Details</h1>
+          <h1 className="text-xl font-semibold">Purchase Request Details</h1>
 
           <Accordion
             type="single"
@@ -106,22 +143,61 @@ export default async function PurchaseRequestPage({
           >
             <AccordionItem value="item-1">
               <AccordionTrigger className="p-4">
-                Admin Review History
+                Description
               </AccordionTrigger>
               <AccordionContent className="px-4 border-t pt-4">
-                <p className="text-sm font-normal leading-6 text-gray-900">
-                  No admin review history found.
+              <div>
+                {/* <Label className="block text-sm font-light text-gray-500">
+                  Description
+                </Label> */}
+                <p className="mt-1 text-sm font-semibold text-zinc-950">
+                  {data.description}
                 </p>
+              </div>
+              <div className="col-span-3">
+                <Label className="block text-sm font-light text-gray-500">
+                  Reason
+                </Label>
+                <p className="mt-1 text-sm font-semibold text-zinc-950">
+                  {data.reason}
+                </p>
+              </div>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="p-4">
-                Maintenance History
+                Requester Information
               </AccordionTrigger>
               <AccordionContent className="px-4 border-t pt-4">
-                <p className="text-sm font-normal leading-6 text-gray-900">
-                  No maintenance history found.
-                </p>
+                <div className="flex justify-between gap-x-6">
+                  <div className="flex gap-x-2 justify-center">
+                    <Avatar className="h-10 w-10 text-zinc-950 flex-shrink-0">
+                      <AvatarImage
+                        src={undefined}
+                        referrerPolicy="no-referrer"
+                      />
+                      <AvatarFallback>
+                      {user.name.at(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0 flex-auto">
+                      <p className="text-sm font-normal leading-6 text-gray-900">
+                        {user.name}
+                      </p>
+                      <p className="truncate text-xs leading-5 text-gray-500">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="hidden sm:flex sm:flex-col sm:items-end">
+                    <p className="text-sm leading-6 text-gray-900">
+                      Role: {user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}
+                    </p>
+                    <p className="text-xs leading-5 text-gray-500">
+                      Created on: {new Date(data.createdAt).toDateString()}
+                    </p>
+                  </div>
+                </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>

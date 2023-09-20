@@ -9,7 +9,7 @@ import { DataTableViewOptions } from "@/components/purchaserequest/data-table-vi
 
 import { priorities, statuses } from "@/components/purchaserequest/data"; //data
 import { DataTableFacetedFilter } from "@/components/purchaserequest/data-table-faceted-filter";
-import AddRequestSheet from "./actions/add-request";
+import AddRequestSheet from "./actions/add_request";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

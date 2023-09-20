@@ -35,6 +35,8 @@ import { User } from "next-auth";
 
 export interface PurchaseRequest {
   id: string;
+  createdAt: Date;
+  updatedAt: Date;
   title: string;
   status: string;
   priority: string;

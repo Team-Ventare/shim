@@ -143,7 +143,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
                 }
               >
                 <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Select priority" id="type" />
+                  <SelectValue placeholder="Select priority" id="priority" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="low">Low</SelectItem>
@@ -151,6 +151,10 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
                   <SelectItem value="high">High</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              {/* <Label htmlFor="picture">Picture</Label> */}
+              <Input id="picture" type="file" />
             </div>
           </div>
           <SheetFooter>
