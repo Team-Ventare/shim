@@ -19,6 +19,7 @@ model Users {
   checkoutHistory  CheckoutHistory[]
   purchaseRequests PurchaseRequests[]
   cart             Cart               @relation(fields: [cartId], references: [id])
+  news             News[]
 }
 
 model Cart {
@@ -36,6 +37,7 @@ model Products {
   name            String
   amount          Int
   location        String
+  description     String            @default("")
   type            Type
   status          Status            @default(AVAILABLE)
   carts           Cart[]            @relation("CartToProducts")
@@ -74,6 +76,18 @@ model CheckoutHistory {
   userId    String     @db.Uuid
   users     Users      @relation(fields: [userId], references: [id])
   products  Products[] @relation("CheckoutHistoryToProducts")
+}
+
+model News {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  description String
+  imageUrl  String?
+  label     String
+  userId    String   @db.Uuid
+  users     Users    @relation(fields: [userId], references: [id])
 }
 
 enum Role {
