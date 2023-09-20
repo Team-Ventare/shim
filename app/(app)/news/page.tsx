@@ -35,7 +35,6 @@ export default async function NewsPage() {
   if (!session) {
     return null;
   }
-  console.log(data);
 
   return (
     <div className="container mx-auto py-6">

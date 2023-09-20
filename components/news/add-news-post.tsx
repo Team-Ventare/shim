@@ -33,9 +33,6 @@ export default function AddNewsPost({ userId }: { userId: string }) {
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setFormValues({ ...formValues, userId: userId });
-    console.log(formValues);
-
     const response = await fetch("/api/newspost", {
       method: "POST",
       body: JSON.stringify(formValues),
@@ -147,7 +144,14 @@ export default function AddNewsPost({ userId }: { userId: string }) {
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit" className="w-full max-w-sm">
+              <Button
+                type="submit"
+                className="w-full max-w-sm"
+                onClick={() => {
+                  setFormValues({ ...formValues, userId: userId });
+                  console.log(formValues);
+                }}
+              >
                 Post
               </Button>
             </SheetClose>
