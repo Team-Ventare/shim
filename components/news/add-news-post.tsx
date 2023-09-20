@@ -33,7 +33,10 @@ export default function AddNewsPost({ userId }: { userId: string }) {
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await fetch("/api/news", {
+    setFormValues({ ...formValues, userId: userId });
+    console.log(formValues);
+
+    const response = await fetch("/api/newspost", {
       method: "POST",
       body: JSON.stringify(formValues),
     });

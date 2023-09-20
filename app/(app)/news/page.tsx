@@ -1,7 +1,8 @@
 import AddNewsPost from "@/components/news/add-news-post";
-import { User } from "../dashboard/page";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "../dashboard/page";
 
 export type NewsPost = {
   id: string;
@@ -11,7 +12,7 @@ export type NewsPost = {
   description: string;
   imageUrl: string | undefined;
   label: string;
-  users: User[];
+  users: User;
 };
 
 async function getData(): Promise<NewsPost[]> {
@@ -34,6 +35,7 @@ export default async function NewsPage() {
   if (!session) {
     return null;
   }
+  console.log(data);
 
   return (
     <div className="container mx-auto py-6">
@@ -58,7 +60,7 @@ export default async function NewsPage() {
           >
             <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
               <img
-                src={post.imageUrl}
+                src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
                 alt=""
                 className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
               />
@@ -87,17 +89,19 @@ export default async function NewsPage() {
               </div>
               <div className="mt-6 flex border-t border-gray-900/5 pt-6">
                 <div className="relative flex items-center gap-x-4">
-                  <img
-                    src={post.users[0].image}
-                    alt=""
-                    className="h-10 w-10 rounded-full bg-gray-50"
-                  />
+                  <Avatar className="h-10 w-10 text-zinc-950">
+                    <AvatarImage
+                      src={post.users.image as string}
+                      referrerPolicy="no-referrer"
+                    />
+                    <AvatarFallback>{post.users.name.at(0)}</AvatarFallback>
+                  </Avatar>
                   <div className="text-sm leading-6">
                     <p className="font-semibold text-gray-900">
                       <span className="absolute inset-0" />
-                      {post.users[0].name}
+                      {post.users.name}
                     </p>
-                    <p className="text-gray-600">{post.users[0].role}</p>
+                    <p className="text-gray-600">{post.users.role}</p>
                   </div>
                 </div>
               </div>

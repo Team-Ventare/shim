@@ -14,7 +14,7 @@ model Users {
   email            String             @unique
   password         String
   name             String
-  role             Role               @default(PENDING)
+  role             Role               @default(Pending)
   cartId           String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   checkoutHistory  CheckoutHistory[]
   purchaseRequests PurchaseRequests[]
@@ -83,17 +83,17 @@ model News {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
-  description String
-  imageUrl  String?
+  description String  
+  imageUrl  String?   
   label     String
   userId    String   @db.Uuid
   users     Users    @relation(fields: [userId], references: [id])
 }
 
 enum Role {
-  ADMIN
-  USER
-  PENDING
+  Admin
+  User
+  Pending
 }
 
 enum PR_Status {
