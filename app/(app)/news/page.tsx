@@ -68,14 +68,15 @@ export default async function NewsPage() {
             <div>
               <div className="flex items-center gap-x-4 text-xs">
                 <time dateTime={post.createdAt} className="text-gray-500">
-                  {post.createdAt}
+                  {new Date(post.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
                 </time>
-                <a
-                  href={post.label}
-                  className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                >
+                <span className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                   {post.label}
-                </a>
+                </span>
               </div>
               <div className="group relative max-w-xl">
                 <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
