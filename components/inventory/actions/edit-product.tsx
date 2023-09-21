@@ -25,10 +25,12 @@ import {
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Product } from "@/app/(app)/products/columns";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function EditProduct({ product }: { product: Product }) {
   const [formValues, setFormValues] = useState({
     name: product.name,
+    description: product.description,
     amount: product.amount,
     location: product.location,
     status: product.status,
@@ -63,7 +65,7 @@ export default function EditProduct({ product }: { product: Product }) {
       });
     }
   };
-  
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -77,40 +79,39 @@ export default function EditProduct({ product }: { product: Product }) {
               Edit product information here. Click save when you are done.
             </SheetDescription>
           </SheetHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid gap-4 py-4 mt-2">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="name" className="text-left">
                 Name
               </Label>
               <Input
                 id="name"
                 type="text"
-                className="col-span-3"
                 defaultValue={formValues.name}
                 onChange={(e) =>
                   setFormValues({ ...formValues, name: e.target.value })
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="description" className="text-left">
                 Description
               </Label>
-              <Input
+              <Textarea
                 id="description"
-                type="text"
-                className="col-span-3"
-                defaultValue=""
+                defaultValue={formValues.description}
+                onChange={(e) =>
+                  setFormValues({ ...formValues, description: e.target.value })
+                }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="amount" className="text-left">
                 Amount
               </Label>
               <Input
                 id="amount"
                 type="integer"
-                className="col-span-3"
                 defaultValue={formValues.amount}
                 onChange={(e) =>
                   setFormValues({
@@ -120,21 +121,20 @@ export default function EditProduct({ product }: { product: Product }) {
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="location" className="text-left">
                 Location
               </Label>
               <Input
                 id="location"
                 type="text"
-                className="col-span-3"
                 defaultValue={formValues.location}
                 onChange={(e) =>
                   setFormValues({ ...formValues, location: e.target.value })
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="status" className="text-left">
                 Status
               </Label>
@@ -146,7 +146,7 @@ export default function EditProduct({ product }: { product: Product }) {
                   }))
                 }
               >
-                <SelectTrigger className="col-span-3">
+                <SelectTrigger>
                   <SelectValue placeholder={formValues.status} />
                 </SelectTrigger>
                 <SelectContent>
@@ -158,7 +158,7 @@ export default function EditProduct({ product }: { product: Product }) {
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="type" className="text-left">
                 Type
               </Label>
@@ -170,7 +170,7 @@ export default function EditProduct({ product }: { product: Product }) {
                   }))
                 }
               >
-                <SelectTrigger className="col-span-3">
+                <SelectTrigger>
                   <SelectValue placeholder={formValues.type} id="type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -204,7 +204,9 @@ export default function EditProduct({ product }: { product: Product }) {
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit" className="w-full max-w-sm">
+                Save changes
+              </Button>
             </SheetClose>
           </SheetFooter>
         </form>
