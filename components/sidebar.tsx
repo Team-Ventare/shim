@@ -8,6 +8,7 @@ import {
   Bars3Icon,
   BuildingStorefrontIcon,
   ChevronUpIcon,
+  ChevronDownIcon,
   ClipboardDocumentListIcon,
   HomeModernIcon,
   NewspaperIcon,
@@ -360,7 +361,11 @@ export default function Sidebar({ user }: { user: User }) {
 
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="icon">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="ml-auto"
+                        >
                           <ChevronUpIcon className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -393,7 +398,7 @@ export default function Sidebar({ user }: { user: User }) {
           </div>
         </div>
 
-        <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 flex items-center gap-x-6 bg-white p-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -405,14 +410,46 @@ export default function Sidebar({ user }: { user: User }) {
           <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">
             Dashboard
           </div>
-          <a href="#">
-            <span className="sr-only">Your profile</span>
-            <img
-              className="h-8 w-8 rounded-full bg-gray-50"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
-          </a>
+          <span className="sr-only">Your profile</span>
+          <div className="flex items-center space-x-4 text-sm font-semibold leading-6 text-gray-900">
+            <Avatar className="h-10 w-10 text-zinc-950">
+              <AvatarImage
+                src={user.image as string}
+                referrerPolicy="no-referrer"
+              />
+              <AvatarFallback>{user.name.at(0)}</AvatarFallback>
+            </Avatar>
+            <span aria-hidden="true">{user.name}</span>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" className="ml-auto">
+                  <ChevronDownIcon className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Settings
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onSelect={() => signOut()}
+                  >
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
     </>
