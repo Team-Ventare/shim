@@ -80,7 +80,6 @@ export default function AddNewsPost({ userId }: { userId: string }) {
               <Input
                 id="title"
                 type="text"
-                placeholder="Title"
                 onChange={(e) =>
                   setFormValues({ ...formValues, title: e.target.value })
                 }
@@ -90,7 +89,6 @@ export default function AddNewsPost({ userId }: { userId: string }) {
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
-                placeholder="Description"
                 onChange={(e) =>
                   setFormValues({ ...formValues, description: e.target.value })
                 }
