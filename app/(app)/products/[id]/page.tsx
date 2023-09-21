@@ -143,7 +143,7 @@ export default async function ProductPage({
               </p>
             </div>
           </div>
-          <div className="flex flex-row items-start space-x-2">
+          <div className="flex flex-row items-start space-x-2 ml-auto">
             <div>
               <DeleteItem id={params.id} />
             </div>
