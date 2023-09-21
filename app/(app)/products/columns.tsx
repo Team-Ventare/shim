@@ -27,6 +27,7 @@ export type Product = {
   location: string;
   type: string;
   status: string;
+  description: string;
 };
 
 export const columns: ColumnDef<Product>[] = [

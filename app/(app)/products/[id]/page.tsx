@@ -16,7 +16,6 @@ import DeleteItem from "@/components/inventory/actions/delete-product";
 import { prisma } from "@/lib/prisma";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { statuses, types } from "@/components/inventory/data";
-import { stat } from "fs";
 
 async function getData(id: string): Promise<Product> {
   const response = await fetch(
@@ -140,10 +139,7 @@ export default async function ProductPage({
                 Description
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Malesuada nunc vel risus commodo. Proin nibh nisl condimentum
-                id.
+                {data.description}
               </p>
             </div>
           </div>
