@@ -17,6 +17,7 @@ import { use } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditRequest from "@/components/purchaserequest/actions/edit_request";
 import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
+import prisma from "@/lib/prisma";
 
 async function getData(id: string): Promise<PurchaseRequest> {
   const response = await fetch(
@@ -42,8 +43,6 @@ export default async function PurchaseRequestPage({
   params: { id: string };
 }) {
   const data = await getData(params.id);
-  //get user session
-  const user = await getUserSession();
   const status = statuses.find((s) => s.value === data.status);
   const priority = priorities.find((s) => s.value === data.priority);
   //console.log(data);
@@ -117,7 +116,7 @@ export default async function PurchaseRequestPage({
                 Requester
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {user.name}
+                {data.users.name}
               </p>
             </div>
           </div>
@@ -176,21 +175,21 @@ export default async function PurchaseRequestPage({
                         referrerPolicy="no-referrer"
                       />
                       <AvatarFallback>
-                      {user.name.at(0)}
+                      {data.users.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="min-w-0 flex-auto">
                       <p className="text-sm font-normal leading-6 text-gray-900">
-                        {user.name}
+                        {data.users.name}
                       </p>
                       <p className="truncate text-xs leading-5 text-gray-500">
-                        {user.email}
+                        {data.users.email}
                       </p>
                     </div>
                   </div>
                   <div className="hidden sm:flex sm:flex-col sm:items-end">
                     <p className="text-sm leading-6 text-gray-900">
-                      Role: {user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}
+                      Role: {data.users.role.charAt(0).toUpperCase() + data.users.role.slice(1).toLowerCase()}
                     </p>
                     <p className="text-xs leading-5 text-gray-500">
                       Created on: {new Date(data.createdAt).toDateString()}

@@ -32,6 +32,7 @@ import { toast } from "@/components/ui/use-toast";
 import { deletePR } from "@/components/purchaserequest/actions/delete_request";
 import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
 import { User } from "next-auth";
+import { Users } from "@prisma/client";
 
 export interface PurchaseRequest {
   id: string;
@@ -44,6 +45,8 @@ export interface PurchaseRequest {
   description: string;
   price: string;
   reason: string;
+  userId: string;
+  users: Users;
 }
 
 export const columns: ColumnDef<PurchaseRequest>[] = [
