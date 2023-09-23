@@ -24,6 +24,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
 import { refresh_PR } from "./refresh_page";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function AddRequestSheet({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
@@ -80,57 +81,51 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="title" className="text-left">
                 Title
               </Label>
               <Input
                 id="title"
                 type="text"
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, title: e.target.value })
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="description" className="text-left">
                 Description
               </Label>
-              <Input 
+              <Textarea
                 id="description" 
-                type="text" 
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, description: e.target.value })
                 } />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="price" className="text-left">
                 Price
               </Label>
               <Input 
                 id="price" 
                 type="integer" 
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, price: e.target.value })
                 } />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="reason" className="text-left">
                 Reason
               </Label>
-              <Input 
+              <Textarea 
                 id="reason" 
-                type="text" 
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, reason: e.target.value })
                 } />
             </div>
 
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="category" className="text-left">
                 Priority
               </Label>
@@ -142,7 +137,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
                   }))
                 }
               >
-                <SelectTrigger className="col-span-3">
+                <SelectTrigger>
                   <SelectValue placeholder="Select priority" id="priority" />
                 </SelectTrigger>
                 <SelectContent>
@@ -153,7 +148,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               </Select>
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              {/* <Label htmlFor="picture">Picture</Label> */}
+              <Label htmlFor="picture">Picture</Label>
               <Input id="picture" type="file" />
             </div>
           </div>
