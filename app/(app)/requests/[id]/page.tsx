@@ -121,12 +121,11 @@ export default async function PurchaseRequestPage({
               </p>
             </div>
           </div>
-          <div className="flex flex-row items-start space-x-2">
-            <div className="float-right" >
+          <div className="flex flex-row items-start space-x-2 ml-auto">
+            <div>
               <ChangeRequestStatus request={data} />
             </div>
-            <div className="float-right" >
-              {/*if the stauts of the request is not pending, disable this button*/}
+            <div>
               <EditRequest request={data} />
             </div>
           </div>
@@ -150,15 +149,15 @@ export default async function PurchaseRequestPage({
                 {/* <Label className="block text-sm font-light text-gray-500">
                   Description
                 </Label> */}
-                <p className="mt-1 text-sm font-semibold text-zinc-950">
+                <p className="mt-1 text-sm font-light text-gray-500">
                   {data.description}
                 </p>
               </div>
               <div className="col-span-3">
-                <Label className="block text-sm font-light text-gray-500">
+                <Label className="block text-sm font-semibold text-zinc-950">
                   Reason
                 </Label>
-                <p className="mt-1 text-sm font-semibold text-zinc-950">
+                <p className="mt-1 text-sm font-light text-gray-500">
                   {data.reason}
                 </p>
               </div>

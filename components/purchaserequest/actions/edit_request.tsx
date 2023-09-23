@@ -25,6 +25,7 @@ import {
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { PurchaseRequest } from "@/app/(app)/requests/columns"; 
+import { Textarea } from "@/components/ui/textarea";
 
 export default function EditRequest({ request }: { request: PurchaseRequest }) {
     const [formValues, setFormValues] = useState({
@@ -69,9 +70,9 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
     }
     return (
     <Sheet>
-        <SheetTrigger asChild>
-        <Button>Edit</Button>
-        </SheetTrigger>
+      <SheetTrigger asChild>
+      <Button>Edit</Button>
+      </SheetTrigger>
         <SheetContent>
         <form onSubmit={onSumbit}>
             <SheetHeader>
@@ -81,8 +82,8 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
             </SheetDescription>
             </SheetHeader>
             <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-left">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="title">
                 Title
                 </Label>
                 <Input
@@ -95,49 +96,44 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
                 }
                 />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="description" className="text-left">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="description">
                 Description
                 </Label>
-                <Input
+                <Textarea
                 id="description"
-                type="text"
-                className="col-span-3"
                 defaultValue={formValues.description}
                 onChange={(e) =>
                     setFormValues({ ...formValues, description: e.target.value })
                 }
                 />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="amount" className="text-left">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="reason">
                 Reason
                 </Label>
-                <Input
+                <Textarea
                 id="reason"
-                type="text"
-                className="col-span-3"
                 defaultValue={formValues.reason}
                 onChange={(e) =>
                     setFormValues({...formValues,reason: e.target.value})
                 }
                 />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="location" className="text-left">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="location">
                 Price
                 </Label>
                 <Input
                 id="price"
                 type="text"
-                className="col-span-3"
                 defaultValue={formValues.price}
                 onChange={(e) =>
                     setFormValues({ ...formValues, price: e.target.value })
                 }
                 />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="status" className="text-left">
                 Priority
                 </Label>
@@ -149,7 +145,7 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
                     }))
                 }
                 >
-                <SelectTrigger className="col-span-3">
+                <SelectTrigger>
                     <SelectValue placeholder={formValues.priority} />
                 </SelectTrigger>
                 <SelectContent>
