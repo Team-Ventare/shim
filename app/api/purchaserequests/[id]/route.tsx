@@ -56,7 +56,7 @@ export async function PATCH(
     },
     // remove data if not sent
     data: {
-      title: json.title || null,
+      status: json.status || "PENDING",
     },
   });
   return NextResponse.json(updated);
