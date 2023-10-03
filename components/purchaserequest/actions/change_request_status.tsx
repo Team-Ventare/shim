@@ -24,14 +24,49 @@ import {
 import { PurchaseRequest } from "@/app/(app)/requests/columns";
 import { stat } from "fs";
 import { UpdateStatusAccept, UpdateStatusReject } from "./status_change";
+import { refresh_PR } from "./refresh_page";
+import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
   
   export default function ChangeRequestStatus({ request }: { request: PurchaseRequest }) {
     async function UpdateRequestStatus(status: string) {
         if (status === "APPROVED") {
-            UpdateStatusAccept({id: request.id});
+            const res= await UpdateStatusAccept({id: request.id});
+            if(res){
+                refresh_PR();
+                toast({
+                    title: "Success!",
+                    duration: 2000,
+                    description: `Status of ${request.title} has been changed to ${status}`,
+                  });
+            }
+            else{
+                toast({
+                    variant:"destructive",
+                    title: "Error!",
+                    duration: 2000,
+                    description: `Status of ${request.title} has not been changed. Please try again.`,
+                  });
+            }
         }
         else if (status === "REJECTED") {
-            UpdateStatusReject({id: request.id});
+            const res= await UpdateStatusReject({id: request.id});
+            if(res){
+                refresh_PR();
+                toast({
+                    title: "Success!",
+                    duration: 2000,
+                    description: `Status of ${request.title} has been changed to ${status}`,
+                  });
+            }
+            else{
+                toast({
+                    variant:"destructive",
+                    title: "Error!",
+                    duration: 2000,
+                    description: `Status of ${request.title} has not been changed. Please try again.`,
+                  });
+            }
         }
         
     }
@@ -59,7 +94,7 @@ import { UpdateStatusAccept, UpdateStatusReject } from "./status_change";
                     Confirm
                 </AlertDialogTitle>
                 <AlertDialogDescription>
-                    Are you sure you want to accept the purchase request?
+                    Are you sure you want to accept the purchase request? You will not be able to edit the request after this.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -92,7 +127,7 @@ import { UpdateStatusAccept, UpdateStatusReject } from "./status_change";
                     Confirm
                 </AlertDialogTitle>
                 <AlertDialogDescription>
-                    Are you sure you want to reject the purchase request?
+                    Are you sure you want to reject the purchase request?  You will not be able to edit the request after this.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
