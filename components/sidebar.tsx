@@ -20,7 +20,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { signOut } from "next-auth/react";
 import {
@@ -54,6 +54,11 @@ const navigation = [
     name: "Maintenance",
     href: "/maintenance",
     icon: WrenchIcon,
+  },
+  {
+    name: "Themes",
+    href: "/themes",
+    icon: HomeModernIcon,
   },
 ];
 
@@ -198,7 +203,7 @@ export default function Sidebar({ user }: { user: User }) {
                             Support
                           </div>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.slice(5, 8).map((item) => (
+                            {navigation.slice(5, 9).map((item) => (
                               <li key={item.name}>
                                 <Link
                                   href={item.href}
@@ -322,7 +327,7 @@ export default function Sidebar({ user }: { user: User }) {
                     Support
                   </div>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.slice(5, 8).map((item) => (
+                    {navigation.slice(5, 9).map((item) => (
                       <li key={item.name}>
                         <Link
                           href={item.href}

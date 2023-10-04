@@ -34,7 +34,7 @@ export default async function AppLayout({
   const user = await getData(session.user.id);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
           <div className="flex flex-row">
