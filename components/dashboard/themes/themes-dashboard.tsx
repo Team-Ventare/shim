@@ -1,4 +1,4 @@
-import { ThemesTabs } from "@/app/(app)/themes/tabs";
+import { ThemesTabs } from "@/components/dashboard/themes/tabs";
 import { ThemeCustomizer } from "@/components/ui/theme-customizer";
 import { ThemeWrapper } from "@/components/ui/theme-wrapper";
 

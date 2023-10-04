@@ -1,11 +1,9 @@
 "use client";
 
 import { User } from "@/app/(app)/dashboard/page";
-import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker";
 import { RecentCheckouts } from "@/components/dashboard/overview/recent-checkouts";
 import { RecentSales } from "@/components/dashboard/overview/recent-sales";
 import { UserList } from "@/components/dashboard/users/user-list";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
