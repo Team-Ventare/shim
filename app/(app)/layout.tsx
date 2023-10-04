@@ -5,6 +5,7 @@ import { User } from "./dashboard/page";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeWrapper } from "@/components/ui/theme-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,15 +38,17 @@ export default async function AppLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <div className="flex flex-row">
-            <div className="fixed flex-none w-full lg:w-28">
-              <Sidebar user={user} />
+          <ThemeWrapper>
+            <div className="flex flex-row min-h-screen">
+              <div className="fixed flex-none w-full lg:w-28">
+                <Sidebar user={user} />
+              </div>
+              <div className="w-screen mt-16 lg:mt-0 lg:pl-72 4xl:pl-0 bg-background">
+                {children}
+              </div>
             </div>
-            <div className="w-screen mt-16 lg:mt-0 lg:ml-72 4xl:ml-0 bg-background">
-              {children}
-            </div>
-          </div>
-          <Toaster />
+            <Toaster />
+          </ThemeWrapper>
         </Providers>
       </body>
     </html>
