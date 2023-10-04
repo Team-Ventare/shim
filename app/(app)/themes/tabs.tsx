@@ -4,8 +4,7 @@ import * as React from "react";
 
 import { useConfig } from "@/hooks/use-config";
 import { ThemeWrapper } from "@/components/ui/theme-wrapper";
-import CardsDefault from "@/registry/default/example/cards/index";
-import { Skeleton } from "@/registry/default/ui/skeleton";
+import { Skeleton } from "@/registry/new-york/ui/skeleton";
 import CardsNewYork from "@/registry/new-york/example/cards/index";
 
 export function ThemesTabs() {
@@ -64,8 +63,7 @@ export function ThemesTabs() {
         </div>
       ) : (
         <ThemeWrapper>
-          {config.style === "new-york" && <CardsNewYork />}
-          {config.style === "default" && <CardsDefault />}
+          <CardsNewYork />
         </ThemeWrapper>
       )}
     </div>

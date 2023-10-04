@@ -4,6 +4,7 @@ import { Providers } from "../providers";
 import { User } from "./dashboard/page";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,7 @@ export default async function AppLayout({
   const user = await getData(session.user.id);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
           <div className="flex flex-row">
@@ -44,6 +45,7 @@ export default async function AppLayout({
               {children}
             </div>
           </div>
+          <Toaster />
         </Providers>
       </body>
     </html>
