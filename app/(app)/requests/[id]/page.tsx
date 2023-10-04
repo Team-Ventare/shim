@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditRequest from "@/components/purchaserequest/actions/edit_request";
 import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
 import prisma from "@/lib/prisma";
+import DeleteRequest from "@/components/purchaserequest/actions/delete_request_w_dialog";
 
 async function getData(id: string): Promise<PurchaseRequest> {
   const response = await fetch(
@@ -122,10 +123,13 @@ export default async function PurchaseRequestPage({
           </div>
           <div className="flex flex-row items-start space-x-2 ml-auto">
             <div>
+              <EditRequest request={data} />
+            </div>
+            <div>
               <ChangeRequestStatus request={data} />
             </div>
             <div>
-              <EditRequest request={data} />
+              <DeleteRequest id={data.id} />
             </div>
           </div>
         </div>
@@ -145,16 +149,13 @@ export default async function PurchaseRequestPage({
               </AccordionTrigger>
               <AccordionContent className="px-4 border-t pt-4">
               <div>
-                {/* <Label className="block text-sm font-light text-gray-500">
-                  Description
-                </Label> */}
                 <p className="mt-1 text-sm font-light text-gray-500">
                   {data.description}
                 </p>
               </div>
               <div className="col-span-3">
-                <Label className="block text-sm font-semibold text-zinc-950">
-                  Reason
+                <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                  Reason:
                 </Label>
                 <p className="mt-1 text-sm font-light text-gray-500">
                   {data.reason}
@@ -192,7 +193,7 @@ export default async function PurchaseRequestPage({
                       Role: {data.users.role.charAt(0).toUpperCase() + data.users.role.slice(1).toLowerCase()}
                     </p>
                     <p className="text-xs leading-5 text-gray-500">
-                      Created on: {new Date(data.createdAt).toDateString()}
+                      Created request on: {new Date(data.createdAt).toDateString()}
                     </p>
                   </div>
                 </div>
