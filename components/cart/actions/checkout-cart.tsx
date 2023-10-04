@@ -63,9 +63,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
       });
     } else {
       //add the selected products to the form values in the structure of [{"id": "product id"}]
-      formValues.products = selectedRows.map((row: any) => ({
-        id: row.original.id,
-      }));
+      formValues.products = selectedRows.map((row: any) => ({id: row.original.id,}));
       const res = await checkoutItems(formValues);
       if (res) {
         //there might be a better way to delete but ill leave it for now

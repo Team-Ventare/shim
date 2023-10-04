@@ -26,6 +26,8 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { PurchaseRequest } from "@/app/(app)/requests/columns"; 
 import { Textarea } from "@/components/ui/textarea";
+import { refreshCart } from "@/components/cart/actions/refresh-cart";
+import { refresh_PR } from "./refresh_page";
 
 export default function EditRequest({ request }: { request: PurchaseRequest }) {
     const [formValues, setFormValues] = useState({
@@ -46,21 +48,18 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
         });
     
         if (response.ok) {
+          refresh_PR();
           toast({
-            title: "You submitted the following values:",
-            description: (
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                <code className="text-white">
-                  {JSON.stringify(formValues, null, 2)}
-                </code>
-              </pre>
-            ),
+            title: "Request updated!",
+            duration: 2000,
+            description: "The request was successfully updated.",
           });
         } else {
           toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
+            duration: 2000,
+            description: "There was a problem updating the request. Please try again",
           });
         }
       };
@@ -71,7 +70,7 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
     return (
     <Sheet>
       <SheetTrigger asChild>
-      <Button>Edit</Button>
+      <Button variant="outline">Edit Request</Button>
       </SheetTrigger>
         <SheetContent>
         <form onSubmit={onSumbit}>
