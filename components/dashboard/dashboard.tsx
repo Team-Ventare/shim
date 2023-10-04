@@ -14,28 +14,21 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { ThemesDashboard } from "./themes/themes-dashboard";
+import { SettingsDashboard } from "./settings/settings-dashboard";
+import { NotificationsDashboard } from "./notifications/notifications-dashboard";
 
 export default function DashboardLayout({ users }: { users: User[] }) {
   return (
-    <div className="hidden flex-col md:flex">
-      <div className="flex-1 space-y-4 p-10 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-          <div className="flex items-center space-x-2">
-            <CalendarDateRangePicker />
-            <Button>Download</Button>
-          </div>
-        </div>
+    <div className="container mx-auto py-6">
+      <div className="flex-1 space-y-4">
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="notifications" disabled>
-              Notifications
-            </TabsTrigger>
+            <TabsTrigger value="notifications">Notifications</TabsTrigger>
             <TabsTrigger value="users">Users</TabsTrigger>
-            <TabsTrigger value="settings" disabled>
-              Settings
-            </TabsTrigger>
+            <TabsTrigger value="themes">Themes</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -166,8 +159,17 @@ export default function DashboardLayout({ users }: { users: User[] }) {
               </Card>
             </div>
           </TabsContent>
+          <TabsContent value="notifications">
+            <NotificationsDashboard />
+          </TabsContent>
           <TabsContent value="users" className="space-y-4">
             <UserList users={users} />
+          </TabsContent>
+          <TabsContent value="themes">
+            <ThemesDashboard />
+          </TabsContent>
+          <TabsContent value="settings">
+            <SettingsDashboard />
           </TabsContent>
         </Tabs>
       </div>

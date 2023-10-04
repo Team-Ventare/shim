@@ -17,9 +17,7 @@ export type User = {
 };
 
 async function getUsers() {
-  const response = await fetch("https://shim-ventare.vercel.app/api/users", {
-    cache: "no-store",
-  });
+  const response = await fetch("https://shim-ventare.vercel.app/api/users");
 
   if (!response.ok) {
     throw new Error("Failed to fetch users");

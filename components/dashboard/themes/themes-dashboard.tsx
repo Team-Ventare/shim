@@ -1,18 +1,10 @@
-import { Metadata } from "next";
-
-import "public/registry/themes.css";
+import { ThemesTabs } from "@/app/(app)/themes/tabs";
 import { ThemeCustomizer } from "@/components/ui/theme-customizer";
 import { ThemeWrapper } from "@/components/ui/theme-wrapper";
-import { ThemesTabs } from "./tabs";
 
-export const metadata: Metadata = {
-  title: "Themes",
-  description: "Hand-picked themes that you can copy and paste into your apps.",
-};
-
-export default function ThemesPage() {
+export function ThemesDashboard() {
   return (
-    <div className="container mx-auto py-6">
+    <>
       <div className="sm:flex sm:items-center py-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
@@ -36,6 +28,6 @@ export default function ThemesPage() {
       <div className="pt-6">
         <ThemesTabs />
       </div>
-    </div>
+    </>
   );
 }

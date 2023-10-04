@@ -1,8 +1,6 @@
 import { User } from "@/app/(app)/dashboard/page";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { GemIcon } from "lucide-react";
 
 export function UserList({ users }: { users: User[] }) {
   const getInitials = (name: string) => {
@@ -12,7 +10,7 @@ export function UserList({ users }: { users: User[] }) {
 
   const getRoleBadge = (role: string) => {
     switch (role) {
-      case "ADMIN":
+      case "Admin":
         return (
           <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
             <svg
@@ -25,7 +23,7 @@ export function UserList({ users }: { users: User[] }) {
             Admin
           </span>
         );
-      case "USER":
+      case "User":
         return (
           <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">
             <svg
@@ -56,13 +54,6 @@ export function UserList({ users }: { users: User[] }) {
 
   return (
     <>
-      <Alert>
-        <GemIcon className="h-4 w-4" />
-        <AlertTitle>Heads up!</AlertTitle>
-        <AlertDescription>
-          This page is still under construction. Please check back later.
-        </AlertDescription>
-      </Alert>
       <div className="sm:flex sm:items-center p-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
@@ -72,9 +63,6 @@ export function UserList({ users }: { users: User[] }) {
             A list of all the users in your database including their name,
             title, email and role.
           </p>
-        </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <Button>Add User</Button>
         </div>
       </div>
       <div className="mt-8 flow-root">

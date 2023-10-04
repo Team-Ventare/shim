@@ -17,10 +17,11 @@ import {
   UsersIcon,
   WrenchIcon,
   XMarkIcon,
+  RectangleGroupIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { signOut } from "next-auth/react";
 import {
@@ -37,6 +38,11 @@ import { User } from "@/app/(app)/dashboard/page";
 const navigation = [
   { name: "Home", href: "/", icon: HomeModernIcon },
   { name: "News", href: "/news", icon: NewspaperIcon },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    icon: RectangleGroupIcon,
+  },
   { name: "Cart", href: "/cart", icon: ShoppingCartIcon },
   {
     name: "Inventory",
@@ -54,11 +60,6 @@ const navigation = [
     name: "Maintenance",
     href: "/maintenance",
     icon: WrenchIcon,
-  },
-  {
-    name: "Themes",
-    href: "/themes",
-    icon: HomeModernIcon,
   },
 ];
 
@@ -122,7 +123,7 @@ export default function Sidebar({ user }: { user: User }) {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-2 dark:border-muted">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-2 dark:border-muted bg-foreground">
                     <div className="flex h-16 shrink-0 items-center">
                       <img
                         className="h-8 w-auto"
@@ -134,7 +135,7 @@ export default function Sidebar({ user }: { user: User }) {
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.slice(0, 2).map((item) => (
+                            {navigation.slice(0, 3).map((item) => (
                               <li key={item.name}>
                                 <Link
                                   href={item.href}
@@ -165,7 +166,7 @@ export default function Sidebar({ user }: { user: User }) {
                             Console
                           </div>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.slice(2, 5).map((item) => (
+                            {navigation.slice(3, 6).map((item) => (
                               <li key={item.name}>
                                 <Link
                                   href={item.href}
@@ -203,7 +204,7 @@ export default function Sidebar({ user }: { user: User }) {
                             Support
                           </div>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.slice(5, 9).map((item) => (
+                            {navigation.slice(6, 9).map((item) => (
                               <li key={item.name}>
                                 <Link
                                   href={item.href}
@@ -258,7 +259,7 @@ export default function Sidebar({ user }: { user: User }) {
               <ul role="list" className="flex flex-1 flex-col gap-y-4">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.slice(0, 2).map((item) => (
+                    {navigation.slice(0, 3).map((item) => (
                       <li key={item.name}>
                         <Link
                           href={item.href}
@@ -289,7 +290,7 @@ export default function Sidebar({ user }: { user: User }) {
                     Console
                   </div>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.slice(2, 5).map((item) => (
+                    {navigation.slice(3, 6).map((item) => (
                       <li key={item.name}>
                         <Link
                           href={item.href}
@@ -327,7 +328,7 @@ export default function Sidebar({ user }: { user: User }) {
                     Support
                   </div>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.slice(5, 9).map((item) => (
+                    {navigation.slice(6, 9).map((item) => (
                       <li key={item.name}>
                         <Link
                           href={item.href}
