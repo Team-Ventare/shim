@@ -1,3 +1,4 @@
+import AddSupplierSheet from "@/components/suppliers/add-supplier";
 import { Supplier, columns } from "./columns";
 import { DataTable } from "./data-table";
 
@@ -30,6 +31,9 @@ export default async function SupplierPage() {
           <p className="mt-2 text-sm text-gray-700">
             A list of all local suppliers and their contact information.
           </p>
+        </div>
+        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <AddSupplierSheet />
         </div>
       </div>
       <div className="pt-6">

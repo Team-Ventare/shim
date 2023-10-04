@@ -13,7 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Plus } from "lucide-react";
 import {
   Select,
   SelectItem,
@@ -25,16 +24,22 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "../ui/textarea";
+import { NewsPost } from "@/app/(app)/news/page";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 
-export default function AddNewProduct() {
-  const [formValues, setFormValues] = React.useState({});
+export default function EditNewsPost({ post }: { post: NewsPost }) {
+  const [formValues, setFormValues] = React.useState({
+    title: post.title,
+    description: post.description,
+    label: post.label,
+  });
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await fetch("/api/products", {
-      method: "POST",
+    const response = await fetch(`/api/newspost/${post.id}`, {
+      method: "PUT",
       body: JSON.stringify(formValues),
     });
 
@@ -61,112 +66,60 @@ export default function AddNewProduct() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Item
+        <Button variant="ghost" size="icon">
+          <EllipsisVerticalIcon className="h-5 w-5 text-gray-600" />
         </Button>
       </SheetTrigger>
       <SheetContent>
         <form onSubmit={onSumbit}>
           <SheetHeader>
-            <SheetTitle>New Product</SheetTitle>
+            <SheetTitle>New Post</SheetTitle>
             <SheetDescription>
-              Upload product information here. Click save when you are done.
+              Create a new post to share with your team.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4 mt-2">
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="name" className="text-left">
-                Name
-              </Label>
+              <Label htmlFor="title">Title</Label>
               <Input
-                id="name"
+                id="title"
                 type="text"
+                defaultValue={formValues.title}
                 onChange={(e) =>
-                  setFormValues({ ...formValues, name: e.target.value })
+                  setFormValues({ ...formValues, title: e.target.value })
                 }
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="description" className="text-left">
-                Description
-              </Label>
+              <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
+                defaultValue={formValues.description}
                 onChange={(e) =>
                   setFormValues({ ...formValues, description: e.target.value })
                 }
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="amount" className="text-left">
-                Amount
-              </Label>
-              <Input
-                id="amount"
-                type="integer"
-                onChange={(e) =>
-                  setFormValues({
-                    ...formValues,
-                    amount: parseInt(e.target.value),
-                  })
-                }
-              />
+              <Label htmlFor="picture">Picture</Label>
+              <Input id="picture" type="file" />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="location" className="text-left">
-                Location
-              </Label>
-              <Input
-                id="location"
-                type="text"
-                onChange={(e) =>
-                  setFormValues({ ...formValues, location: e.target.value })
-                }
-              />
-            </div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="status" className="text-left">
-                Status
-              </Label>
+              <Label htmlFor="type">Label</Label>
               <Select
                 onValueChange={(value) =>
                   setFormValues((prevFormValues) => ({
                     ...prevFormValues,
-                    status: value.toUpperCase(),
+                    label: value.toUpperCase(),
                   }))
                 }
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a status" />
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder={formValues.label} id="label" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Status</SelectLabel>
-                    <SelectItem value="available">Available</SelectItem>
-                    <SelectItem value="checked_out">Checked Out</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="type" className="text-left">
-                Type
-              </Label>
-              <Select
-                onValueChange={(value) =>
-                  setFormValues((prevFormValues) => ({
-                    ...prevFormValues,
-                    type: value.toUpperCase(),
-                  }))
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a type" id="type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Categories</SelectLabel>
+                    <SelectLabel>Labels</SelectLabel>
                     <SelectItem value="patient_simulators">
                       Patient Simulators
                     </SelectItem>
@@ -196,7 +149,7 @@ export default function AddNewProduct() {
           <SheetFooter>
             <SheetClose asChild>
               <Button type="submit" className="w-full max-w-sm">
-                Add Product
+                Save changes
               </Button>
             </SheetClose>
           </SheetFooter>

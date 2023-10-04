@@ -86,10 +86,7 @@ export function DataTable<TData, TValue>({
           />
         </div>
 
-        <div className="flex space-x-2">
-          <AddSupplierSheet />
-          <DataTableViewOptions table={table} />
-        </div>
+        <DataTableViewOptions table={table} />
       </div>
       <div className="rounded-md border">
         <Table>

@@ -1,6 +1,7 @@
 import { getUserSession } from "@/lib/auth";
 import { PurchaseRequest, columns } from "./columns";
 import { DataTable } from "./data-table";
+import AddRequestSheet from "@/components/purchaserequest/actions/add-request";
 
 async function getData(): Promise<PurchaseRequest[]> {
   const response = await fetch(
@@ -33,6 +34,9 @@ export default async function PurchaseRequestPage() {
             A list of all the purchase requests in your database including their
             title, status, priority and user.
           </p>
+        </div>
+        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <AddRequestSheet userId={user.id} />
         </div>
       </div>
       <div className="pt-6">

@@ -58,9 +58,6 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <div className="flex space-x-2 h-8 px-2 lg:px-3">
-        <AddRequestSheet userId={userId} />
-      </div>
       <DataTableViewOptions table={table} />
     </div>
   );

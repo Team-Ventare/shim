@@ -44,7 +44,7 @@ const navigation = [
     icon: BuildingStorefrontIcon,
   },
   {
-    name: "Order Requests",
+    name: "Purchase Requests",
     href: "/requests",
     icon: ClipboardDocumentListIcon,
   },

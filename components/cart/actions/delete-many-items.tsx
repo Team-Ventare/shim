@@ -70,7 +70,7 @@ export default function DeleteManyItems({
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-8 lg:flex text-white bg-red-500 hover:bg-red-600 hover:text-white"
+          className="ml-auto h-8 lg:flex text-white bg-red-500 hover:bg-red-600 hover:text-white"
         >
           <Trash2 className="mr-2 h-4 w-4" />
           Delete

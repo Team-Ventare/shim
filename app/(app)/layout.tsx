@@ -41,7 +41,7 @@ export default async function AppLayout({
             <div className="fixed flex-none w-full lg:w-28">
               <Sidebar user={user} />
             </div>
-            <div className="w-full lg:ml-72 mx-auto mt-16 lg:mt-0">
+            <div className="w-screen mt-16 lg:mt-0 lg:ml-72 4xl:ml-0">
               {children}
             </div>
           </div>

@@ -129,7 +129,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
   {
     accessorKey: "users",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="User" />
+      <DataTableColumnHeader column={column} title="Submitted by" />
     ),
     cell: ({ row }) => {
       const user: User = row.getValue("users");
@@ -139,21 +139,16 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
       }
 
       return (
-        <Button
-          variant="outline"
-          className="hover:bg-zinc-800 text-zinc-800 hover:text-zinc-50"
-        >
-          <div className="flex items-center space-x-2">
-            <Avatar className="mr-2 h-7 w-7 text-zinc-950">
-              <AvatarImage
-                src={user.image as string}
-                referrerPolicy="no-referrer"
-              />
-              <AvatarFallback>{user.name?.at(0)}</AvatarFallback>
-            </Avatar>
-            {user.name}
-          </div>
-        </Button>
+        <div className="flex items-center space-x-1">
+          <Avatar className="mr-2 h-6 w-6 text-zinc-950">
+            <AvatarImage
+              src={user.image as string}
+              referrerPolicy="no-referrer"
+            />
+            <AvatarFallback>{user.name?.at(0)}</AvatarFallback>
+          </Avatar>
+          <p className="font-medium">{user.name}</p>
+        </div>
       );
     },
     filterFn: (row, id, value) => {
