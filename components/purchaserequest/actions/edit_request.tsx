@@ -159,11 +159,15 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
             </div>
             <SheetFooter>
             <SheetClose asChild>
-                <Button 
-                type="submit"
-                className="w-full max-w-sm"
-                >
-                Save changes</Button>
+                {formValues.title === "" || formValues.description === "" ||formValues.reason === "" || formValues.price === "" ? (
+                <Button type="submit" className="w-full max-w-sm" disabled>
+                  Save changes
+                </Button>
+              ) : (
+                <Button type="submit" className="w-full max-w-sm">
+                  Save changes
+                </Button>
+              )}
             </SheetClose>
             </SheetFooter>
         </form>

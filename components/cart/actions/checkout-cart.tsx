@@ -121,6 +121,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
               <Input
                 id="course"
                 type="text"
+                className="mt-1 text-sm font-light text-zinc-950"
                 placeholder="Enter a course name"
                 onChange={(e) =>
                   setFormValues({ ...formValues, course: e.target.value })
@@ -136,7 +137,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
                   <Input
                     id="products"
                     type="text"
-                    className="col-span-3"
+                    className="mt-1 text-sm font-light text-zinc-950"
                     value="No products selected"
                     readOnly
                   />
