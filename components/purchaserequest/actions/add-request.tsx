@@ -41,19 +41,23 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
     if (response.ok) {
       refresh_PR();
       toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(formValues, null, 2)}
-            </code>
-          </pre>
-        ),
+        // title: "You submitted the following values:",
+        // description: (
+        //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+        //     <code className="text-white">
+        //       {JSON.stringify(formValues, null, 2)}
+        //     </code>
+        //   </pre>
+        // ),
+        title: "Request submitted!",
+        duration: 2000,
+        description: "The request was successfully submitted.",
       });
     } else {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
+        duration: 2000,
         description: "There was a problem with your request.",
       });
     }
