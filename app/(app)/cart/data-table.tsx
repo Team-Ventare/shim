@@ -13,7 +13,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -22,19 +21,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/cart/data-table-view-options";
 import { DataTablePagination } from "@/components/cart/data-table-pagination";
-import { CheckCheck } from "lucide-react";
 import DeleteManyItems from "@/components/cart/actions/delete-many-items";
 import CheckoutCart from "@/components/cart/actions/checkout-cart";
 
@@ -90,7 +79,7 @@ export function DataTable<TData, TValue>({
 
         <div className="flex space-x-2">
           <DeleteManyItems selectedRows={table.getSelectedRowModel().rows} />
-          <CheckoutCart selectedRows={table.getSelectedRowModel().rows}/>
+          <CheckoutCart selectedRows={table.getSelectedRowModel().rows} />
           <DataTableViewOptions table={table} />
         </div>
       </div>

@@ -14,13 +14,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Plus } from "lucide-react";
-import {
-  Select,
-  SelectItem,
-  SelectValue,
-  SelectContent,
-  SelectTrigger,
-} from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
 
@@ -58,11 +51,7 @@ export default function AddSupplierSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto hidden h-8 lg:flex"
-        >
+        <Button>
           <Plus className="mr-2 h-4 w-4" />
           New Supplier
         </Button>
@@ -76,61 +65,58 @@ export default function AddSupplierSheet() {
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="name" className="text-left">
                 Name
               </Label>
               <Input
                 id="name"
                 type="text"
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, name: e.target.value })
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="description" className="text-left">
                 Description
               </Label>
-              <Input id="description" type="text" className="col-span-3" />
+              <Input id="description" type="text" />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="title" className="text-left">
                 Title
               </Label>
               <Input
                 id="title"
                 type="text"
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({
-                    ...formValues, title: e.target.value
+                    ...formValues,
+                    title: e.target.value,
                   })
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="vendor" className="text-left">
                 Vendor
               </Label>
               <Input
                 id="vendor"
                 type="text"
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, vendor: e.target.value })
                 }
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="email" className="text-left">
                 Email
               </Label>
               <Input
                 id="email"
                 type="text"
-                className="col-span-3"
                 onChange={(e) =>
                   setFormValues({ ...formValues, email: e.target.value })
                 }
@@ -139,7 +125,9 @@ export default function AddSupplierSheet() {
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Save supplier</Button>
+              <Button type="submit" className="w-full max-w-sm">
+                Add Supplier
+              </Button>
             </SheetClose>
           </SheetFooter>
         </form>

@@ -62,13 +62,9 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto hidden h-8 lg:flex"
-        >
+        <Button>
           <Plus className="mr-2 h-4 w-4" />
-          New Purchase Request
+          New Request
         </Button>
       </SheetTrigger>
       <SheetContent>
@@ -98,31 +94,34 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
                 Description
               </Label>
               <Textarea
-                id="description" 
+                id="description"
                 onChange={(e) =>
                   setFormValues({ ...formValues, description: e.target.value })
-                } />
+                }
+              />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="price" className="text-left">
                 Price
               </Label>
-              <Input 
-                id="price" 
-                type="integer" 
+              <Input
+                id="price"
+                type="integer"
                 onChange={(e) =>
                   setFormValues({ ...formValues, price: e.target.value })
-                } />
+                }
+              />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="reason" className="text-left">
                 Reason
               </Label>
-              <Textarea 
-                id="reason" 
+              <Textarea
+                id="reason"
                 onChange={(e) =>
                   setFormValues({ ...formValues, reason: e.target.value })
-                } />
+                }
+              />
             </div>
 
             <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -156,9 +155,10 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
             <SheetClose asChild>
               <Button
                 type="submit"
+                className="w-full max-w-sm"
                 onClick={() => setFormValues({ ...formValues, userId: userId })}
               >
-                Save purchase request
+                Create Request
               </Button>
             </SheetClose>
           </SheetFooter>

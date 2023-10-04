@@ -97,7 +97,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-8 lg:flex text-white bg-blue-500 hover:bg-blue-600 hover:text-white"
+          className="ml-auto h-8 lg:flex text-white bg-blue-500 hover:bg-blue-600 hover:text-white"
         >
           <ShoppingCart className="mr-2 h-4 w-4" />
           Checkout

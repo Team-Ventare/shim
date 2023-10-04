@@ -69,7 +69,7 @@ export default function AddNewProduct() {
       <SheetContent>
         <form onSubmit={onSumbit}>
           <SheetHeader>
-            <SheetTitle>New product</SheetTitle>
+            <SheetTitle>New Product</SheetTitle>
             <SheetDescription>
               Upload product information here. Click save when you are done.
             </SheetDescription>
@@ -196,7 +196,7 @@ export default function AddNewProduct() {
           <SheetFooter>
             <SheetClose asChild>
               <Button type="submit" className="w-full max-w-sm">
-                Save product
+                Add Product
               </Button>
             </SheetClose>
           </SheetFooter>

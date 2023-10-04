@@ -8,7 +8,6 @@ import { statuses, types } from "./data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
 import AddManyProducts from "./actions/add-many-products-to-cart";
-import { Product } from "@/app/(app)/products/columns";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
