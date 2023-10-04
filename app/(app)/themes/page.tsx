@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ThemesPage() {
   return (
-    <div className="container mx-auto py-6 bg-red-400">
+    <div className="container mx-auto py-6">
       <div className="sm:flex sm:items-center py-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
@@ -33,7 +33,7 @@ export default function ThemesPage() {
           </ThemeWrapper>
         </div>
       </div>
-      <div className="pt-6 bg-green-400">
+      <div className="pt-6">
         <ThemesTabs />
       </div>
     </div>

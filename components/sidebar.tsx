@@ -122,7 +122,7 @@ export default function Sidebar({ user }: { user: User }) {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-2 dark:border-muted">
                     <div className="flex h-16 shrink-0 items-center">
                       <img
                         className="h-8 w-auto"
@@ -241,7 +241,7 @@ export default function Sidebar({ user }: { user: User }) {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-4 overflow-y-auto border-r border-gray-200 bg-white px-6">
+          <div className="flex grow flex-col gap-y-4 overflow-y-auto border-r dark:border-muted px-6">
             <div className="flex shrink-0 items-center h-16 mt-2">
               <Image
                 height={48}
@@ -403,7 +403,7 @@ export default function Sidebar({ user }: { user: User }) {
           </div>
         </div>
 
-        <div className="sticky top-0 flex items-center gap-x-6 bg-white p-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 flex items-center gap-x-6  p-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden"

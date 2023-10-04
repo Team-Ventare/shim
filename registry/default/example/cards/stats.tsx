@@ -1,14 +1,14 @@
-import { useTheme } from "next-themes"
-import { Bar, BarChart, Line, LineChart, ResponsiveContainer } from "recharts"
+import { useTheme } from "next-themes";
+import { Bar, BarChart, Line, LineChart, ResponsiveContainer } from "recharts";
 
-import { useConfig } from "@/hooks/use-config"
+import { useConfig } from "@/hooks/use-config";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/registry/default/ui/card"
-import { themes } from "@/registry/themes"
+} from "@/registry/default/ui/card";
+import { themes } from "@/registry/themes";
 
 const data = [
   {
@@ -43,13 +43,13 @@ const data = [
     revenue: 26475,
     subscription: 189,
   },
-]
+];
 
 export function CardsStats() {
-  const { theme: mode } = useTheme()
-  const [config] = useConfig()
+  const { theme: mode } = useTheme();
+  const [config] = useConfig();
 
-  const theme = themes.find((theme) => theme.name === config.theme)
+  const theme = themes.find((theme) => theme.name === config.theme);
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
@@ -127,5 +127,5 @@ export function CardsStats() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

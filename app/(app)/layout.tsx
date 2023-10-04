@@ -1,5 +1,4 @@
 import Sidebar from "@/components/sidebar";
-import { Toaster } from "@/components/ui/toaster";
 import { Inter } from "next/font/google";
 import { Providers } from "../providers";
 import { User } from "./dashboard/page";
@@ -34,18 +33,17 @@ export default async function AppLayout({
   const user = await getData(session.user.id);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={inter.className}>
         <Providers>
           <div className="flex flex-row">
             <div className="fixed flex-none w-full lg:w-28">
               <Sidebar user={user} />
             </div>
-            <div className="w-screen mt-16 lg:mt-0 lg:ml-72 4xl:ml-0">
+            <div className="w-screen mt-16 lg:mt-0 lg:ml-72 4xl:ml-0 bg-background">
               {children}
             </div>
           </div>
-          <Toaster />
         </Providers>
       </body>
     </html>
