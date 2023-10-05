@@ -96,6 +96,7 @@ model Notifications {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   message   String
+  category  String
   userId    String   @db.Uuid
   user     Users    @relation(fields: [userId], references: [id])
 }
