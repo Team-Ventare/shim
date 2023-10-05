@@ -20,6 +20,7 @@ model Users {
   news             News[]
   purchaseRequests PurchaseRequests[]
   cart             Cart               @relation(fields: [cartId], references: [id])
+  notifications    Notifications[]
 }
 
 model Cart {
@@ -90,10 +91,20 @@ model News {
   users       Users    @relation(fields: [userId], references: [id])
 }
 
+model Notifications {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  message   String
+  userId    String   @db.Uuid
+  user     Users    @relation(fields: [userId], references: [id])
+}
+
 enum Role {
   Admin
   User
   Pending
+  Staff
 }
 
 enum PR_Status {
