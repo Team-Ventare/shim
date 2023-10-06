@@ -11,7 +11,7 @@ export const columns: ColumnDef<INotification>[] = [
   {
     accessorKey: "message",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Message" />
+      <DataTableColumnHeader column={column} title="Notification" />
     ),
     cell: ({ row }) => {
       const product = row.original;
