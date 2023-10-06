@@ -1,6 +1,5 @@
 import { ThemesTabs } from "@/components/dashboard/themes/tabs";
 import { ThemeCustomizer } from "@/components/ui/theme-customizer";
-import { ThemeWrapper } from "@/components/ui/theme-wrapper";
 
 export function ThemesDashboard() {
   return (
@@ -15,14 +14,9 @@ export function ThemesDashboard() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <ThemeWrapper
-            defaultTheme="zinc"
-            className="relative flex flex-col items-start md:flex-row md:items-center"
-          >
-            <div className="px-4 pb-8 md:ml-auto md:pb-0">
-              <ThemeCustomizer />
-            </div>
-          </ThemeWrapper>
+          <div className="px-4 pb-8 md:ml-auto md:pb-0">
+            <ThemeCustomizer />
+          </div>
         </div>
       </div>
       <div className="pt-6">

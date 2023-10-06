@@ -2,6 +2,7 @@
 
 import DashboardLayout from "@/components/dashboard/dashboard";
 import { Product } from "../products/columns";
+import { getUserSession } from "@/lib/auth";
 
 export type User = {
   status: string;
@@ -16,6 +17,22 @@ export type User = {
   };
 };
 
+async function getNotifications() {
+  const response = await fetch(
+    "https://shim-ventare.vercel.app/api/notifications",
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch notifications");
+  }
+
+  const data = await response.json();
+  return data;
+}
+
 async function getUsers() {
   const response = await fetch("https://shim-ventare.vercel.app/api/users");
 
@@ -28,9 +45,18 @@ async function getUsers() {
 }
 
 export default async function Dashboard() {
+  // Initiate all requrests in parallel
   const usersData = getUsers();
+  const notificationsData = getNotifications();
 
-  const [users] = await Promise.all([usersData]);
+  // Wait for all promises to resolve
+  const [users, notifications] = await Promise.all([
+    usersData,
+    notificationsData,
+  ]);
 
-  return <DashboardLayout users={users} />;
+  const user = await getUserSession();
+  return (
+    <DashboardLayout user={user} users={users} notifications={notifications} />
+  );
 }

@@ -3,6 +3,7 @@
 import * as React from "react";
 import {
   CheckIcon,
+  CopyIcon,
   InfoCircledIcon,
   MoonIcon,
   ResetIcon,
@@ -11,11 +12,12 @@ import {
 import template from "lodash.template";
 import { Paintbrush } from "lucide-react";
 import { useTheme } from "next-themes";
+
 import { cn } from "@/lib/utils";
 import { useConfig } from "@/hooks/use-config";
 import { DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { ThemeWrapper } from "@/components/ui/theme-wrapper";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/registry/new-york/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -23,23 +25,24 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
+} from "@/registry/new-york/ui/dialog";
+import { Label } from "@/registry/new-york/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@/registry/new-york/ui/popover";
+import { Skeleton } from "@/registry/new-york/ui/skeleton";
 import { Theme, themes } from "@/registry/themes";
 
 import "@/styles/mdx.css";
 import { Drawer } from "vaul";
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/registry/new-york/ui/tooltip";
 
 export function ThemeCustomizer() {
   const [config, setConfig] = useConfig();
@@ -182,6 +185,7 @@ function Customizer() {
           onClick={() => {
             setConfig({
               ...config,
+              style: "new-york",
               theme: "zinc",
               radius: 0.5,
             });
@@ -191,7 +195,7 @@ function Customizer() {
           <span className="sr-only">Reset</span>
         </Button>
       </div>
-      <div className="space-y-4">
+      <div className="flex flex-1 flex-col space-y-4 md:space-y-6">
         <div className="space-y-1.5">
           <Label className="text-xs">Color</Label>
           <div className="grid grid-cols-3 gap-2">
@@ -297,6 +301,143 @@ function Customizer() {
       </div>
     </ThemeWrapper>
   );
+}
+
+function CustomizerCode() {
+  const [config] = useConfig();
+  const activeTheme = themes.find((theme) => theme.name === config.theme);
+
+  return (
+    <ThemeWrapper defaultTheme="zinc" className="relative space-y-4">
+      <div data-rehype-pretty-code-fragment="">
+        <pre className="max-h-[450px] overflow-x-auto rounded-lg border bg-zinc-950 py-4 dark:bg-zinc-900">
+          <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
+            <span className="line text-white">@layer base &#123;</span>
+            <span className="line text-white">&nbsp;&nbsp;:root &#123;</span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--background:{" "}
+              {activeTheme?.cssVars.light["background"]};
+            </span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--foreground:{" "}
+              {activeTheme?.cssVars.light["foreground"]};
+            </span>
+            {[
+              "card",
+              "popover",
+              "primary",
+              "secondary",
+              "muted",
+              "accent",
+              "destructive",
+            ].map((prefix) => (
+              <>
+                <span className="line text-white">
+                  &nbsp;&nbsp;&nbsp;&nbsp;--{prefix}:{" "}
+                  {
+                    activeTheme?.cssVars.light[
+                      prefix as keyof typeof activeTheme.cssVars.light
+                    ]
+                  }
+                  ;
+                </span>
+                <span className="line text-white">
+                  &nbsp;&nbsp;&nbsp;&nbsp;--{prefix}-foreground:{" "}
+                  {
+                    activeTheme?.cssVars.light[
+                      `${prefix}-foreground` as keyof typeof activeTheme.cssVars.light
+                    ]
+                  }
+                  ;
+                </span>
+              </>
+            ))}
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--border:{" "}
+              {activeTheme?.cssVars.light["border"]};
+            </span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--input:{" "}
+              {activeTheme?.cssVars.light["input"]};
+            </span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--ring:{" "}
+              {activeTheme?.cssVars.light["ring"]};
+            </span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--radius: {config.radius}rem;
+            </span>
+            <span className="line text-white">&nbsp;&nbsp;&#125;</span>
+            <span className="line text-white">&nbsp;</span>
+            <span className="line text-white">&nbsp;&nbsp;.dark &#123;</span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--background:{" "}
+              {activeTheme?.cssVars.dark["background"]};
+            </span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--foreground:{" "}
+              {activeTheme?.cssVars.dark["foreground"]};
+            </span>
+            {[
+              "card",
+              "popover",
+              "primary",
+              "secondary",
+              "muted",
+              "accent",
+              "destructive",
+            ].map((prefix) => (
+              <>
+                <span className="line text-white">
+                  &nbsp;&nbsp;&nbsp;&nbsp;--{prefix}:{" "}
+                  {
+                    activeTheme?.cssVars.dark[
+                      prefix as keyof typeof activeTheme.cssVars.dark
+                    ]
+                  }
+                  ;
+                </span>
+                <span className="line text-white">
+                  &nbsp;&nbsp;&nbsp;&nbsp;--{prefix}-foreground:{" "}
+                  {
+                    activeTheme?.cssVars.dark[
+                      `${prefix}-foreground` as keyof typeof activeTheme.cssVars.dark
+                    ]
+                  }
+                  ;
+                </span>
+              </>
+            ))}
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--border:{" "}
+              {activeTheme?.cssVars.dark["border"]};
+            </span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--input:{" "}
+              {activeTheme?.cssVars.dark["input"]};
+            </span>
+            <span className="line text-white">
+              &nbsp;&nbsp;&nbsp;&nbsp;--ring:{" "}
+              {activeTheme?.cssVars.dark["ring"]};
+            </span>
+            <span className="line text-white">&nbsp;&nbsp;&#125;</span>
+            <span className="line text-white">&#125;</span>
+          </code>
+        </pre>
+      </div>
+    </ThemeWrapper>
+  );
+}
+
+function getThemeCode(theme: Theme, radius: number) {
+  if (!theme) {
+    return "";
+  }
+
+  return template(BASE_STYLES_WITH_VARIABLES)({
+    colors: theme.cssVars,
+    radius,
+  });
 }
 
 const BASE_STYLES_WITH_VARIABLES = `

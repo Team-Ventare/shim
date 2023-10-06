@@ -1,6 +1,20 @@
 import { User } from "@/app/(app)/dashboard/page";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/registry/new-york/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/registry/new-york/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/registry/new-york/ui/popover";
 
 export function UserList({ users }: { users: User[] }) {
   const getInitials = (name: string) => {
@@ -54,7 +68,7 @@ export function UserList({ users }: { users: User[] }) {
 
   return (
     <>
-      <div className="sm:flex sm:items-center p-2">
+      <div className="sm:flex sm:items-center py-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
             Users
@@ -89,9 +103,6 @@ export function UserList({ users }: { users: User[] }) {
                   >
                     Role
                   </th>
-                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                    <span className="sr-only">Edit</span>
-                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
@@ -117,13 +128,47 @@ export function UserList({ users }: { users: User[] }) {
                       <div className="text-gray-900">Title</div>
                       <div className="mt-1 text-gray-500">Department</div>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                      {getRoleBadge(user.role)}
-                    </td>
-                    <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <Button variant="link" className="mr-2">
-                        Edit
-                      </Button>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500 flex justify-end">
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="ml-auto"
+                          >
+                            {user.role}
+                            <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="p-0" align="end">
+                          <Command>
+                            <CommandInput placeholder="Select new role..." />
+                            <CommandList>
+                              <CommandEmpty>No roles found.</CommandEmpty>
+                              <CommandGroup>
+                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
+                                  <p>Pending</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    Cannot access any resources.
+                                  </p>
+                                </CommandItem>
+                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
+                                  <p>Staff</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    Can view, checkout, comment and edit.
+                                  </p>
+                                </CommandItem>
+                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
+                                  <p>Admin</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    Admin-level access to all resources.
+                                  </p>
+                                </CommandItem>
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
                     </td>
                   </tr>
                 ))}

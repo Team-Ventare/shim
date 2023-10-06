@@ -79,7 +79,7 @@ export default async function Home() {
         <Sidebar user={user} />
       </div>
 
-      <div className="w-full lg:ml-72 mx-auto mt-16 lg:mt-0 py-8">
+      <div className="py-8 w-screen mt-16 lg:mt-0 lg:pl-72 4xl:pl-0 bg-background">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
             <h2 className="text-base font-semibold leading-7 text-indigo-600">

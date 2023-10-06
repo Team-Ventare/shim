@@ -1,12 +1,13 @@
+import { User } from "@/app/(app)/dashboard/page";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/registry/new-york/ui/button";
 import { Label } from "@/registry/new-york/ui/label";
 
-export function SettingsDashboard() {
+export function SettingsDashboard({ user }: { user: User }) {
   return (
     <>
       <div className="divide-y dark:divide-white/5">
-        <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+        <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 pt-2 pb-10 md:grid-cols-3">
           <div>
             <h2 className="text-base font-semibold leading-7 dark:dark:text-white">
               Personal Information
@@ -31,30 +32,26 @@ export function SettingsDashboard() {
                   </p>
                 </div>
               </div>
-
               <div className="sm:col-span-3">
                 <Label htmlFor="first-name">First name</Label>
-                <Input id="first-name" placeholder="First name" />
+                <Input id="first-name" defaultValue={user.name.split(" ")[0]} />
               </div>
-
               <div className="sm:col-span-3">
                 <Label htmlFor="last-name">Last name</Label>
-                <Input id="last-name" placeholder="Last name" />
+                <Input id="last-name" defaultValue={user.name.split(" ")[1]} />
               </div>
-
               <div className="col-span-full">
                 <Label htmlFor="email">Email address</Label>
-                <Input type="email" id="email" placeholder="Email" />
+                <Input type="email" id="email" defaultValue={user.email} />
               </div>
             </div>
-
             <div className="mt-8 flex">
               <Button>Save</Button>
             </div>
           </form>
         </div>
 
-        <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+        <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-10 md:grid-cols-3">
           <div>
             <h2 className="text-base font-semibold leading-7 dark:text-white">
               Change password
@@ -68,29 +65,17 @@ export function SettingsDashboard() {
             <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
               <div className="col-span-full">
                 <Label htmlFor="current-password">Current password</Label>
-                <Input
-                  type="password"
-                  id="current-password"
-                  placeholder="password"
-                />
+                <Input type="password" id="current-password" />
               </div>
 
               <div className="col-span-full">
                 <Label htmlFor="new-password">New password</Label>
-                <Input
-                  type="password"
-                  id="new-password"
-                  placeholder="password"
-                />
+                <Input type="password" id="new-password" />
               </div>
 
               <div className="col-span-full">
                 <Label htmlFor="confirm-password">Confirm password</Label>
-                <Input
-                  type="password"
-                  id="confirm-password"
-                  placeholder="password"
-                />
+                <Input type="password" id="confirm-password" />
               </div>
             </div>
 
