@@ -5,7 +5,6 @@ import { User } from "./dashboard/page";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Toaster } from "@/components/ui/toaster";
-import { ThemeWrapper } from "@/components/ui/theme-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
