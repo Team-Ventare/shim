@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/table";
 import { DataTablePagination } from "@/components/inventory/data-table-pagination";
 import { DataTableToolbar } from "@/components/inventory/data-table-toolbar";
-import { useConfig } from "@/hooks/use-config";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -65,7 +64,6 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
-  const [config] = useConfig();
 
   return (
     <div className="space-y-4">
