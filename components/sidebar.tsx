@@ -123,16 +123,21 @@ export default function Sidebar({ user }: { user: User }) {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-2 dark:border-muted bg-foreground">
-                    <div className="flex h-16 shrink-0 items-center">
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  <div className="flex grow flex-col gap-y-4 overflow-y-auto border-r px-6 bg-white dark:bg-">
+                    <div className="flex shrink-0 items-center h-16 mt-2">
+                      <Image
+                        height={48}
+                        width={48}
+                        className="w-auto h-10"
+                        src={logo}
                         alt="Your Company"
                       />
+                      <span className="text-2xl font-bold text-black dark:text-white ml-4">
+                        Ventare
+                      </span>
                     </div>
                     <nav className="flex flex-1 flex-col">
-                      <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                      <ul role="list" className="flex flex-1 flex-col gap-y-4">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
                             {navigation.slice(0, 3).map((item) => (
@@ -141,8 +146,8 @@ export default function Sidebar({ user }: { user: User }) {
                                   href={item.href}
                                   className={cn(
                                     item.href === pathname
-                                      ? "bg-gray-50 text-indigo-600"
-                                      : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                      ? "bg-gray-50 dark:bg-transparent/30 text-indigo-600"
+                                      : "text-gray-700 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-600 hover:bg-gray-50 dark:hover:bg-transparent/30",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
@@ -150,7 +155,7 @@ export default function Sidebar({ user }: { user: User }) {
                                     className={cn(
                                       item.href === pathname
                                         ? "text-indigo-600"
-                                        : "text-gray-400 group-hover:text-indigo-600",
+                                        : "text-gray-400 dark:text-white group-hover:text-indigo-600",
                                       "h-6 w-6 shrink-0"
                                     )}
                                     aria-hidden="true"
@@ -162,7 +167,7 @@ export default function Sidebar({ user }: { user: User }) {
                           </ul>
                         </li>
                         <li>
-                          <div className="text-xs font-semibold leading-6 text-gray-400">
+                          <div className="text-xs font-semibold leading-6 text-gray-400 dark:text-gray-300">
                             Console
                           </div>
                           <ul role="list" className="-mx-2 space-y-1">
@@ -172,8 +177,8 @@ export default function Sidebar({ user }: { user: User }) {
                                   href={item.href}
                                   className={cn(
                                     item.href === pathname
-                                      ? "bg-gray-50 text-indigo-600"
-                                      : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                      ? "bg-gray-50 dark:bg-transparent/30 text-indigo-600"
+                                      : "text-gray-700 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-600 hover:bg-gray-50 dark:hover:bg-transparent/30",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
@@ -181,7 +186,7 @@ export default function Sidebar({ user }: { user: User }) {
                                     className={cn(
                                       item.href === pathname
                                         ? "text-indigo-600"
-                                        : "text-gray-400 group-hover:text-indigo-600",
+                                        : "text-gray-400 dark:text-white group-hover:text-indigo-600",
                                       "h-6 w-6 shrink-0"
                                     )}
                                     aria-hidden="true"
@@ -189,7 +194,7 @@ export default function Sidebar({ user }: { user: User }) {
                                   {item.name}
                                   {item.href === "/cart" && (
                                     <>
-                                      <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600">
+                                      <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600 dark:text-white">
                                         {user.cart.products?.length || 0}
                                       </span>
                                     </>
@@ -200,7 +205,7 @@ export default function Sidebar({ user }: { user: User }) {
                           </ul>
                         </li>
                         <li>
-                          <div className="text-xs font-semibold leading-6 text-gray-400">
+                          <div className="text-xs font-semibold leading-6 text-gray-400 dark:text-gray-300">
                             Support
                           </div>
                           <ul role="list" className="-mx-2 space-y-1">
@@ -210,8 +215,8 @@ export default function Sidebar({ user }: { user: User }) {
                                   href={item.href}
                                   className={cn(
                                     item.href === pathname
-                                      ? "bg-gray-50 text-indigo-600"
-                                      : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                      ? "bg-gray-50 dark:bg-transparent/30 text-indigo-600"
+                                      : "text-gray-700 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-600 hover:bg-gray-50 dark:hover:bg-transparent/30",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
@@ -219,7 +224,7 @@ export default function Sidebar({ user }: { user: User }) {
                                     className={cn(
                                       item.href === pathname
                                         ? "text-indigo-600"
-                                        : "text-gray-400 group-hover:text-indigo-600",
+                                        : "text-gray-400 dark:text-white group-hover:text-indigo-600",
                                       "h-6 w-6 shrink-0"
                                     )}
                                     aria-hidden="true"
@@ -229,6 +234,53 @@ export default function Sidebar({ user }: { user: User }) {
                               </li>
                             ))}
                           </ul>
+                        </li>
+                        <li className="-mx-6 mt-auto">
+                          <div className="flex items-center space-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-transparent/30">
+                            <Avatar className="h-10 w-10 text-zinc-950 dark:text-white">
+                              <AvatarImage
+                                src={user.image as string}
+                                referrerPolicy="no-referrer"
+                              />
+                              <AvatarFallback>{user.name.at(0)}</AvatarFallback>
+                            </Avatar>
+                            <span aria-hidden="true">{user.name}</span>
+
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  size="icon"
+                                  className="ml-auto"
+                                >
+                                  <ChevronUpIcon className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-48">
+                                <DropdownMenuLabel>
+                                  My Account
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup>
+                                  <DropdownMenuItem className="cursor-pointer">
+                                    Profile
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem className="cursor-pointer">
+                                    Settings
+                                  </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup>
+                                  <DropdownMenuItem
+                                    className="cursor-pointer"
+                                    onSelect={() => signOut()}
+                                  >
+                                    Sign out
+                                  </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </div>
                         </li>
                       </ul>
                     </nav>
@@ -240,9 +292,9 @@ export default function Sidebar({ user }: { user: User }) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-4 overflow-y-auto border-r dark:border-muted px-6">
+          <div className="flex grow flex-col gap-y-4 overflow-y-auto border-r px-6">
             <div className="flex shrink-0 items-center h-16 mt-2">
               <Image
                 height={48}
@@ -251,7 +303,7 @@ export default function Sidebar({ user }: { user: User }) {
                 src={logo}
                 alt="Your Company"
               />
-              <span className="text-2xl font-bold text-black ml-4">
+              <span className="text-2xl font-bold text-black dark:text-white ml-4">
                 Ventare
               </span>
             </div>
@@ -265,8 +317,8 @@ export default function Sidebar({ user }: { user: User }) {
                           href={item.href}
                           className={cn(
                             item.href === pathname
-                              ? "bg-gray-50 text-indigo-600"
-                              : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                              ? "bg-gray-50 dark:bg-transparent/30 text-indigo-600"
+                              : "text-gray-700 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-600 hover:bg-gray-50 dark:hover:bg-transparent/30",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                           )}
                         >
@@ -274,7 +326,7 @@ export default function Sidebar({ user }: { user: User }) {
                             className={cn(
                               item.href === pathname
                                 ? "text-indigo-600"
-                                : "text-gray-400 group-hover:text-indigo-600",
+                                : "text-gray-400 dark:text-white group-hover:text-indigo-600",
                               "h-6 w-6 shrink-0"
                             )}
                             aria-hidden="true"
@@ -286,7 +338,7 @@ export default function Sidebar({ user }: { user: User }) {
                   </ul>
                 </li>
                 <li>
-                  <div className="text-xs font-semibold leading-6 text-gray-400">
+                  <div className="text-xs font-semibold leading-6 text-gray-400 dark:text-gray-300">
                     Console
                   </div>
                   <ul role="list" className="-mx-2 space-y-1">
@@ -296,8 +348,8 @@ export default function Sidebar({ user }: { user: User }) {
                           href={item.href}
                           className={cn(
                             item.href === pathname
-                              ? "bg-gray-50 text-indigo-600"
-                              : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                              ? "bg-gray-50 dark:bg-transparent/30 text-indigo-600"
+                              : "text-gray-700 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-600 hover:bg-gray-50 dark:hover:bg-transparent/30",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                           )}
                         >
@@ -305,7 +357,7 @@ export default function Sidebar({ user }: { user: User }) {
                             className={cn(
                               item.href === pathname
                                 ? "text-indigo-600"
-                                : "text-gray-400 group-hover:text-indigo-600",
+                                : "text-gray-400 dark:text-white group-hover:text-indigo-600",
                               "h-6 w-6 shrink-0"
                             )}
                             aria-hidden="true"
@@ -313,7 +365,7 @@ export default function Sidebar({ user }: { user: User }) {
                           {item.name}
                           {item.href === "/cart" && (
                             <>
-                              <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600">
+                              <span className="ml-auto mr-2 text-xs font-semibold leading-6 text-gray-600 dark:text-white">
                                 {user.cart.products?.length || 0}
                               </span>
                             </>
@@ -324,7 +376,7 @@ export default function Sidebar({ user }: { user: User }) {
                   </ul>
                 </li>
                 <li>
-                  <div className="text-xs font-semibold leading-6 text-gray-400">
+                  <div className="text-xs font-semibold leading-6 text-gray-400 dark:text-gray-300">
                     Support
                   </div>
                   <ul role="list" className="-mx-2 space-y-1">
@@ -334,8 +386,8 @@ export default function Sidebar({ user }: { user: User }) {
                           href={item.href}
                           className={cn(
                             item.href === pathname
-                              ? "bg-gray-50 text-indigo-600"
-                              : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                              ? "bg-gray-50 dark:bg-transparent/30 text-indigo-600"
+                              : "text-gray-700 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-600 hover:bg-gray-50 dark:hover:bg-transparent/30",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                           )}
                         >
@@ -343,7 +395,7 @@ export default function Sidebar({ user }: { user: User }) {
                             className={cn(
                               item.href === pathname
                                 ? "text-indigo-600"
-                                : "text-gray-400 group-hover:text-indigo-600",
+                                : "text-gray-400 dark:text-white group-hover:text-indigo-600",
                               "h-6 w-6 shrink-0"
                             )}
                             aria-hidden="true"
@@ -355,8 +407,8 @@ export default function Sidebar({ user }: { user: User }) {
                   </ul>
                 </li>
                 <li className="-mx-6 mt-auto">
-                  <div className="flex items-center space-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
-                    <Avatar className="h-10 w-10 text-zinc-950">
+                  <div className="flex items-center space-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-transparent/30">
+                    <Avatar className="h-10 w-10 text-zinc-950 dark:text-white">
                       <AvatarImage
                         src={user.image as string}
                         referrerPolicy="no-referrer"
@@ -404,21 +456,21 @@ export default function Sidebar({ user }: { user: User }) {
           </div>
         </div>
 
-        <div className="sticky top-0 flex items-center gap-x-6  p-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 flex items-center gap-x-6 p-4 shadow-sm sm:px-6 lg:hidden bg-background dark:border-b">
           <button
             type="button"
-            className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
+            className="-m-2.5 p-2.5 text-gray-700 dark:text-white lg:hidden"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
-          <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">
+          <div className="flex-1 text-sm font-semibold leading-6 text-gray-900 dark:text-white">
             Dashboard
           </div>
           <span className="sr-only">Your profile</span>
-          <div className="flex items-center space-x-4 text-sm font-semibold leading-6 text-gray-900">
-            <Avatar className="h-10 w-10 text-zinc-950">
+          <div className="flex items-center space-x-4 text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+            <Avatar className="h-10 w-10 text-zinc-950 dark:text-white">
               <AvatarImage
                 src={user.image as string}
                 referrerPolicy="no-referrer"

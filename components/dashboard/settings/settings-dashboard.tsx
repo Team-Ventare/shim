@@ -1,7 +1,7 @@
 import { User } from "@/app/(app)/dashboard/page";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/registry/new-york/ui/button";
-import { Label } from "@/registry/new-york/ui/label";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export function SettingsDashboard({ user }: { user: User }) {
   return (

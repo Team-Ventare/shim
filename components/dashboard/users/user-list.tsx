@@ -1,7 +1,7 @@
 import { User } from "@/app/(app)/dashboard/page";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/registry/new-york/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -9,12 +9,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/registry/new-york/ui/command";
+} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/registry/new-york/ui/popover";
+} from "@/components/ui/popover";
 
 export function UserList({ users }: { users: User[] }) {
   const getInitials = (name: string) => {

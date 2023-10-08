@@ -3,7 +3,6 @@
 import { User } from "@/app/(app)/dashboard/page";
 import { UserList } from "@/components/dashboard/users/user-list";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ThemesDashboard } from "./themes/themes-dashboard";
 import { SettingsDashboard } from "./settings/settings-dashboard";
 import {
   INotification,
@@ -26,7 +25,6 @@ export default function DashboardLayout({
           <TabsList>
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
             <TabsTrigger value="users">Users</TabsTrigger>
-            <TabsTrigger value="themes">Themes</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
           <TabsContent value="notifications">
@@ -34,9 +32,6 @@ export default function DashboardLayout({
           </TabsContent>
           <TabsContent value="users" className="space-y-4">
             <UserList users={users} />
-          </TabsContent>
-          <TabsContent value="themes">
-            <ThemesDashboard />
           </TabsContent>
           <TabsContent value="settings">
             <SettingsDashboard user={user} />

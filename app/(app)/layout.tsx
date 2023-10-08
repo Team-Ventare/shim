@@ -39,10 +39,10 @@ export default async function AppLayout({
       <body className={inter.className}>
         <Providers>
           <div className="flex flex-row min-h-screen">
-            <div className="fixed flex-none w-full lg:w-28">
+            <div className="fixed flex-none w-full lg:w-28 z-10">
               <Sidebar user={user} />
             </div>
-            <div className="w-screen mt-16 lg:mt-0 lg:pl-72 4xl:pl-0 bg-background">
+            <div className="w-screen mt-16 lg:mt-0 lg:pl-72 4xl:pl-0 bg-background z-0">
               {children}
             </div>
           </div>

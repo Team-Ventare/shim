@@ -75,11 +75,11 @@ export default async function Home() {
 
   return (
     <div className="flex flex-row">
-      <div className="fixed flex-none w-full lg:w-28">
+      <div className="fixed flex-none w-full lg:w-28 z-10">
         <Sidebar user={user} />
       </div>
 
-      <div className="py-8 w-screen mt-16 lg:mt-0 lg:pl-72 4xl:pl-0 bg-background">
+      <div className="py-8 w-screen mt-16 lg:mt-0 lg:pl-72 4xl:pl-0 z-0">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
             <h2 className="text-base font-semibold leading-7 text-indigo-600">
