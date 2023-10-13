@@ -33,7 +33,8 @@ export async function PUT(
     data: {
       title: json.title || null,
       priority: json.priority || null,
-      price: json.price || null,
+      price: json.price || "N/A",
+      amount: json.amount || null,
       status: json.status || "PENDING",
       description: json.description || null,
       reason: json.reason || null,

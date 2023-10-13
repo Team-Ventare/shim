@@ -34,6 +34,7 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
         title: request.title,
         priority: request.priority,
         price: request.price,
+        amount: request.amount,
         description: request.description,
         reason: request.reason,
     });
@@ -120,8 +121,21 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
                 />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="location">
-                Price
+                <Label htmlFor="amount">
+                Amount 
+                </Label>
+                <Input
+                id="amount"
+                type="integer"
+                defaultValue={formValues.amount}
+                onChange={(e) =>
+                    setFormValues({ ...formValues, amount: parseInt(e.target.value) })
+                }
+                />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="price">
+                Price Per Item (Optional)
                 </Label>
                 <Input
                 id="price"
@@ -159,7 +173,7 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
             </div>
             <SheetFooter>
             <SheetClose asChild>
-                {formValues.title === "" || formValues.description === "" ||formValues.reason === "" || formValues.price === "" ? (
+                {formValues.title === "" || formValues.description === "" ||formValues.reason === "" || formValues.amount == null ? (
                 <Button type="submit" className="w-full max-w-sm" disabled>
                   Save changes
                 </Button>

@@ -74,9 +74,9 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
       <SheetContent>
         <form onSubmit={onSumbit}>
           <SheetHeader>
-            <SheetTitle>New Purchase Request</SheetTitle>
+            <SheetTitle>New Request</SheetTitle>
             <SheetDescription>
-              Upload purchase request information here. Click save when you are
+              Upload purchase request information here. Click create reqest when you are
               done.
             </SheetDescription>
           </SheetHeader>
@@ -105,12 +105,23 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="amount" className="text-left">
+                Amount
+              </Label>
+              <Input
+                id="amount"
+                onChange={(e) =>
+                  setFormValues({ ...formValues, amount: parseInt(e.target.value) })
+                }
+              />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="price" className="text-left">
-                Price
+                Price Per Item (Optional)
               </Label>
               <Input
                 id="price"
-                type="integer"
+                defaultValue={'N/A'}
                 onChange={(e) =>
                   setFormValues({ ...formValues, price: e.target.value })
                 }

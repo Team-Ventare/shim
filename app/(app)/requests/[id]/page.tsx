@@ -43,7 +43,7 @@ export default async function PurchaseRequestPage({
   const data = await getData(params.id);
   const status = statuses.find((s) => s.value === data.status);
   const priority = priorities.find((s) => s.value === data.priority);
-  //console.log(data);
+  console.log(data);
 
   if (!status||!priority) {
     return <div>Not found</div>;
@@ -89,24 +89,20 @@ export default async function PurchaseRequestPage({
               <Label className="block text-sm font-semibold text-zinc-950">
                 Status
               </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
                 {status.view()}
-              </p>
             </div>
             <div>
               <Label className="block text-sm font-semibold text-zinc-950">
                 Priority
               </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
                 {priority.view()}
-              </p>
             </div>
             <div>
               <Label className="block text-sm font-semibold text-zinc-950">
                 Price
               </Label>
               <p className="mt-1 text-sm font-light text-zinc-950">
-                ${data.price}
+                {data.amount}
               </p>
             </div>
             <div>
@@ -142,10 +138,21 @@ export default async function PurchaseRequestPage({
           >
             <AccordionItem value="item-1">
               <AccordionTrigger className="p-4">
-                Description
+                Additional Information
               </AccordionTrigger>
               <AccordionContent className="px-4 border-t pt-4">
+              <div className="col-span-3">
+                <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                  Price:
+                </Label>
+                <p className="mt-1 text-sm font-light text-gray-500">
+                  {data.price}
+                </p>
+              </div>
               <div>
+                <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                  Description:
+                </Label>
                 <p className="mt-1 text-sm font-light text-gray-500">
                   {data.description}
                 </p>

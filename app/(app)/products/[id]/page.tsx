@@ -106,17 +106,13 @@ export default async function ProductPage({
               <Label className="block text-sm font-light text-gray-500">
                 Status
               </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
                 {status.view()}
-              </p>
             </div>
             <div>
               <Label className="block text-sm font-light text-gray-500">
                 Category
               </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
                 {type.view()}
-              </p>
             </div>
             <div>
               <Label className="block text-sm font-light text-gray-500">

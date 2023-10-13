@@ -44,6 +44,7 @@ export interface PurchaseRequest {
   label: string;
   description: string;
   price: string;
+  amount: number;
   reason: string;
   userId: string;
   users: Users;

@@ -18,9 +18,9 @@ model Users {
   cartId           String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   checkoutHistory  CheckoutHistory[]
   news             News[]
+  notifications    Notifications[]
   purchaseRequests PurchaseRequests[]
   cart             Cart               @relation(fields: [cartId], references: [id])
-  notifications    Notifications[]
 }
 
 model Cart {
@@ -54,8 +54,9 @@ model PurchaseRequests {
   status      PR_Status   @default(PENDING)
   userId      String      @db.Uuid
   description String
-  price       String
+  price       String      @default("N/A")
   reason      String
+  amount      Int
   users       Users       @relation(fields: [userId], references: [id])
 }
 
@@ -96,9 +97,9 @@ model Notifications {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   message   String
-  category  String
   userId    String   @db.Uuid
-  user     Users    @relation(fields: [userId], references: [id])
+  category  String
+  user      Users    @relation(fields: [userId], references: [id])
 }
 
 enum Role {
