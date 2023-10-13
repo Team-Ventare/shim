@@ -184,12 +184,7 @@ export const columns: ColumnDef<Product>[] = [
                             variant: "destructive",
                             title: "Uh oh! Something went wrong.",
                             description:
-                              "Product could not be removed.",
-                            action: (
-                              <ToastAction altText="Try again">
-                                Try again
-                              </ToastAction>
-                            ),
+                              "Product could not be removed. Please try again.",
                           });
                         } else {
                           refreshCart();
@@ -197,11 +192,6 @@ export const columns: ColumnDef<Product>[] = [
                             variant: "destructive",
                             title: "Success! Removed from cart.",
                             description: `${product.name} has been removed from your cart.`,
-                            action: (
-                              <ToastAction altText="undo">
-                                Undo
-                              </ToastAction>
-                            ),
                           });
                         }
                       }}
@@ -225,13 +215,13 @@ export const columns: ColumnDef<Product>[] = [
                 <DropdownMenuItem className="cursor-pointer"
                   onSelect={(e) => e.preventDefault()}
                 >
-                  Edit Item
+                  Edit Amount
                 </DropdownMenuItem>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[250px]">
+              <DialogContent className="sm:max-w-[350px]">
                 <DialogHeader>
-                  <DialogTitle>Edit Item</DialogTitle>
-                  <DialogDescription>Change the item amount.</DialogDescription>
+                  <DialogTitle>Edit Product Amount</DialogTitle>
+                  <DialogDescription>Change the product amount. Current amount in your cart is {product.amount}.</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
@@ -241,15 +231,13 @@ export const columns: ColumnDef<Product>[] = [
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button
+                      type="submit"
+                      className="w-full max-w-sm"
                       onClick={() => {
-                        //this toast will be moved to the actions file in the future
                         toast({
                           variant: "destructive",
                           title: "Item Updated.",
                           description: `${product.name} has been updated in your cart.`,
-                          action: (
-                            <ToastAction altText="Undo">Undo</ToastAction>
-                          ),
                         });
                       }}
                     >

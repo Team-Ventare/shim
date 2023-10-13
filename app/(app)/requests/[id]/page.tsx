@@ -12,12 +12,9 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { priorities, statuses } from "@/components/purchaserequest/data";
-import { getUserSession } from "@/lib/auth";
-import { use } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditRequest from "@/components/purchaserequest/actions/edit_request";
 import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
-import prisma from "@/lib/prisma";
 import DeleteRequest from "@/components/purchaserequest/actions/delete_request_w_dialog";
 
 async function getData(id: string): Promise<PurchaseRequest> {
@@ -81,15 +78,15 @@ export default async function PurchaseRequestPage({
           </div>
           <div className="ml-8 mr-6 grid grid-cols-1 gap-4">
             <div>
-              <Label className="block text-sm font-light text-gray-500">
+              <Label className="block text-sm font-semibold text-zinc-950">
                 Title
               </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
+              <p className="mt-1 text-sm font-light text-zinc-950">
                 {data.title}
               </p>
             </div>
             <div>
-              <Label className="block text-sm font-light text-gray-500">
+              <Label className="block text-sm font-semibold text-zinc-950">
                 Status
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
@@ -97,7 +94,7 @@ export default async function PurchaseRequestPage({
               </p>
             </div>
             <div>
-              <Label className="block text-sm font-light text-gray-500">
+              <Label className="block text-sm font-semibold text-zinc-950">
                 Priority
               </Label>
               <p className="mt-1 text-sm font-semibold text-zinc-950">
@@ -105,18 +102,18 @@ export default async function PurchaseRequestPage({
               </p>
             </div>
             <div>
-              <Label className="block text-sm font-light text-gray-500">
+              <Label className="block text-sm font-semibold text-zinc-950">
                 Price
               </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
+              <p className="mt-1 text-sm font-light text-zinc-950">
                 ${data.price}
               </p>
             </div>
             <div>
-              <Label className="block text-sm font-light text-gray-500">
+              <Label className="block text-sm font-semibold text-zinc-950">
                 Requester
               </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
+              <p className="mt-1 text-sm font-light text-zinc-950">
                 {data.users.name}
               </p>
             </div>

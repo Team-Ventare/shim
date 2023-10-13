@@ -32,7 +32,7 @@ export default async function PurchaseRequestPage() {
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A list of all the purchase requests in your database including their
-            title, status, priority and user.
+            title, status, priority and requester.
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">

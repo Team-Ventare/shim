@@ -42,7 +42,6 @@ export default function DeleteManyItems({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
             description: "Product(s) could not be removed.",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
           });
         } else {
           //remove the checkmark from the selected rows
@@ -51,7 +50,6 @@ export default function DeleteManyItems({
             variant: "destructive",
             title: "Removed from cart.",
             description: `${row.original.name} has been removed from your cart.`,
-            action: <ToastAction altText="Undo">Undo</ToastAction>,
           });
         }
         // setTimeout(() => {

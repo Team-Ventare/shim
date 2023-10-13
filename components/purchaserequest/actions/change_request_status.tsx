@@ -18,15 +18,10 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog";
   import { Button } from "@/components/ui/button";
-  import { MoreHorizontalIcon } from "lucide-react";
-  import { redirect } from "next/navigation";
-  import { revalidatePath } from "next/cache";
 import { PurchaseRequest } from "@/app/(app)/requests/columns";
-import { stat } from "fs";
 import { UpdateStatusAccept, UpdateStatusReject } from "./status_change";
 import { refresh_PR } from "./refresh_page";
 import { toast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
   
   export default function ChangeRequestStatus({ request }: { request: PurchaseRequest }) {
     async function UpdateRequestStatus(status: string) {
@@ -77,7 +72,7 @@ import { ToastAction } from "@/components/ui/toast";
     return (
     <DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button variant="outline">Change Status</Button>
+            <Button variant="outline">Update Status</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
             <AlertDialog>
@@ -94,7 +89,7 @@ import { ToastAction } from "@/components/ui/toast";
                     Confirm
                 </AlertDialogTitle>
                 <AlertDialogDescription>
-                    Are you sure you want to accept the purchase request? You will not be able to edit the request after this.
+                    Are you sure you want to accept the purchase request? You will not be able to edit any request information after this.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -127,7 +122,7 @@ import { ToastAction } from "@/components/ui/toast";
                     Confirm
                 </AlertDialogTitle>
                 <AlertDialogDescription>
-                    Are you sure you want to reject the purchase request?  You will not be able to edit the request after this.
+                    Are you sure you want to reject the purchase request? You will not be able to edit any request information after this.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
