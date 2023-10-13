@@ -105,6 +105,17 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="reason" className="text-left">
+                Reason
+              </Label>
+              <Textarea
+                id="reason"
+                onChange={(e) =>
+                  setFormValues({ ...formValues, reason: e.target.value })
+                }
+              />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="amount" className="text-left">
                 Amount
               </Label>
@@ -121,24 +132,11 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               </Label>
               <Input
                 id="price"
-                defaultValue={'N/A'}
                 onChange={(e) =>
                   setFormValues({ ...formValues, price: e.target.value })
                 }
               />
             </div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="reason" className="text-left">
-                Reason
-              </Label>
-              <Textarea
-                id="reason"
-                onChange={(e) =>
-                  setFormValues({ ...formValues, reason: e.target.value })
-                }
-              />
-            </div>
-
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="category" className="text-left">
                 Priority

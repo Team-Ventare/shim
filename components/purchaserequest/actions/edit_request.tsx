@@ -78,7 +78,7 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
             <SheetHeader>
             <SheetTitle>Edit Purchase Request</SheetTitle>
             <SheetDescription>
-                Edit purchase request information here. Click save when you are done.
+                Edit purchase request information here. Click save changes when you are done.
             </SheetDescription>
             </SheetHeader>
             <div className="grid gap-4 py-4">
@@ -170,10 +170,14 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
                 </SelectContent>
                 </Select>
             </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="picture">Picture</Label>
+              <Input id="picture" type="file" />
+            </div>
             </div>
             <SheetFooter>
             <SheetClose asChild>
-                {formValues.title === "" || formValues.description === "" ||formValues.reason === "" || formValues.amount == null ? (
+                {formValues.title === "" || formValues.description === "" ||formValues.reason === "" || !formValues.amount ? (
                 <Button type="submit" className="w-full max-w-sm" disabled>
                   Save changes
                 </Button>
