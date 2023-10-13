@@ -43,7 +43,7 @@ export default async function PurchaseRequestPage({
   const data = await getData(params.id);
   const status = statuses.find((s) => s.value === data.status);
   const priority = priorities.find((s) => s.value === data.priority);
-  console.log(data);
+  //console.log(data);
 
   if (!status||!priority) {
     return <div>Not found</div>;
@@ -99,7 +99,7 @@ export default async function PurchaseRequestPage({
             </div>
             <div>
               <Label className="block text-sm font-semibold text-zinc-950">
-                Price
+                Amount
               </Label>
               <p className="mt-1 text-sm font-light text-zinc-950">
                 {data.amount}
