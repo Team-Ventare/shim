@@ -1,4 +1,5 @@
 import AddSupplierSheet from "@/components/suppliers/add-supplier";
+import EditSwitch from "./switch";
 import { Supplier, columns } from "./columns";
 import { DataTable } from "./data-table";
 
@@ -36,7 +37,10 @@ export default async function SupplierPage() {
           <AddSupplierSheet />
         </div>
       </div>
-      <div className="pt-6">
+      <div className="float-right padding-1px">
+          <EditSwitch />
+        </div>
+      <div className="pt-6 padding-2px">
         <DataTable columns={columns} data={data} />
       </div>
     </div>

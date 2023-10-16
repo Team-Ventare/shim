@@ -70,9 +70,9 @@ export default function StaffPage() {
                   </h3>
                   <div className="flex items-center space-x-2">
                     <EnvelopeIcon className="h-5 w-5 text-gray-600" />
-                    <p className="text-base leading-7 text-gray-600">
+                    <a href={"mailto:" + person.email}><p className="text-base leading-7 text-gray-600">
                       {person.email}
-                    </p>
+                    </p></a>
                   </div>
                 </div>
                 <div className="sm:flex sm:items-center sm:justify-between">
