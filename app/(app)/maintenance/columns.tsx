@@ -72,7 +72,7 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Technician" />
     ),
     cell: ({ row }) => {
       const report = row.original;
