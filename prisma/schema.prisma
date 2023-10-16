@@ -21,7 +21,7 @@ model Users {
   news             News[]
   notifications    Notifications[]
   purchaseRequests PurchaseRequests[]
-  Reports          Reports[]
+  reports          Reports[]
   cart             Cart               @relation(fields: [cartId], references: [id])
 }
 
@@ -107,13 +107,13 @@ model Notifications {
 model Reports {
   id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt  DateTime    @default(now())
-  updatedAt  DateTime
+  updatedAt  DateTime    @updatedAt
   technician String
   priority   PM_Priority
   status     PM_Status   @default(PENDING)
   userId     String      @db.Uuid
   comments   String
-  Users      Users       @relation(fields: [userId], references: [id])
+  users      Users       @relation(fields: [userId], references: [id])
 }
 
 enum Role {
