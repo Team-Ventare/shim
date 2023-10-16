@@ -30,13 +30,18 @@ export function SettingsDashboard({ user }: { user: User }) {
     if (inputFileRef.current?.files) {
       const file = inputFileRef.current.files[0];
 
-      const response = await fetch(`/api/users/upload?filename=${file.name}`, {
-        method: "POST",
-        body: file,
-      });
+      if (file) {
+        const response = await fetch(
+          `/api/users/upload?filename=${file.name}`,
+          {
+            method: "POST",
+            body: file,
+          }
+        );
 
-      const newBlob = (await response.json()) as PutBlobResult;
-      setBlob(newBlob);
+        const newBlob = (await response.json()) as PutBlobResult;
+        setBlob(newBlob);
+      }
     }
 
     const response = await fetch(`/api/users/${user.id}`, {
@@ -55,6 +60,10 @@ export function SettingsDashboard({ user }: { user: User }) {
             </code>
           </pre>
         ),
+      });
+      toast({
+        title: "Your profile has been updated!",
+        description: "Please log out and log back in to see the changes.",
       });
     } else {
       toast({
