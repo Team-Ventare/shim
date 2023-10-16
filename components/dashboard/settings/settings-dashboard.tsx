@@ -5,19 +5,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import type { PutBlobResult } from "@vercel/blob";
 import { refresh_dash } from "../refresh_page";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { set } from "date-fns";
 
 export function SettingsDashboard({ user }: { user: User }) {
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
   const [formValues, setFormValues] = React.useState({
     name: user.name,
     email: user.email,
+    image: user.image,
   });
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,6 +37,8 @@ export function SettingsDashboard({ user }: { user: User }) {
 
       const newBlob = (await response.json()) as PutBlobResult;
       setBlob(newBlob);
+
+      setFormValues({ ...formValues, image: newBlob.url });
     }
 
     const response = await fetch(`/api/users/${user.id}`, {

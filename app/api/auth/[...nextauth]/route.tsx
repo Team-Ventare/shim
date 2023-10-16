@@ -47,6 +47,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
+          image: user.image,
           name: user.name,
           role: user.role,
           cart: user.cart,
@@ -88,6 +89,7 @@ export const authOptions: NextAuthOptions = {
         return {
           ...token,
           id: us.id,
+          image: us.image,
           role: us.role,
           cart: us.cart,
           cartId: us.cartId,
