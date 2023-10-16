@@ -14,14 +14,27 @@ import {
   AlertDialogContent,
 } from "@/components/ui/alert-dialog";
 import { addProductToCart } from "./add-product-to-cart";
+import { toast } from "@/components/ui/use-toast";
 
 export default function AddManyProducts({ selected }: { selected: any }) {
   async function updateCart() {
     if (selected.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "No products selected.",
+      });
       return;
     } else {
       selected.map(async (row: any) => {
         await addProductToCart({ product: row.original });
+      });
+      selected.forEach((row: any) => {
+        row.toggleSelected(false);
+      });
+      toast({
+        title: "Success!",
+        description: `${selected.length} product(s) have been added to your cart.`,
       });
     }
   }
