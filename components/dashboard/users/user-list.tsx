@@ -42,18 +42,6 @@ export function UserList({ users }: { users: User[] }) {
                   >
                     Name
                   </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Role
-                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
@@ -61,7 +49,7 @@ export function UserList({ users }: { users: User[] }) {
                   <tr key={index}>
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center ml-2">
-                        <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
+                        <Avatar className="flex h-10 w-10 items-center justify-center space-y-0 border">
                           <AvatarImage
                             src={user.image as string}
                             referrerPolicy="no-referrer"
@@ -75,10 +63,6 @@ export function UserList({ users }: { users: User[] }) {
                           <div className="mt-1 text-gray-500">{user.email}</div>
                         </div>
                       </div>
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                      <div className="text-gray-900">Title</div>
-                      <div className="mt-1 text-gray-500">Department</div>
                     </td>
                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500 flex justify-end">
                       <Popover>

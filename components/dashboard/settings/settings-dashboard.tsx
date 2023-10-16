@@ -13,10 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export function SettingsDashboard({ user }: { user: User }) {
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  const [updatePicture, setUpdatePicture] = useState(false);
 
   const [formValues, setFormValues] = React.useState({
     name: user.name,
@@ -41,12 +38,18 @@ export function SettingsDashboard({ user }: { user: User }) {
 
         const newBlob = (await response.json()) as PutBlobResult;
         setBlob(newBlob);
+        setUpdatePicture(true);
       }
     }
 
+    console.log(blob);
     const response = await fetch(`/api/users/${user.id}`, {
       method: "PUT",
-      body: JSON.stringify(formValues),
+      body: JSON.stringify({
+        name: formValues.name,
+        email: formValues.email,
+        image: blob ? blob.url : user.image,
+      }),
     });
 
     if (response.ok) {
@@ -93,7 +96,7 @@ export function SettingsDashboard({ user }: { user: User }) {
               <div className="col-span-full flex items-center gap-x-8">
                 <Avatar className="h-24 w-24 text-zinc-950 dark:text-white">
                   <AvatarImage
-                    src={user.image as string}
+                    src={updatePicture ? blob?.url : (user.image as string)}
                     referrerPolicy="no-referrer"
                   />
                   <AvatarFallback>{user.name.at(0)}</AvatarFallback>

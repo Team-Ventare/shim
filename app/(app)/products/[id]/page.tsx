@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 import { Product } from "../columns";
-import { cn } from "@/lib/utils";
+import { cn, formatCreatedAt } from "@/lib/utils";
 import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
 import hospital from "../../../../public/hospital.png";
@@ -67,7 +67,7 @@ export default async function ProductPage({
     return null;
   }
   return (
-    <div className="h-screen py-10">
+    <div className="h-screen py-10 max-w-6xl mx-auto">
       <div className="border-b h-[360px] mt-2">
         <div className="container flex items-center space-x-1 text-sm text-muted-foreground">
           <Link href="/" className="overflow-hidden whitespace-nowrap">
@@ -156,7 +156,7 @@ export default async function ProductPage({
           <Accordion
             type="single"
             collapsible
-            className="w-full border rounded-md mt-8"
+            className="w-full border rounded-md mt-6"
           >
             <AccordionItem value="item-1">
               <AccordionTrigger className="p-4">
@@ -164,13 +164,7 @@ export default async function ProductPage({
               </AccordionTrigger>
               {history.map((object, index) => {
                 return (
-                  <AccordionContent
-                    key={index}
-                    className={cn(
-                      "px-2",
-                      index === 0 ? "border-t pt-4" : undefined
-                    )}
-                  >
+                  <AccordionContent key={index} className="border-t p-2">
                     <div className="flex justify-between gap-x-6">
                       <div className="flex gap-x-2 justify-center">
                         <Avatar className="h-10 w-10 text-zinc-950 flex-shrink-0">
@@ -182,7 +176,7 @@ export default async function ProductPage({
                             {object.users.name.at(0)}
                           </AvatarFallback>
                         </Avatar>
-                        <div className="min-w-0 flex-auto">
+                        <div className="flex-auto">
                           <p className="text-sm font-normal leading-6 text-gray-900">
                             {object.users.name}
                           </p>
@@ -196,7 +190,7 @@ export default async function ProductPage({
                           {object.course}
                         </p>
                         <p className="text-xs leading-5 text-gray-500">
-                          {object.createdAt.toDateString()}
+                          {formatCreatedAt(object.createdAt.toDateString())}
                         </p>
                       </div>
                     </div>

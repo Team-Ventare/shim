@@ -2,20 +2,9 @@
 
 import { NewsPost } from "./page";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { EllipsisVerticalIcon, TrashIcon } from "@heroicons/react/24/outline";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import EditNewsPost from "@/components/news/edit-news-post";
-import { Delete } from "lucide-react";
 import DeleteNewsPost from "@/components/news/delete-news-post";
+import { formatCreatedAt } from "@/lib/utils";
 
 export default function PostDisplay({ data }: { data: NewsPost[] }) {
   return (
@@ -36,11 +25,7 @@ export default function PostDisplay({ data }: { data: NewsPost[] }) {
           <div className="w-full">
             <div className="flex items-center gap-x-4 text-xs">
               <time dateTime={post.createdAt} className="text-gray-500">
-                {new Date(post.createdAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                {formatCreatedAt(post.createdAt)}
               </time>
               <span className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                 {post.label}

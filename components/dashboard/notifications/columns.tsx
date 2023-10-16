@@ -17,8 +17,8 @@ export const columns: ColumnDef<INotification>[] = [
       const product = row.original;
 
       return (
-        <div className="flex items-center space-x-1 py-2">
-          <Avatar className="mr-1 h-7 w-7 text-zinc-950">
+        <div className="flex items-center space-x-1 py-1">
+          <Avatar className="mr-1 h-10 w-10 text-zinc-950">
             <AvatarImage
               src={product.user.image as string}
               referrerPolicy="no-referrer"
@@ -34,7 +34,7 @@ export const columns: ColumnDef<INotification>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Time" />
+      <DataTableColumnHeader column={column} title="Date" />
     ),
     cell: ({ row }) => {
       const notification = row.original;

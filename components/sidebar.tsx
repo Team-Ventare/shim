@@ -10,7 +10,7 @@ import {
   ChevronUpIcon,
   ChevronDownIcon,
   ClipboardDocumentListIcon,
-  HomeModernIcon,
+  HomeIcon,
   NewspaperIcon,
   ShoppingCartIcon,
   TruckIcon,
@@ -36,7 +36,7 @@ import {
 import { User } from "@/app/(app)/dashboard/page";
 
 const navigation = [
-  { name: "Home", href: "/", icon: HomeModernIcon },
+  { name: "Home", href: "/", icon: HomeIcon },
   { name: "News", href: "/news", icon: NewspaperIcon },
   {
     name: "Dashboard",
