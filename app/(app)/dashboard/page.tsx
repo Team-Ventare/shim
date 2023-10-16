@@ -34,7 +34,9 @@ async function getNotifications() {
 }
 
 async function getUsers() {
-  const response = await fetch("https://shim-ventare.vercel.app/api/users");
+  const response = await fetch("https://shim-ventare.vercel.app/api/users", {
+    cache: "no-store",
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch users");

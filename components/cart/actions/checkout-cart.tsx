@@ -109,8 +109,7 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
           <SheetHeader>
             <SheetTitle>Checkout</SheetTitle>
             <SheetDescription>
-              Enter the course that will be using the products. Click checkout
-              cart when you are done.
+              Enter the course that will be using the products. Click checkout when you are done.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4 mt-2">

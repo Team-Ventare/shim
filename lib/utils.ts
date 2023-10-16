@@ -38,10 +38,8 @@ export function formatCreatedAt(createdAt: string): string {
   }
 }
 
-// Example usage:
 const notification = {
-  createdAt: "2023-10-04T15:30:00Z", // Replace with your actual createdAt date
+  createdAt: "2023-10-04T15:30:00Z",
 };
 
 const formattedText = formatCreatedAt(notification.createdAt);
-console.log(formattedText);

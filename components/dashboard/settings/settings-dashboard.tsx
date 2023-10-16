@@ -1,9 +1,80 @@
+"use client";
+
 import { User } from "@/app/(app)/dashboard/page";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/components/ui/use-toast";
+import React, { useState, useRef, useEffect } from "react";
+import type { PutBlobResult } from "@vercel/blob";
+import { refresh_dash } from "../refresh_page";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function SettingsDashboard({ user }: { user: User }) {
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
+  const [formValues, setFormValues] = React.useState({
+    name: user.name,
+    email: user.email,
+    image: user.image,
+  });
+
+  const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (inputFileRef.current?.files) {
+      const file = inputFileRef.current.files[0];
+
+      if (file) {
+        const response = await fetch(
+          `/api/users/upload?filename=${file.name}`,
+          {
+            method: "POST",
+            body: file,
+          }
+        );
+
+        const newBlob = (await response.json()) as PutBlobResult;
+        setBlob(newBlob);
+      }
+    }
+
+    const response = await fetch(`/api/users/${user.id}`, {
+      method: "PUT",
+      body: JSON.stringify(formValues),
+    });
+
+    if (response.ok) {
+      refresh_dash();
+      toast({
+        title: "You submitted the following values:",
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {JSON.stringify(formValues, null, 2)}
+            </code>
+          </pre>
+        ),
+      });
+      toast({
+        title: "Your profile has been updated!",
+        description: "Please log out and log back in to see the changes.",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        duration: 2000,
+        description: "There was a problem with your request.",
+      });
+    }
+  };
+
   return (
     <>
       <div className="divide-y dark:divide-white/5">
@@ -17,37 +88,54 @@ export function SettingsDashboard({ user }: { user: User }) {
             </p>
           </div>
 
-          <form className="md:col-span-2">
+          <form onSubmit={onSumbit} className="md:col-span-2">
             <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
               <div className="col-span-full flex items-center gap-x-8">
-                <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
-                  className="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover"
-                />
+                <Avatar className="h-24 w-24 text-zinc-950 dark:text-white">
+                  <AvatarImage
+                    src={user.image as string}
+                    referrerPolicy="no-referrer"
+                  />
+                  <AvatarFallback>{user.name.at(0)}</AvatarFallback>
+                </Avatar>
                 <div>
-                  <Button>Change avatar</Button>
+                  <Label htmlFor="picture">Update Avatar</Label>
+                  <Input type="file" id="picture" ref={inputFileRef} />
                   <p className="mt-2 text-xs leading-5 text-gray-400">
                     JPG, GIF or PNG. 1MB max.
                   </p>
                 </div>
               </div>
               <div className="sm:col-span-3">
-                <Label htmlFor="first-name">First name</Label>
-                <Input id="first-name" defaultValue={user.name.split(" ")[0]} />
-              </div>
-              <div className="sm:col-span-3">
-                <Label htmlFor="last-name">Last name</Label>
-                <Input id="last-name" defaultValue={user.name.split(" ")[1]} />
+                <Label htmlFor="first-name">Name</Label>
+                <Input
+                  id="first-name"
+                  defaultValue={user.name}
+                  onChange={(e) =>
+                    setFormValues({ ...formValues, name: e.target.value })
+                  }
+                />
               </div>
               <div className="col-span-full">
-                <Label htmlFor="email">Email address</Label>
-                <Input type="email" id="email" defaultValue={user.email} />
+                <Label htmlFor="email">Email Address</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  defaultValue={user.email}
+                  onChange={(e) =>
+                    setFormValues({ ...formValues, email: e.target.value })
+                  }
+                />
               </div>
             </div>
             <div className="mt-8 flex">
-              <Button>Save</Button>
+              <Button type="submit">Save</Button>
             </div>
+            {blob && (
+              <div>
+                Blob url: <a href={blob.url}>{blob.url}</a>
+              </div>
+            )}
           </form>
         </div>
 

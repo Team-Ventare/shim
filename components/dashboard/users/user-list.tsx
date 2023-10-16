@@ -17,55 +17,6 @@ import {
 } from "@/components/ui/popover";
 
 export function UserList({ users }: { users: User[] }) {
-  const getInitials = (name: string) => {
-    const parts = name.split(" ");
-    return parts.map((part) => part[0]).join("");
-  };
-
-  const getRoleBadge = (role: string) => {
-    switch (role) {
-      case "Admin":
-        return (
-          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-            <svg
-              className="h-1.5 w-1.5 fill-red-500"
-              viewBox="0 0 6 6"
-              aria-hidden="true"
-            >
-              <circle cx={3} cy={3} r={3} />
-            </svg>
-            Admin
-          </span>
-        );
-      case "User":
-        return (
-          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">
-            <svg
-              className="h-1.5 w-1.5 fill-green-500"
-              viewBox="0 0 6 6"
-              aria-hidden="true"
-            >
-              <circle cx={3} cy={3} r={3} />
-            </svg>
-            User
-          </span>
-        );
-      default:
-        return (
-          <span className="inline-flex items-center gap-x-1.5 rounded-md bg-yellow-50 px-1.5 py-0.5 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/10">
-            <svg
-              className="h-1.5 w-1.5 fill-yellow-500"
-              viewBox="0 0 6 6"
-              aria-hidden="true"
-            >
-              <circle cx={3} cy={3} r={3} />
-            </svg>
-            Pending
-          </span>
-        );
-    }
-  };
-
   return (
     <>
       <div className="sm:flex sm:items-center py-2">
@@ -111,10 +62,11 @@ export function UserList({ users }: { users: User[] }) {
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center ml-2">
                         <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-                          <AvatarImage src="/avatars/02.png" alt="Avatar" />
-                          <AvatarFallback>
-                            {getInitials(user.name)}
-                          </AvatarFallback>
+                          <AvatarImage
+                            src={user.image as string}
+                            referrerPolicy="no-referrer"
+                          />
+                          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                         </Avatar>
                         <div className="ml-4">
                           <div className="font-medium text-gray-900">

@@ -31,7 +31,7 @@ export default async function Cart() {
             Cart
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            Select products to delete and checkout or delete, edit, and view a single product.
+            Select products to checkout with a provided course name, view specific product details, or delete products from your cart.
           </p>
         </div>
       </div>
