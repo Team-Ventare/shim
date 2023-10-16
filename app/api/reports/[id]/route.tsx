@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// Fetch Purchase Request (/api/reports/[id])
+// Fetch Reports (/api/reports/[id])
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
@@ -40,7 +40,7 @@ export async function PUT(
   return NextResponse.json(updated);
 }
 
-// Update Purchase Request (partial) (/api/purchaseRequests/[id])
+// Update Reports (partial) (/api/reports/[id])
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
