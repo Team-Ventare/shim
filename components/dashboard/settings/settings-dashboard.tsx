@@ -37,8 +37,6 @@ export function SettingsDashboard({ user }: { user: User }) {
 
       const newBlob = (await response.json()) as PutBlobResult;
       setBlob(newBlob);
-
-      setFormValues({ ...formValues, image: newBlob.url });
     }
 
     const response = await fetch(`/api/users/${user.id}`, {

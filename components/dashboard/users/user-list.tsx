@@ -111,9 +111,12 @@ export function UserList({ users }: { users: User[] }) {
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center ml-2">
                         <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-                          <AvatarImage src="/avatars/02.png" alt="Avatar" />
+                          <AvatarImage
+                            src={user.image as string}
+                            referrerPolicy="no-referrer"
+                          />
                           <AvatarFallback>
-                            {getInitials(user.name)}
+                            {getInitials(user.name.charAt(0))}
                           </AvatarFallback>
                         </Avatar>
                         <div className="ml-4">
