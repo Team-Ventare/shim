@@ -20,6 +20,7 @@ model Users {
   news             News[]
   notifications    Notifications[]
   purchaseRequests PurchaseRequests[]
+  Reports          Reports[]
   cart             Cart               @relation(fields: [cartId], references: [id])
 }
 
@@ -102,6 +103,18 @@ model Notifications {
   user      Users    @relation(fields: [userId], references: [id])
 }
 
+model Reports {
+  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime
+  technician String
+  priority   PM_Priority
+  status     PM_Status   @default(PENDING)
+  userId     String      @db.Uuid
+  comments   String
+  Users      Users       @relation(fields: [userId], references: [id])
+}
+
 enum Role {
   Admin
   User
@@ -136,4 +149,15 @@ enum Type {
   COMPUTERS
   OFFICE_SUPPLIES
   OTHER
+}
+
+enum PM_Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum PM_Status {
+  PENDING
+  REVIEWED
 }

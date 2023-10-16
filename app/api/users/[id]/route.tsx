@@ -36,7 +36,6 @@ export async function PUT(
     where: {
       id: id,
     },
-    // remove data if not sent
     data: {
       name: json.name || null,
       email: json.email || null,
@@ -57,7 +56,6 @@ export async function PATCH(
     where: {
       id: id,
     },
-    // remove data if not sent
     data: {
       password: json.password || null,
     },
