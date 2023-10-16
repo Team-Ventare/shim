@@ -39,6 +39,7 @@ export async function PUT(
     data: {
       name: json.name || null,
       email: json.email || null,
+      image: json.image || null,
     },
   });
   return NextResponse.json(updated);
