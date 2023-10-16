@@ -106,13 +106,13 @@ export default async function ProductPage({
               <Label className="block text-sm font-light text-gray-500">
                 Status
               </Label>
-                {status.view()}
+              {status.view()}
             </div>
             <div>
               <Label className="block text-sm font-light text-gray-500">
                 Category
               </Label>
-                {type.view()}
+              {type.view()}
             </div>
             <div>
               <Label className="block text-sm font-light text-gray-500">
@@ -175,7 +175,7 @@ export default async function ProductPage({
                       <div className="flex gap-x-2 justify-center">
                         <Avatar className="h-10 w-10 text-zinc-950 flex-shrink-0">
                           <AvatarImage
-                            src={undefined}
+                            src={object.users.image as string}
                             referrerPolicy="no-referrer"
                           />
                           <AvatarFallback>
