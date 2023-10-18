@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import type { PutBlobResult } from "@vercel/blob";
 import { refresh_dash } from "../refresh_page";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

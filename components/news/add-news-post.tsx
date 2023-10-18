@@ -1,5 +1,6 @@
 "use client";
 
+import type { PutBlobResult } from "@vercel/blob";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,14 +25,35 @@ import {
   SelectGroup,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Textarea } from "../ui/textarea";
 
 export default function AddNewsPost({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (inputFileRef.current?.files) {
+      const file = inputFileRef.current.files[0];
+
+      if (file) {
+        const response = await fetch(
+          `/api/users/upload?filename=${file.name}`,
+          {
+            method: "POST",
+            body: file,
+          }
+        );
+
+        const newBlob = (await response.json()) as PutBlobResult;
+        setBlob(newBlob);
+        console.log(newBlob);
+        setFormValues({ ...formValues, imageUrl: newBlob.url });
+      }
+    }
 
     const response = await fetch("/api/newspost", {
       method: "POST",
@@ -96,7 +118,15 @@ export default function AddNewsPost({ userId }: { userId: string }) {
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="picture">Picture</Label>
-              <Input id="picture" type="file" />
+              <Input
+                id="picture"
+                type="file"
+                ref={inputFileRef}
+                onChange={(e) => {
+                  console.log(inputFileRef);
+                  console.log(inputFileRef.current?.files);
+                }}
+              />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="type">Label</Label>
@@ -147,7 +177,6 @@ export default function AddNewsPost({ userId }: { userId: string }) {
                 className="w-full max-w-sm"
                 onClick={() => {
                   setFormValues({ ...formValues, userId: userId });
-                  console.log(formValues);
                 }}
               >
                 Post

@@ -12,14 +12,16 @@ export default function PostDisplay({ data }: { data: NewsPost[] }) {
       {data.map((post) => (
         <div
           key={post.id}
-          className="relative isolate flex flex-col gap-8 lg:flex-row max-w-4xl"
+          className="relative isolate flex flex-col gap-8 lg:flex-row"
         >
-          <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
-            <img
-              src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
-              alt=""
-              className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
-            />
+          <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:w-80 xl:w-96 lg:shrink-0">
+            {post.imageUrl && (
+              <img
+                src={post.imageUrl}
+                alt=""
+                className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+              />
+            )}
             <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
           </div>
           <div className="w-full">
