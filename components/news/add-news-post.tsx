@@ -27,6 +27,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import React, { useState, useRef, useEffect } from "react";
 import { Textarea } from "../ui/textarea";
+import { P } from "@vercel/blob/dist/put-fca5396f";
 
 export default function AddNewsPost({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
@@ -40,43 +41,50 @@ export default function AddNewsPost({ userId }: { userId: string }) {
       const file = inputFileRef.current.files[0];
 
       if (file) {
-        const response = await fetch(
-          `/api/users/upload?filename=${file.name}`,
-          {
+        const req = await fetch(`/api/users/upload?filename=${file.name}`, {
+          method: "POST",
+          body: file,
+        });
+
+        const res = (await req.json()) as PutBlobResult;
+        if (res.url) {
+          setBlob(res);
+
+          const response = await fetch("/api/newspost", {
             method: "POST",
-            body: file,
+            body: JSON.stringify({
+              ...formValues,
+              imageUrl: res.url,
+            }),
+          });
+
+          if (response.ok) {
+            toast({
+              title: "You submitted the following values:",
+              description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                  <code className="text-white">
+                    {JSON.stringify(formValues, null, 2)}
+                  </code>
+                </pre>
+              ),
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              description: "There was a problem with your request.",
+            });
           }
-        );
-
-        const newBlob = (await response.json()) as PutBlobResult;
-        setBlob(newBlob);
-        console.log(newBlob);
-        setFormValues({ ...formValues, imageUrl: newBlob.url });
+        } else {
+          console.log(res);
+          toast({
+            variant: "destructive",
+            title: "Uh oh!",
+            description: "There was a problem uploading the image.",
+          });
+        }
       }
-    }
-
-    const response = await fetch("/api/newspost", {
-      method: "POST",
-      body: JSON.stringify(formValues),
-    });
-
-    if (response.ok) {
-      toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(formValues, null, 2)}
-            </code>
-          </pre>
-        ),
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-      });
     }
   };
 
@@ -98,7 +106,7 @@ export default function AddNewsPost({ userId }: { userId: string }) {
           </SheetHeader>
           <div className="grid gap-4 py-4 mt-2">
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="title">Title</Label>
+              <Label>Title</Label>
               <Input
                 id="title"
                 type="text"
@@ -108,7 +116,7 @@ export default function AddNewsPost({ userId }: { userId: string }) {
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="description">Description</Label>
+              <Label>Description</Label>
               <Textarea
                 id="description"
                 onChange={(e) =>
@@ -117,7 +125,7 @@ export default function AddNewsPost({ userId }: { userId: string }) {
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="picture">Picture</Label>
+              <Label>Picture</Label>
               <Input
                 id="picture"
                 type="file"
@@ -129,7 +137,7 @@ export default function AddNewsPost({ userId }: { userId: string }) {
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="type">Label</Label>
+              <Label>Label</Label>
               <Select
                 onValueChange={(value) =>
                   setFormValues((prevFormValues) => ({
@@ -175,7 +183,7 @@ export default function AddNewsPost({ userId }: { userId: string }) {
               <Button
                 type="submit"
                 className="w-full max-w-sm"
-                onClick={() => {
+                onClick={async () => {
                   setFormValues({ ...formValues, userId: userId });
                 }}
               >
