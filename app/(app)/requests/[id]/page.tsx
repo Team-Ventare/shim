@@ -66,15 +66,15 @@ export default async function PurchaseRequestPage({
           <div className="font-medium text-foreground">{data.title}</div>
         </div>
         <div className="container flex mt-8">
-          <div className="flex flex-col items-center justify-center ml-10 mr-10">
-            <Image
-              priority={true}
-              src={stretcher}
-              alt="Photo by Drew Beamer"
-              className="rounded-sm object-cover"
-              width={300}
-              height={(9 / 16) * 300}
-            />
+          <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:w-80 xl:w-96 lg:shrink-0">
+            {data.imageUrl && (
+              <img
+                src={data.imageUrl}
+                alt=""
+                className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+              />
+            )}
+            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
           </div>
           <div className="ml-8 mr-6 grid grid-cols-1 gap-4">
             <div>

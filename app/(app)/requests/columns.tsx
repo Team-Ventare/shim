@@ -48,6 +48,7 @@ export interface PurchaseRequest {
   reason: string;
   userId: string;
   users: Users;
+  imageUrl: string;
 }
 
 export const columns: ColumnDef<PurchaseRequest>[] = [

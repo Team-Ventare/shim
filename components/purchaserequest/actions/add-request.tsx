@@ -22,45 +22,100 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { refresh_PR } from "./refresh_page";
 import { Textarea } from "@/components/ui/textarea";
+import { PutBlobResult } from "@vercel/blob";
 
 export default function AddRequestSheet({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    //console.log(formValues);
-    const response = await fetch("/api/purchaserequests", {
-      method: "POST",
-      body: JSON.stringify(formValues),
-    });
+    if (inputFileRef.current?.files) {
+      const file = inputFileRef.current.files[0];
 
-    if (response.ok) {
-      refresh_PR();
-      toast({
-        // title: "You submitted the following values:",
-        // description: (
-        //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-        //     <code className="text-white">
-        //       {JSON.stringify(formValues, null, 2)}
-        //     </code>
-        //   </pre>
-        // ),
-        title: "Request submitted!",
-        duration: 2000,
-        description: "The request was successfully submitted.",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        duration: 2000,
-        description: "There was a problem with your request.",
-      });
+      if (file) {
+        const req = await fetch(`/api/users/upload?filename=${file.name}`, {
+          method: "POST",
+          body: file,
+        });
+
+        const res = (await req.json()) as PutBlobResult;
+        if (res.url) {
+          setBlob(res);
+
+          const response = await fetch("/api/purchaserequests", {
+            method: "POST",
+            body: JSON.stringify({
+              ...formValues,
+              imageUrl: res.url,
+            }),
+          });
+
+          if (response.ok) {
+            refresh_PR();
+            toast({
+              title: "You submitted the following values:",
+              description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                  <code className="text-white">
+                    {JSON.stringify(formValues, null, 2)}
+                  </code>
+                </pre>
+              ),
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              duration: 2000,
+              description: "There was a problem with your request.",
+            });
+          }
+        } else {
+          console.log(res);
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            duration: 2000,
+            description: "There was a problem with your request.",
+          });
+        }
+      }
     }
+    // //console.log(formValues);
+    // const response = await fetch("/api/purchaserequests", {
+    //   method: "POST",
+    //   body: JSON.stringify(formValues),
+    // });
+
+    // if (response.ok) {
+    //   refresh_PR();
+    //   toast({
+    //     // title: "You submitted the following values:",
+    //     // description: (
+    //     //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //     //     <code className="text-white">
+    //     //       {JSON.stringify(formValues, null, 2)}
+    //     //     </code>
+    //     //   </pre>
+    //     // ),
+    //     title: "Request submitted!",
+    //     duration: 2000,
+    //     description: "The request was successfully submitted.",
+    //   });
+    // } else {
+    //   toast({
+    //     variant: "destructive",
+    //     title: "Uh oh! Something went wrong.",
+    //     duration: 2000,
+    //     description: "There was a problem with your request.",
+    //   });
+    // }
   };
 
   return (
@@ -160,8 +215,16 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               </Select>
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="picture">Picture</Label>
-              <Input id="picture" type="file" />
+              <Label>Picture</Label>
+              <Input
+                id="picture"
+                type="file"
+                ref={inputFileRef}
+                onChange={(e) => {
+                  console.log(inputFileRef);
+                  console.log(inputFileRef.current?.files);
+                }}
+              />
             </div>
           </div>
           <SheetFooter>
