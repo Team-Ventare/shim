@@ -122,10 +122,10 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="amount">
-                Amount 
+                Quantity 
                 </Label>
                 <Input
-                id="amount"
+                id="quantity"
                 type="integer"
                 defaultValue={formValues.amount}
                 onChange={(e) =>

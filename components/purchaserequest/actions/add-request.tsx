@@ -172,10 +172,10 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="amount" className="text-left">
-                Amount
+                Quantity
               </Label>
               <Input
-                id="amount"
+                id="quantity"
                 onChange={(e) =>
                   setFormValues({ ...formValues, amount: parseInt(e.target.value) })
                 }

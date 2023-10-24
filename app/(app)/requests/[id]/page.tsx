@@ -71,10 +71,10 @@ export default async function PurchaseRequestPage({
               <img
                 src={data.imageUrl}
                 alt=""
-                className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+                className="flex-auto inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
               />
             )}
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+            <div className="flex-auto inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
           </div>
           <div className="ml-8 mr-6 grid grid-cols-1 gap-4">
             <div>
@@ -99,7 +99,7 @@ export default async function PurchaseRequestPage({
             </div>
             <div>
               <Label className="block text-sm font-semibold text-zinc-950">
-                Amount
+                Quantity
               </Label>
               <p className="mt-1 text-sm font-light text-zinc-950">
                 {data.amount}
@@ -127,7 +127,7 @@ export default async function PurchaseRequestPage({
           </div>
         </div>
       </div>
-      <div className="h-[480px] py-2">
+      <div className="h-[360px] py-2">
         <div className="container py-12">
           <h1 className="text-xl font-semibold">Purchase Request Details</h1>
 
@@ -140,7 +140,7 @@ export default async function PurchaseRequestPage({
               <AccordionTrigger className="p-4">
                 Additional Information
               </AccordionTrigger>
-              <AccordionContent className="px-4 border-t pt-4">
+              <AccordionContent className="px-4 py-2 border-t pt-4">
               <div className="col-span-3">
                 <Label className="mt-1 block text-sm font-semibold text-zinc-950">
                   Price:
@@ -171,12 +171,12 @@ export default async function PurchaseRequestPage({
               <AccordionTrigger className="p-4">
                 Requester Information
               </AccordionTrigger>
-              <AccordionContent className="px-4 border-t pt-4">
+              <AccordionContent className="px-4 py-2 border-t pt-4 ">
                 <div className="flex justify-between gap-x-6">
                   <div className="flex gap-x-2 justify-center">
                     <Avatar className="h-10 w-10 text-zinc-950 flex-shrink-0">
                       <AvatarImage
-                        src={undefined}
+                        src={data.users.image as string}
                         referrerPolicy="no-referrer"
                       />
                       <AvatarFallback>
@@ -192,12 +192,12 @@ export default async function PurchaseRequestPage({
                       </p>
                     </div>
                   </div>
-                  <div className="hidden sm:flex sm:flex-col sm:items-end">
-                    <p className="text-sm leading-6 text-gray-900">
+                  <div className=" sm:flex sm:flex-col sm:items-end">
+                    <p className="text-sm leading-6 text-gray-900 items-end">
                       Role: {data.users.role.charAt(0).toUpperCase() + data.users.role.slice(1).toLowerCase()}
                     </p>
                     <p className="text-xs leading-5 text-gray-500">
-                      Created request on: {new Date(data.createdAt).toDateString()}
+                      Created on: {new Date(data.createdAt).toDateString()}
                     </p>
                   </div>
                 </div>
