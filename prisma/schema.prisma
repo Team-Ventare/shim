@@ -14,9 +14,9 @@ model Users {
   email            String             @unique
   password         String
   name             String
-  image           String?
   role             Role               @default(Pending)
   cartId           String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image            String?
   checkoutHistory  CheckoutHistory[]
   news             News[]
   notifications    Notifications[]
@@ -60,6 +60,7 @@ model PurchaseRequests {
   reason      String
   amount      Int
   users       Users       @relation(fields: [userId], references: [id])
+  imageUrl    String?
 }
 
 model Suppliers {
