@@ -59,8 +59,8 @@ model PurchaseRequests {
   price       String      @default("N/A")
   reason      String
   amount      Int
-  users       Users       @relation(fields: [userId], references: [id])
   imageUrl    String?
+  users       Users       @relation(fields: [userId], references: [id])
 }
 
 model Suppliers {

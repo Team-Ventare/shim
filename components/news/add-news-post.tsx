@@ -25,9 +25,8 @@ import {
   SelectGroup,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Textarea } from "../ui/textarea";
-import { P } from "@vercel/blob/dist/put-fca5396f";
 
 export default function AddNewsPost({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
@@ -77,7 +76,6 @@ export default function AddNewsPost({ userId }: { userId: string }) {
             });
           }
         } else {
-          console.log(res);
           toast({
             variant: "destructive",
             title: "Uh oh!",

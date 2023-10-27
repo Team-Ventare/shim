@@ -13,7 +13,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export function SettingsDashboard({ user }: { user: User }) {
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const [updatePicture, setUpdatePicture] = useState(false);
 
   const [formValues, setFormValues] = React.useState({
     name: user.name,
@@ -28,53 +27,40 @@ export function SettingsDashboard({ user }: { user: User }) {
       const file = inputFileRef.current.files[0];
 
       if (file) {
-        const response = await fetch(
-          `/api/users/upload?filename=${file.name}`,
-          {
-            method: "POST",
-            body: file,
+        const req = await fetch(`/api/users/upload?filename=${file.name}`, {
+          method: "POST",
+          body: file,
+        });
+
+        const res = (await req.json()) as PutBlobResult;
+        if (res.url) {
+          setBlob(res);
+
+          const response = await fetch(`/api/users/${user.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              name: formValues.name,
+              email: formValues.email,
+              image: res.url,
+            }),
+          });
+
+          if (response.ok) {
+            refresh_dash();
+
+            toast({
+              title: "Your profile has been updated!",
+              description: "Please log out and log back in to see the changes.",
+            });
           }
-        );
-
-        const newBlob = (await response.json()) as PutBlobResult;
-        setBlob(newBlob);
-        setUpdatePicture(true);
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Uh oh!",
+            description: "There was a problem uploading the image.",
+          });
+        }
       }
-    }
-
-    console.log(blob);
-    const response = await fetch(`/api/users/${user.id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        name: formValues.name,
-        email: formValues.email,
-        image: blob ? blob.url : user.image,
-      }),
-    });
-
-    if (response.ok) {
-      refresh_dash();
-      toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(formValues, null, 2)}
-            </code>
-          </pre>
-        ),
-      });
-      toast({
-        title: "Your profile has been updated!",
-        description: "Please log out and log back in to see the changes.",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        duration: 2000,
-        description: "There was a problem with your request.",
-      });
     }
   };
 
@@ -96,7 +82,7 @@ export function SettingsDashboard({ user }: { user: User }) {
               <div className="col-span-full flex items-center gap-x-8">
                 <Avatar className="h-24 w-24 text-zinc-950 dark:text-white">
                   <AvatarImage
-                    src={updatePicture ? blob?.url : (user.image as string)}
+                    src={user.image as string}
                     referrerPolicy="no-referrer"
                   />
                   <AvatarFallback>{user.name.at(0)}</AvatarFallback>
@@ -134,11 +120,6 @@ export function SettingsDashboard({ user }: { user: User }) {
             <div className="mt-8 flex">
               <Button type="submit">Save</Button>
             </div>
-            {blob && (
-              <div>
-                Blob url: <a href={blob.url}>{blob.url}</a>
-              </div>
-            )}
           </form>
         </div>
 
