@@ -34,7 +34,7 @@ export function formatCreatedAt(createdAt: string): string {
               ? ` and ${minutesAgo} minute${minutesAgo === 1 ? "" : "s"}`
               : ""
           }`;
-    return `Today at ${formattedTime}`;
+    return `Today at ${formattedTime} ago`;
   } else if (timeDifferenceInDays < 2) {
     const formattedDate = createdAtDate.toLocaleDateString(undefined, {
       hour: "numeric",

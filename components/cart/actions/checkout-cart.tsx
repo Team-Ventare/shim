@@ -22,7 +22,13 @@ import { checkoutItems } from "./checkout-items";
 import { deleteItemFromCart } from "./delete-item";
 import { refreshCart } from "./refresh-cart";
 
-export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
+export default function CheckoutCart({
+  userId,
+  selectedRows,
+}: {
+  userId: string;
+  selectedRows: any;
+}) {
   function formatProducts() {
     return (
       <div>
@@ -63,7 +69,9 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
       });
     } else {
       //add the selected products to the form values in the structure of [{"id": "product id"}]
-      formValues.products = selectedRows.map((row: any) => ({id: row.original.id,}));
+      formValues.products = selectedRows.map((row: any) => ({
+        id: row.original.id,
+      }));
       const res = await checkoutItems(formValues);
       if (res) {
         //there might be a better way to delete but ill leave it for now
@@ -77,6 +85,15 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
         toast({
           title: "Success!",
           description: `${selectedRows.length} product(s) have been checked out.`,
+        });
+
+        fetch("/api/notifications", {
+          method: "POST",
+          body: JSON.stringify({
+            message: `checked out ${selectedRows.length} items from the inventory`,
+            category: "Checkout",
+            userId: userId,
+          }),
         });
       } else {
         toast({
@@ -109,7 +126,8 @@ export default function CheckoutCart({ selectedRows }: { selectedRows: any }) {
           <SheetHeader>
             <SheetTitle>Checkout</SheetTitle>
             <SheetDescription>
-              Enter the course that will be using the products. Click checkout when you are done.
+              Enter the course that will be using the products. Click checkout
+              when you are done.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4 mt-2">

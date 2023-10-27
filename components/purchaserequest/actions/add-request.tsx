@@ -68,6 +68,15 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
                 </pre>
               ),
             });
+
+            fetch("/api/notifications", {
+              method: "POST",
+              body: JSON.stringify({
+                message: `submitted a new purchase request`,
+                category: "Purchase Request",
+                userId: userId,
+              }),
+            });
           } else {
             toast({
               variant: "destructive",
@@ -131,8 +140,8 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
           <SheetHeader>
             <SheetTitle>New Request</SheetTitle>
             <SheetDescription>
-              Upload purchase request information here. Click create reqest when you are
-              done.
+              Upload purchase request information here. Click create reqest when
+              you are done.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4">
@@ -177,7 +186,10 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               <Input
                 id="quantity"
                 onChange={(e) =>
-                  setFormValues({ ...formValues, amount: parseInt(e.target.value) })
+                  setFormValues({
+                    ...formValues,
+                    amount: parseInt(e.target.value),
+                  })
                 }
               />
             </div>

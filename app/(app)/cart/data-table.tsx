@@ -30,11 +30,13 @@ import CheckoutCart from "@/components/cart/actions/checkout-cart";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  userId: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  userId,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -79,7 +81,10 @@ export function DataTable<TData, TValue>({
 
         <div className="flex space-x-2">
           <DeleteManyItems selectedRows={table.getSelectedRowModel().rows} />
-          <CheckoutCart selectedRows={table.getSelectedRowModel().rows} />
+          <CheckoutCart
+            userId={userId}
+            selectedRows={table.getSelectedRowModel().rows}
+          />
           <DataTableViewOptions table={table} />
         </div>
       </div>

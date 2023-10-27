@@ -17,7 +17,7 @@ import { Plus } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
 
-export default function AddSupplierSheet() {
+export default function AddSupplierSheet({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,6 +38,15 @@ export default function AddSupplierSheet() {
             </code>
           </pre>
         ),
+      });
+
+      fetch("/api/notifications", {
+        method: "POST",
+        body: JSON.stringify({
+          message: `added a new supplier to the contact list`,
+          category: "Supplies",
+          userId: userId,
+        }),
       });
     } else {
       toast({

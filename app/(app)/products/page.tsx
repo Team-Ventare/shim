@@ -1,3 +1,4 @@
+import { getUserSession } from "@/lib/auth";
 import { Product, columns } from "./columns";
 import { DataTable } from "./data-table";
 import AddNewProduct from "@/components/inventory/actions/add-new-product";
@@ -16,6 +17,7 @@ async function getData(): Promise<Product[]> {
 }
 
 export default async function ProductPage() {
+  const user = await getUserSession();
   const data = await getData();
 
   return (
@@ -31,7 +33,7 @@ export default async function ProductPage() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <AddNewProduct />
+          <AddNewProduct userId={user.id} />
         </div>
       </div>
       <div className="pt-6">

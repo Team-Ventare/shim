@@ -2,6 +2,7 @@ import AddSupplierSheet from "@/components/suppliers/add-supplier";
 import EditSwitch from "./switch";
 import { Supplier, columns } from "./columns";
 import { DataTable } from "./data-table";
+import { getUserSession } from "@/lib/auth";
 
 async function getData(): Promise<Supplier[]> {
   const response = await fetch(
@@ -20,6 +21,7 @@ async function getData(): Promise<Supplier[]> {
 }
 
 export default async function SupplierPage() {
+  const user = await getUserSession();
   const data = await getData();
 
   return (
@@ -34,12 +36,12 @@ export default async function SupplierPage() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <AddSupplierSheet />
+          <AddSupplierSheet userId={user.id} />
         </div>
       </div>
       <div className="float-right padding-1px">
-          <EditSwitch />
-        </div>
+        <EditSwitch />
+      </div>
       <div className="pt-6 padding-2px">
         <DataTable columns={columns} data={data} />
       </div>

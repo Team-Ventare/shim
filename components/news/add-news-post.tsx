@@ -68,6 +68,15 @@ export default function AddNewsPost({ userId }: { userId: string }) {
                 </pre>
               ),
             });
+
+            fetch("/api/notifications", {
+              method: "POST",
+              body: JSON.stringify({
+                message: "added a new post to the news page",
+                category: "News",
+                userId: userId,
+              }),
+            });
           } else {
             toast({
               variant: "destructive",

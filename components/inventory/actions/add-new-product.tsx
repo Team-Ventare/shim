@@ -27,7 +27,7 @@ import { toast } from "@/components/ui/use-toast";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function AddNewProduct() {
+export default function AddNewProduct({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,6 +48,15 @@ export default function AddNewProduct() {
             </code>
           </pre>
         ),
+      });
+
+      fetch("/api/notifications", {
+        method: "POST",
+        body: JSON.stringify({
+          message: `added a new assest to the inventory`,
+          category: "Inventory",
+          userId: userId,
+        }),
       });
     } else {
       toast({
