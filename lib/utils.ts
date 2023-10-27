@@ -25,21 +25,31 @@ export function formatCreatedAt(createdAt: string): string {
     return `${minutesAgo} minute${minutesAgo === 1 ? "" : "s"} ago`;
   } else if (timeDifferenceInHours < 24) {
     const hoursAgo = Math.floor(timeDifferenceInHours);
-    return `${hoursAgo} hour${hoursAgo === 1 ? "" : "s"} ago`;
+    const minutesAgo = Math.floor(timeDifferenceInMinutes % 60);
+    const formattedTime =
+      hoursAgo === 0
+        ? `${minutesAgo} minutes`
+        : `${hoursAgo} hour${hoursAgo === 1 ? "" : "s"}${
+            minutesAgo > 0
+              ? ` and ${minutesAgo} minute${minutesAgo === 1 ? "" : "s"}`
+              : ""
+          }`;
+    return `Today at ${formattedTime}`;
   } else if (timeDifferenceInDays < 2) {
-    return "Yesterday";
+    const formattedDate = createdAtDate.toLocaleDateString(undefined, {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+    return `Yesterday at ${formattedDate}`;
   } else {
     const formattedDate = createdAtDate.toLocaleDateString(undefined, {
-      year: "numeric",
       month: "long",
       day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
     });
     return formattedDate;
   }
 }
-
-const notification = {
-  createdAt: "2023-10-04T15:30:00Z",
-};
-
-const formattedText = formatCreatedAt(notification.createdAt);
