@@ -4,8 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Image from "next/image";
-import stretcher from "../../../../public/stretcher.png";
 import { PurchaseRequest } from "../columns";
 import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
@@ -16,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditRequest from "@/components/purchaserequest/actions/edit_request";
 import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
 import DeleteRequest from "@/components/purchaserequest/actions/delete_request_w_dialog";
+import { getUserSession } from "@/lib/auth";
 
 async function getData(id: string): Promise<PurchaseRequest> {
   const response = await fetch(
@@ -40,12 +39,12 @@ export default async function PurchaseRequestPage({
 }: {
   params: { id: string };
 }) {
+  const user = await getUserSession();
   const data = await getData(params.id);
   const status = statuses.find((s) => s.value === data.status);
   const priority = priorities.find((s) => s.value === data.priority);
-  //console.log(data);
 
-  if (!status||!priority) {
+  if (!status || !priority) {
     return <div>Not found</div>;
   }
   return (
@@ -89,13 +88,13 @@ export default async function PurchaseRequestPage({
               <Label className="block text-sm font-semibold text-zinc-950">
                 Status
               </Label>
-                {status.view()}
+              {status.view()}
             </div>
             <div>
               <Label className="block text-sm font-semibold text-zinc-950">
                 Priority
               </Label>
-                {priority.view()}
+              {priority.view()}
             </div>
             <div>
               <Label className="block text-sm font-semibold text-zinc-950">
@@ -119,7 +118,7 @@ export default async function PurchaseRequestPage({
               <EditRequest request={data} />
             </div>
             <div>
-              <ChangeRequestStatus request={data} />
+              <ChangeRequestStatus userId={user.id} request={data} />
             </div>
             <div>
               <DeleteRequest id={data.id} />
@@ -141,30 +140,30 @@ export default async function PurchaseRequestPage({
                 Additional Information
               </AccordionTrigger>
               <AccordionContent className="px-4 py-2 border-t pt-4">
-              <div className="col-span-3">
-                <Label className="mt-1 block text-sm font-semibold text-zinc-950">
-                  Price:
-                </Label>
-                <p className="mt-1 text-sm font-light text-gray-500">
-                  {data.price}
-                </p>
-              </div>
-              <div>
-                <Label className="mt-1 block text-sm font-semibold text-zinc-950">
-                  Description:
-                </Label>
-                <p className="mt-1 text-sm font-light text-gray-500">
-                  {data.description}
-                </p>
-              </div>
-              <div className="col-span-3">
-                <Label className="mt-1 block text-sm font-semibold text-zinc-950">
-                  Reason:
-                </Label>
-                <p className="mt-1 text-sm font-light text-gray-500">
-                  {data.reason}
-                </p>
-              </div>
+                <div className="col-span-3">
+                  <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                    Price:
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-gray-500">
+                    {data.price}
+                  </p>
+                </div>
+                <div>
+                  <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                    Description:
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-gray-500">
+                    {data.description}
+                  </p>
+                </div>
+                <div className="col-span-3">
+                  <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                    Reason:
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-gray-500">
+                    {data.reason}
+                  </p>
+                </div>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
@@ -180,7 +179,7 @@ export default async function PurchaseRequestPage({
                         referrerPolicy="no-referrer"
                       />
                       <AvatarFallback>
-                      {data.users.name.charAt(0)}
+                        {data.users.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="min-w-0 flex-auto">
@@ -194,7 +193,9 @@ export default async function PurchaseRequestPage({
                   </div>
                   <div className=" sm:flex sm:flex-col sm:items-end">
                     <p className="text-sm leading-6 text-gray-900 items-end">
-                      Role: {data.users.role.charAt(0).toUpperCase() + data.users.role.slice(1).toLowerCase()}
+                      Role:{" "}
+                      {data.users.role.charAt(0).toUpperCase() +
+                        data.users.role.slice(1).toLowerCase()}
                     </p>
                     <p className="text-xs leading-5 text-gray-500">
                       Created on: {new Date(data.createdAt).toDateString()}
