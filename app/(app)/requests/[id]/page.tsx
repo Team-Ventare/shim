@@ -48,7 +48,7 @@ export default async function PurchaseRequestPage({
     return <div>Not found</div>;
   }
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto space-y-5">
       <div className="mt-8 lg:mt-12 space-y-10">
         <div className="container flex items-center space-x-1 text-sm text-muted-foreground">
           <Link href="/" className="overflow-hidden whitespace-nowrap">
@@ -75,29 +75,15 @@ export default async function PurchaseRequestPage({
             )}
             <div className="flex-auto inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
           </div>
-            <div className="ml-4 mr-4 grid grid-rows-5 grid-flow-col gap-4">
-              <div className="flex flex-auto gap-2">
-                <div>
-                  <Label className="block text-sm font-semibold text-zinc-950">
-                    Title
-                  </Label>
-                  <p className="mt-1 text-sm font-light text-zinc-950">
-                    {data.title}
-                  </p>
-                </div>
-
-                <div className="flex flex-auto space-x-2 justify-end">
-                  <div>
-                    <EditRequest request={data} />
-                  </div>
-                  <div>
-                    <ChangeRequestStatus userId={user.id} request={data} />
-                  </div>
-                  <div>
-                    <DeleteRequest id={data.id} />
-                  </div>
-                </div>
-
+          <div className="w-full">
+            <div className="ml-2 mr-2 grid grid-rows-5 grid-flow-col gap-4">
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Title
+                </Label>
+                <p className="mt-1 text-sm font-light text-zinc-950">
+                  {data.title}
+                </p>
               </div>
               <div>
                 <Label className="block text-sm font-semibold text-zinc-950">
@@ -127,13 +113,24 @@ export default async function PurchaseRequestPage({
                   {data.users.name}
                 </p>
               </div>
+              <div className="flex flex-grow space-x-2 justify-end">
+                <div className="ml-auto">
+                  <EditRequest request={data} />
+                </div>
+                <div className="ml-auto">
+                  <ChangeRequestStatus userId={user.id} request={data} />
+                </div>
+                <div className="ml-auto">
+                  <DeleteRequest id={data.id} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
       <div className="h-[360px] py-2">
         <div className="container py-5 mx-auto border-t border-gray-900/5">
           <h1 className="text-xl font-semibold">Purchase Request Details</h1>
-
           <Accordion
             type="single"
             collapsible
