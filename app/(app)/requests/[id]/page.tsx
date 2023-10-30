@@ -15,6 +15,7 @@ import EditRequest from "@/components/purchaserequest/actions/edit_request";
 import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
 import DeleteRequest from "@/components/purchaserequest/actions/delete_request_w_dialog";
 import { getUserSession } from "@/lib/auth";
+import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
 
 async function getData(id: string): Promise<PurchaseRequest> {
   const response = await fetch(
@@ -27,7 +28,7 @@ async function getData(id: string): Promise<PurchaseRequest> {
   if (!response.ok) {
     throw new Error("Failed to fetch product");
   } else {
-    revalidatePath(`/requests/${id}`);
+    refresh_PR();
   }
 
   const data = await response.json();
@@ -115,13 +116,13 @@ export default async function PurchaseRequestPage({
               </div>
               <div className="flex flex-grow space-x-2 justify-end">
                 <div className="ml-auto">
-                  <EditRequest request={data} />
+                  <EditRequest userInfo={user} request={data} />
                 </div>
                 <div className="ml-auto">
-                  <ChangeRequestStatus userId={user.id} request={data} />
+                  <ChangeRequestStatus userInfo={user} request={data} />
                 </div>
                 <div className="ml-auto">
-                  <DeleteRequest id={data.id} />
+                  <DeleteRequest userInfo={user} request={data} />
                 </div>
               </div>
             </div>

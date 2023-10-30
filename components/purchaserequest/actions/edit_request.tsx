@@ -26,8 +26,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { PurchaseRequest } from "@/app/(app)/requests/columns";
 import { Textarea } from "@/components/ui/textarea";
 import { refresh_PR } from "./refresh_page";
+import { User } from "@/app/(app)/dashboard/page";
 
-export default function EditRequest({ request }: { request: PurchaseRequest }) {
+export default function EditRequest({ userInfo, request }: { userInfo: User, request: PurchaseRequest }) {
   const [formValues, setFormValues] = useState({
     title: request.title,
     priority: request.priority,
@@ -64,6 +65,11 @@ export default function EditRequest({ request }: { request: PurchaseRequest }) {
     }
   };
 
+  if (userInfo.role === "User" || userInfo.role === "Pending") {
+    if (userInfo.id !== request.userId) {
+      return null;
+    }
+  }
   if (request.status === "APPROVED" || request.status === "REJECTED") {
     return null;
   }

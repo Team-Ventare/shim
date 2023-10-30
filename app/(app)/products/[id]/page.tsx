@@ -64,11 +64,11 @@ export default async function ProductPage({
   const type = types.find((type) => type.value === data.type);
 
   if (!status || !type) {
-    return null;
+    return <div>Not found</div>;
   }
   return (
-    <div className="h-screen py-10 max-w-6xl mx-auto">
-      <div className="border-b h-[360px] mt-2">
+    <div className="container mx-auto space-y-5">
+      <div className="mt-8 lg:mt-12 space-y-10">
         <div className="container flex items-center space-x-1 text-sm text-muted-foreground">
           <Link href="/" className="overflow-hidden whitespace-nowrap">
             <HomeIcon className="h-4 w-4" />
@@ -83,82 +83,94 @@ export default async function ProductPage({
           <ChevronRightIcon className="h-4 w-4" />
           <div className="font-medium text-foreground">{data.name}</div>
         </div>
-        <div className="container flex mt-8">
-          <Image
-            priority={true}
-            src={hospital}
-            alt="Photo by Drew Beamer"
-            className="rounded-sm object-cover"
-            width={400}
-            height={(9 / 16) * 400}
-          />
 
-          <div className="ml-8 grid grid-cols-3 gap-4">
-            <div>
-              <Label className="block text-sm font-light text-gray-500">
-                Name
-              </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.name}
-              </p>
-            </div>
-            <div>
-              <Label className="block text-sm font-light text-gray-500">
-                Status
-              </Label>
-              {status.view()}
-            </div>
-            <div>
-              <Label className="block text-sm font-light text-gray-500">
-                Category
-              </Label>
-              {type.view()}
-            </div>
-            <div>
-              <Label className="block text-sm font-light text-gray-500">
-                Location
-              </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.location}
-              </p>
-            </div>
-            <div>
-              <Label className="block text-sm font-light text-gray-500">
-                Quantity
-              </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.amount}
-              </p>
-            </div>
-            <div className="col-span-3">
-              <Label className="block text-sm font-light text-gray-500">
-                Description
-              </Label>
-              <p className="mt-1 text-sm font-semibold text-zinc-950">
-                {data.description}
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-row items-start space-x-2 ml-auto">
-            <div>
-              <DeleteItem id={params.id} />
-            </div>
-            <div>
-              <EditItemSheet product={data} />
+        <div className="relative isolate flex flex-col gap-10 lg:flex-row mx-8">
+          <div className="container flex mt-8">
+            {/* STILL NEED TO UPDATE THE IMAGE BUT NEED BLOB SERVICE TO WORK AGAIN */}
+            <Image
+              priority={true}
+              src={hospital}
+              alt="Photo by Drew Beamer"
+              className="rounded-sm object-cover"
+              width={400}
+              height={(9 / 16) * 400}
+            />
+
+            <div className="w-full">
+              <div className="ml-2 mr-2 grid grid-rows-5 grid-flow-col gap-4">
+                <div>
+                  <Label className="block text-sm font-semibold text-zinc-950">
+                    Name
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-zinc-950">
+                    {data.name}
+                  </p>
+                </div>
+                <div>
+                  <Label className="block text-sm font-semibold text-zinc-950">
+                    Status
+                  </Label>
+                  {status.view()}
+                </div>
+                <div>
+                  <Label className="block text-sm font-semibold text-zinc-950">
+                    Category
+                  </Label>
+                  {type.view()}
+                </div>
+                <div>
+                  <Label className="block text-sm font-semibold text-zinc-950">
+                    Location
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-zinc-950">
+                    {data.location}
+                  </p>
+                </div>
+                <div>
+                  <Label className="block text-sm font-semibold text-zinc-950">
+                    Quantity
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-zinc-950">
+                    {data.amount}
+                  </p>
+                </div>
+                <div className="flex flex-grow space-x-2 justify-end">
+                  <div className="ml-auto">
+                    <DeleteItem id={params.id} />
+                  </div>
+                  <div className="ml-auto">
+                    <EditItemSheet product={data} />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="h-[480px]">
-        <div className="container py-12">
-          <h1 className="text-2xl font-semibold">Product Details</h1>
-
+      <div className="h-[360px] py-2">
+        <div className="container py-5 mx-auto border-t border-gray-900/5">
+          <h1 className="text-xl font-semibold">Product Details</h1>
           <Accordion
             type="single"
             collapsible
             className="w-full border rounded-md mt-6"
           >
             <AccordionItem value="item-1">
+              <AccordionTrigger className="p-4">
+                Additional Information
+              </AccordionTrigger>
+              <AccordionContent className="px-4 py-2 border-t pt-4">
+                <div className="col-span-3">
+                  <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                    Description:
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-gray-500">
+                    {data.description}
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
               <AccordionTrigger className="p-4">
                 Checkout History
               </AccordionTrigger>
@@ -185,8 +197,8 @@ export default async function ProductPage({
                           </p>
                         </div>
                       </div>
-                      <div className="hidden sm:flex sm:flex-col sm:items-end">
-                        <p className="text-sm leading-6 text-gray-900">
+                      <div className=" sm:flex sm:flex-col sm:items-end">
+                        <p className="text-sm leading-6 text-gray-900 items-end">
                           {object.course}
                         </p>
                         <p className="text-xs leading-5 text-gray-500">
@@ -198,7 +210,7 @@ export default async function ProductPage({
                 );
               })}
             </AccordionItem>
-            <AccordionItem value="item-2">
+            <AccordionItem value="item-3">
               <AccordionTrigger className="p-4">
                 Maintenance History
               </AccordionTrigger>
