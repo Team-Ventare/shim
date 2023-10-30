@@ -27,8 +27,6 @@ async function getData(id: string): Promise<PurchaseRequest> {
 
   if (!response.ok) {
     throw new Error("Failed to fetch product");
-  } else {
-    refresh_PR();
   }
 
   const data = await response.json();
