@@ -26,8 +26,9 @@ import React, { useRef, useState } from "react";
 import { refresh_PR } from "./refresh_page";
 import { Textarea } from "@/components/ui/textarea";
 import { PutBlobResult } from "@vercel/blob";
+import { User } from "@/app/(app)/dashboard/page";
 
-export default function AddRequestSheet({ userId }: { userId: string }) {
+export default function AddRequestSheet({ userInfo }: { userInfo: User }) {
   const [formValues, setFormValues] = React.useState({});
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -74,7 +75,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               body: JSON.stringify({
                 message: `submitted a new purchase request`,
                 category: "Purchase Request",
-                userId: userId,
+                userId: userInfo.id,
               }),
             });
           } else {
@@ -126,7 +127,10 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
     //   });
     // }
   };
-
+  //return null if the user is not an Admin or Staff or User
+  if (userInfo.role !== "Admin" && userInfo.role !== "Staff" && userInfo.role !== "User") {
+    return null;
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -244,7 +248,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               <Button
                 type="submit"
                 className="w-full max-w-sm"
-                onClick={() => setFormValues({ ...formValues, userId: userId })}
+                onClick={() => setFormValues({ ...formValues, userId: userInfo.id })}
               >
                 Create Request
               </Button>

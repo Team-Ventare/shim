@@ -36,7 +36,7 @@ export default async function PurchaseRequestPage() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <AddRequestSheet userId={user.id} />
+          <AddRequestSheet userInfo={user} />
         </div>
       </div>
       <div className="pt-6">
