@@ -82,7 +82,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
               variant: "destructive",
               title: "Uh oh! Something went wrong.",
               duration: 2000,
-              description: "There was a problem with your request.",
+              description: "There was a problem with your request. Make sure you have filled out all the fields correctly.",
             });
           }
         } else {
@@ -91,7 +91,7 @@ export default function AddRequestSheet({ userId }: { userId: string }) {
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
             duration: 2000,
-            description: "There was a problem with your request.",
+            description: "There was a problem with your request. Make sure you have filled out all the fields correctly.",
           });
         }
       }

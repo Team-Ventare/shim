@@ -17,8 +17,9 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontalIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { User } from "@/app/(app)/dashboard/page";
 
-export default function DeleteProduct({ id }: { id: string }) {
+export default function DeleteProduct({ id, userInfo }: { userInfo:User, id: string }) {
   async function deleteProduct() {
     "use server";
 
@@ -34,7 +35,10 @@ export default function DeleteProduct({ id }: { id: string }) {
       redirect("/products");
     }
   }
-
+  //can change who we can let delete the product in the future
+  if (userInfo.role === "User" || userInfo.role === "Pending") {
+    return null;
+  }
   return (
     <Dialog>
       <DropdownMenu>
@@ -44,9 +48,11 @@ export default function DeleteProduct({ id }: { id: string }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem className="hover:bg-gray-50 cursor-pointer">
+          {/* temporarily removing it since it was doing nothing plus can't display a toast when i tried doing it
+          (maybe one of yall can figure it out and readd it)-bryan */}
+          {/* <DropdownMenuItem className="hover:bg-gray-50 cursor-pointer">
             Copy ID
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DialogTrigger asChild>
             <DropdownMenuItem className="text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer">
               Delete

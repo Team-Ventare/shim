@@ -16,6 +16,7 @@ import DeleteItem from "@/components/inventory/actions/delete-product";
 import { prisma } from "@/lib/prisma";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { statuses, types } from "@/components/inventory/data";
+import { getUserSession } from "@/lib/auth";
 
 async function getData(id: string): Promise<Product> {
   const response = await fetch(
@@ -60,6 +61,7 @@ export default async function ProductPage({
 }) {
   const data = await getData(params.id);
   const history = await getCheckoutHistory(params.id);
+  const user = await getUserSession();
   const status = statuses.find((status) => status.value === data.status);
   const type = types.find((type) => type.value === data.type);
 
@@ -85,7 +87,6 @@ export default async function ProductPage({
         </div>
 
         <div className="relative isolate flex flex-col gap-10 lg:flex-row mx-8">
-          <div className="container flex mt-8">
             {/* STILL NEED TO UPDATE THE IMAGE BUT NEED BLOB SERVICE TO WORK AGAIN */}
             <Image
               priority={true}
@@ -96,51 +97,50 @@ export default async function ProductPage({
               height={(9 / 16) * 400}
             />
 
-            <div className="w-full">
-              <div className="ml-2 mr-2 grid grid-rows-5 grid-flow-col gap-4">
-                <div>
-                  <Label className="block text-sm font-semibold text-zinc-950">
-                    Name
-                  </Label>
-                  <p className="mt-1 text-sm font-light text-zinc-950">
-                    {data.name}
-                  </p>
+          <div className="w-full">
+            <div className="ml-2 mr-2 grid grid-rows-5 grid-flow-col gap-4">
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Name
+                </Label>
+                <p className="mt-1 text-sm font-light text-zinc-950">
+                  {data.name}
+                </p>
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Status
+                </Label>
+                {status.view()}
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Category
+                </Label>
+                {type.view()}
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Location
+                </Label>
+                <p className="mt-1 text-sm font-light text-zinc-950">
+                  {data.location}
+                </p>
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Quantity
+                </Label>
+                <p className="mt-1 text-sm font-light text-zinc-950">
+                  {data.amount}
+                </p>
+              </div>
+              <div className="flex flex-grow space-x-2 justify-end">
+                <div className="ml-auto">
+                  <DeleteItem id={params.id} userInfo={user} />
                 </div>
-                <div>
-                  <Label className="block text-sm font-semibold text-zinc-950">
-                    Status
-                  </Label>
-                  {status.view()}
-                </div>
-                <div>
-                  <Label className="block text-sm font-semibold text-zinc-950">
-                    Category
-                  </Label>
-                  {type.view()}
-                </div>
-                <div>
-                  <Label className="block text-sm font-semibold text-zinc-950">
-                    Location
-                  </Label>
-                  <p className="mt-1 text-sm font-light text-zinc-950">
-                    {data.location}
-                  </p>
-                </div>
-                <div>
-                  <Label className="block text-sm font-semibold text-zinc-950">
-                    Quantity
-                  </Label>
-                  <p className="mt-1 text-sm font-light text-zinc-950">
-                    {data.amount}
-                  </p>
-                </div>
-                <div className="flex flex-grow space-x-2 justify-end">
-                  <div className="ml-auto">
-                    <DeleteItem id={params.id} />
-                  </div>
-                  <div className="ml-auto">
-                    <EditItemSheet product={data} />
-                  </div>
+                <div className="ml-auto">
+                  <EditItemSheet product={data} userInfo={user} />
                 </div>
               </div>
             </div>

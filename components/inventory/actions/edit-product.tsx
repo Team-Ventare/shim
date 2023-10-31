@@ -26,8 +26,9 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Product } from "@/app/(app)/products/columns";
 import { Textarea } from "@/components/ui/textarea";
+import { User } from "@/app/(app)/dashboard/page";
 
-export default function EditProduct({ product }: { product: Product }) {
+export default function EditProduct({ product, userInfo }: { userInfo: User, product: Product }) {
   const [formValues, setFormValues] = useState({
     name: product.name,
     description: product.description,
@@ -66,6 +67,10 @@ export default function EditProduct({ product }: { product: Product }) {
     }
   };
 
+  //right now only letting admin/staff be able to edit products
+  if (userInfo.role === "User" || userInfo.role === "Pending") {
+    return null;
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
