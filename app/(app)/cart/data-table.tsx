@@ -26,17 +26,18 @@ import { DataTableViewOptions } from "@/components/cart/data-table-view-options"
 import { DataTablePagination } from "@/components/cart/data-table-pagination";
 import DeleteManyItems from "@/components/cart/actions/delete-many-items";
 import CheckoutCart from "@/components/cart/actions/checkout-cart";
+import { User } from "../dashboard/page";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  userId: string;
+  userInfo: User;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  userId,
+  userInfo,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -82,7 +83,7 @@ export function DataTable<TData, TValue>({
         <div className="flex space-x-2">
           <DeleteManyItems selectedRows={table.getSelectedRowModel().rows} />
           <CheckoutCart
-            userId={userId}
+            userInfo={userInfo}
             selectedRows={table.getSelectedRowModel().rows}
           />
           <DataTableViewOptions table={table} />

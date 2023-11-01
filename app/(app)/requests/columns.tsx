@@ -192,6 +192,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction asChild>
                     <Button
+                      //remove?? unless we stop users/pending from deleting them
                       className="cursor-pointer"
                       onClick={async () => {
                         const res = await deletePR({ id: request.id });

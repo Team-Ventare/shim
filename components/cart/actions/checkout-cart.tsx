@@ -21,12 +21,13 @@ import React from "react";
 import { checkoutItems } from "./checkout-items";
 import { deleteItemFromCart } from "./delete-item";
 import { refreshCart } from "./refresh-cart";
+import { User } from "@/app/(app)/dashboard/page";
 
 export default function CheckoutCart({
-  userId,
+  userInfo,
   selectedRows,
 }: {
-  userId: string;
+  userInfo: User;
   selectedRows: any;
 }) {
   function formatProducts() {
@@ -92,7 +93,7 @@ export default function CheckoutCart({
           body: JSON.stringify({
             message: `checked out ${selectedRows.length} items from the inventory`,
             category: "Checkout",
-            userId: userId,
+            userId: userInfo.id,
           }),
         });
       } else {
@@ -105,7 +106,10 @@ export default function CheckoutCart({
       }
     }
   };
-
+  //if the user has a role of "Pending" return null
+  if (userInfo.role === "Pending") {
+    return null;
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>

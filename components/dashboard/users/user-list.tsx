@@ -15,8 +15,37 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import React from "react";
+
+type Role = {
+  value: string
+  label: string
+}
+ 
+const roles: Role[] = [
+  {
+    value: "penmding",
+    label: "Pending",
+  },
+  {
+    value: "user",
+    label: "User",
+  },
+  {
+    value: "staff",
+    label: "Staff",
+  },
+  {
+    value: "admin",
+    label: "Admin",
+  },
+]
 
 export function UserList({ users }: { users: User[] }) {
+  const [open, setOpen] = React.useState(false)
+  const [selectedStatus, setSelectedStatus] = React.useState<Role | null>(
+    null
+  )
   return (
     <>
       <div className="sm:flex sm:items-center py-2">
@@ -86,6 +115,12 @@ export function UserList({ users }: { users: User[] }) {
                                   <p>Pending</p>
                                   <p className="text-sm text-muted-foreground">
                                     Cannot access any resources.
+                                  </p>
+                                </CommandItem>
+                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
+                                  <p>User</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    Can view and checkout.
                                   </p>
                                 </CommandItem>
                                 <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
