@@ -37,7 +37,7 @@ export default async function Cart() {
         </div>
       </div>
       <div className="pt-6">
-        <DataTable columns={columns} data={data} userId={user.id} />
+        <DataTable columns={columns} data={data} userInfo={user} />
       </div>
     </div>
   );

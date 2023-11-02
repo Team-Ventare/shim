@@ -58,7 +58,7 @@ export async function PATCH(
       id: id,
     },
     data: {
-      password: json.password || null,
+      role: json.role || null,
     },
   });
   return NextResponse.json(updated);

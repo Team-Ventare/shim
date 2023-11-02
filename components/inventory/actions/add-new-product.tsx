@@ -26,8 +26,9 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { User } from "@/app/(app)/dashboard/page";
 
-export default function AddNewProduct({ userId }: { userId: string }) {
+export default function AddNewProduct({ userInfo }: { userInfo: User }) {
   const [formValues, setFormValues] = React.useState({});
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,7 +56,7 @@ export default function AddNewProduct({ userId }: { userId: string }) {
         body: JSON.stringify({
           message: `added a new assest to the inventory`,
           category: "Inventory",
-          userId: userId,
+          userId: userInfo.id,
         }),
       });
     } else {
@@ -66,7 +67,10 @@ export default function AddNewProduct({ userId }: { userId: string }) {
       });
     }
   };
-
+  //if the user is not an admin or staff, return null
+  if (userInfo.role !== "Admin" && userInfo.role !== "Staff") {
+    return null;
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>

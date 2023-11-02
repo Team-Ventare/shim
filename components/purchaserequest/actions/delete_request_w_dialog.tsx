@@ -19,12 +19,14 @@ import {
 import { deletePR } from "./delete_request";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { User } from "@/app/(app)/dashboard/page";
+import { PurchaseRequest } from "@/app/(app)/requests/columns";
   
-  export default function DeleteRequest({ id }: { id: string }) {
+  export default function DeleteRequest({ request, userInfo }: { userInfo: User , request: PurchaseRequest }) {
     async function deleteRequest() {
         "use server";
         const res = await fetch(
-            `https://shim-ventare.vercel.app/api/purchaserequests/${id}`,
+            `https://shim-ventare.vercel.app/api/purchaserequests/${request.id}`,
             {
               method: "DELETE",
               headers: { "Content-Type": "application/json" },
@@ -35,7 +37,12 @@ import { redirect } from "next/navigation";
             redirect("/requests");
         }
     }
-  
+
+    if (userInfo.role==="User" || userInfo.role==="Pending") {
+      if(userInfo.id!==request.userId){
+        return null;
+      }
+    }
     return (
       <Dialog>
         <DropdownMenu>

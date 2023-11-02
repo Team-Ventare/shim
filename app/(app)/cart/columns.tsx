@@ -220,8 +220,8 @@ export const columns: ColumnDef<Product>[] = [
               </DialogTrigger>
               <DialogContent className="sm:max-w-[350px]">
                 <DialogHeader>
-                  <DialogTitle>Edit Product Amount</DialogTitle>
-                  <DialogDescription>Change the product amount. Current amount in your cart is {product.amount}.</DialogDescription>
+                  <DialogTitle>Edit Product Quantity</DialogTitle>
+                  <DialogDescription>Change the product Quantity. Current quantity in your cart is {product.amount}.</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">

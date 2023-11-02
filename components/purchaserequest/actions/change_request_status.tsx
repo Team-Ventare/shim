@@ -22,15 +22,11 @@ import { PurchaseRequest } from "@/app/(app)/requests/columns";
 import { UpdateStatusAccept, UpdateStatusReject } from "./status_change";
 import { refresh_PR } from "./refresh_page";
 import { toast } from "@/components/ui/use-toast";
+import { User } from "@/app/(app)/dashboard/page";
 
-export default function ChangeRequestStatus({
-  userId,
-  request,
-}: {
-  userId: string;
-  request: PurchaseRequest;
-}) {
+export default function ChangeRequestStatus({ userInfo, request,}: {userInfo: User; request: PurchaseRequest;}) {
   async function UpdateRequestStatus(status: string) {
+
     if (status === "APPROVED") {
       const res = await UpdateStatusAccept({ id: request.id });
       if (res) {
@@ -46,7 +42,7 @@ export default function ChangeRequestStatus({
           body: JSON.stringify({
             message: `approved a purchase request`,
             category: "Purchase Request",
-            userId: userId,
+            userId: userInfo.id,
           }),
         });
       } else {
@@ -72,7 +68,7 @@ export default function ChangeRequestStatus({
           body: JSON.stringify({
             message: `rejected a purchase request`,
             category: "Purchase Request",
-            userId: userId,
+            userId: userInfo.id,
           }),
         });
       } else {
@@ -86,7 +82,7 @@ export default function ChangeRequestStatus({
     }
   }
 
-  if (request.status === "APPROVED" || request.status === "REJECTED") {
+  if (request.status === "APPROVED" || request.status === "REJECTED" || (userInfo.role !== "Admin" && userInfo.role !== "Staff")) {
     return null;
   }
   return (

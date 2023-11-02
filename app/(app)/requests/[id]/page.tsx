@@ -15,6 +15,7 @@ import EditRequest from "@/components/purchaserequest/actions/edit_request";
 import ChangeRequestStatus from "@/components/purchaserequest/actions/change_request_status";
 import DeleteRequest from "@/components/purchaserequest/actions/delete_request_w_dialog";
 import { getUserSession } from "@/lib/auth";
+import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
 
 async function getData(id: string): Promise<PurchaseRequest> {
   const response = await fetch(
@@ -26,8 +27,6 @@ async function getData(id: string): Promise<PurchaseRequest> {
 
   if (!response.ok) {
     throw new Error("Failed to fetch product");
-  } else {
-    revalidatePath(`/requests/${id}`);
   }
 
   const data = await response.json();
@@ -48,8 +47,8 @@ export default async function PurchaseRequestPage({
     return <div>Not found</div>;
   }
   return (
-    <div className="h-screen py-10">
-      <div className="border-b h-[360px] mt-2">
+    <div className="container mx-auto space-y-5">
+      <div className="mt-8 lg:mt-12 space-y-10">
         <div className="container flex items-center space-x-1 text-sm text-muted-foreground">
           <Link href="/" className="overflow-hidden whitespace-nowrap">
             <HomeIcon className="h-4 w-4" />
@@ -64,7 +63,7 @@ export default async function PurchaseRequestPage({
           <ChevronRightIcon className="h-4 w-4" />
           <div className="font-medium text-foreground">{data.title}</div>
         </div>
-        <div className="container flex mt-8">
+        <div className="relative isolate flex flex-col gap-10 lg:flex-row mx-8">
           <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:w-80 xl:w-96 lg:shrink-0">
             {data.imageUrl && (
               <img
@@ -75,61 +74,62 @@ export default async function PurchaseRequestPage({
             )}
             <div className="flex-auto inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
           </div>
-          <div className="ml-8 mr-6 grid grid-cols-1 gap-4">
-            <div>
-              <Label className="block text-sm font-semibold text-zinc-950">
-                Title
-              </Label>
-              <p className="mt-1 text-sm font-light text-zinc-950">
-                {data.title}
-              </p>
-            </div>
-            <div>
-              <Label className="block text-sm font-semibold text-zinc-950">
-                Status
-              </Label>
-              {status.view()}
-            </div>
-            <div>
-              <Label className="block text-sm font-semibold text-zinc-950">
-                Priority
-              </Label>
-              {priority.view()}
-            </div>
-            <div>
-              <Label className="block text-sm font-semibold text-zinc-950">
-                Quantity
-              </Label>
-              <p className="mt-1 text-sm font-light text-zinc-950">
-                {data.amount}
-              </p>
-            </div>
-            <div>
-              <Label className="block text-sm font-semibold text-zinc-950">
-                Requester
-              </Label>
-              <p className="mt-1 text-sm font-light text-zinc-950">
-                {data.users.name}
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-row items-start space-x-2 ml-auto">
-            <div>
-              <EditRequest request={data} />
-            </div>
-            <div>
-              <ChangeRequestStatus userId={user.id} request={data} />
-            </div>
-            <div>
-              <DeleteRequest id={data.id} />
+          <div className="w-full">
+            <div className="ml-2 mr-2 grid grid-rows-5 grid-flow-col gap-4">
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Title
+                </Label>
+                <p className="mt-1 text-sm font-light text-zinc-950">
+                  {data.title}
+                </p>
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Status
+                </Label>
+                {status.view()}
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Priority
+                </Label>
+                {priority.view()}
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Quantity
+                </Label>
+                <p className="mt-1 text-sm font-light text-zinc-950">
+                  {data.amount}
+                </p>
+              </div>
+              <div>
+                <Label className="block text-sm font-semibold text-zinc-950">
+                  Requester
+                </Label>
+                <p className="mt-1 text-sm font-light text-zinc-950">
+                  {data.users.name}
+                </p>
+              </div>
+              <div className="flex flex-grow space-x-2 justify-end">
+                <div className="ml-auto">
+                  <EditRequest userInfo={user} request={data} />
+                </div>
+                <div className="ml-auto">
+                  <ChangeRequestStatus userInfo={user} request={data} />
+                </div>
+                <div className="ml-auto">
+                  <DeleteRequest userInfo={user} request={data} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="h-[360px] py-2">
-        <div className="container py-12">
+        <div className="container py-5 mx-auto border-t border-gray-900/5">
           <h1 className="text-xl font-semibold">Purchase Request Details</h1>
-
           <Accordion
             type="single"
             collapsible
