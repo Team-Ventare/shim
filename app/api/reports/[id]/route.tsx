@@ -11,7 +11,7 @@ export async function GET(
     where: {
       id: id,
     },
-    select: {
+    include: {
       users: true,
     },
   });
