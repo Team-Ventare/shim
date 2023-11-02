@@ -2,50 +2,48 @@ import { User } from "@/app/(app)/dashboard/page";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import React from "react";
+import { ChangeUserRole } from "./change-user-role";
+import { refresh_dash } from "../refresh_page";
 
-type Role = {
-  value: string
-  label: string
-}
+// type Role = {
+//   value: string
+//   label: string
+// }
  
-const roles: Role[] = [
-  {
-    value: "penmding",
-    label: "Pending",
-  },
-  {
-    value: "user",
-    label: "User",
-  },
-  {
-    value: "staff",
-    label: "Staff",
-  },
-  {
-    value: "admin",
-    label: "Admin",
-  },
-]
+// const roles: Role[] = [
+//   {
+//     value: "penmding",
+//     label: "Pending",
+//   },
+//   {
+//     value: "user",
+//     label: "User",
+//   },
+//   {
+//     value: "staff",
+//     label: "Staff",
+//   },
+//   {
+//     value: "admin",
+//     label: "Admin",
+//   },
+// ]
 
 export function UserList({ users }: { users: User[] }) {
-  const [open, setOpen] = React.useState(false)
-  const [selectedStatus, setSelectedStatus] = React.useState<Role | null>(
-    null
-  )
+  // const [open, setOpen] = React.useState(false)
+  // const [selectedStatus, setSelectedStatus] = React.useState<Role | null>(
+  //   null
+  // )
   return (
     <>
       <div className="sm:flex sm:items-center py-2">
@@ -94,8 +92,8 @@ export function UserList({ users }: { users: User[] }) {
                       </div>
                     </td>
                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500 flex justify-end">
-                      <Popover>
-                        <PopoverTrigger asChild>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
                           <Button
                             variant="outline"
                             size="sm"
@@ -104,42 +102,121 @@ export function UserList({ users }: { users: User[] }) {
                             {user.role}
                             <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
                           </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="p-0" align="end">
-                          <Command>
-                            <CommandInput placeholder="Select new role..." />
-                            <CommandList>
-                              <CommandEmpty>No roles found.</CommandEmpty>
-                              <CommandGroup>
-                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                                  <p>Pending</p>
-                                  <p className="text-sm text-muted-foreground">
-                                    Cannot access any resources.
-                                  </p>
-                                </CommandItem>
-                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                                  <p>User</p>
-                                  <p className="text-sm text-muted-foreground">
-                                    Can view and checkout.
-                                  </p>
-                                </CommandItem>
-                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                                  <p>Staff</p>
-                                  <p className="text-sm text-muted-foreground">
-                                    Can view, checkout, comment and edit.
-                                  </p>
-                                </CommandItem>
-                                <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                                  <p>Admin</p>
-                                  <p className="text-sm text-muted-foreground">
-                                    Admin-level access to all resources.
-                                  </p>
-                                </CommandItem>
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="p-0" align="end">
+                          <DropdownMenuLabel className="teamaspace-y-1 flex flex-col items-start px-4 py-3"
+                          >
+                            Select New Role
+                          </DropdownMenuLabel>
+                          <DropdownMenuItem
+                            className="teamaspace-y-1 flex flex-col items-start px-4 py-2"
+                            onClick={async () => {
+                              //check if user is admin/staff and if not display error toast
+
+                              const res = await ChangeUserRole({ newRole: "Pending", userInfo: user });
+                              if (res.error) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "Uh oh! Something went wrong.",
+                                  description: "Could not change user role. Please try again.",
+                                });
+                              } else {
+                                refresh_dash();
+                                toast({
+                                  title: "Success!",
+                                  description: `Changed ${user.name}\'s role to Pending.`,
+                                });
+                              }
+                            }}
+                          >
+                            <p>Pending</p>
+                            <p className="text-sm text-muted-foreground">
+                              Cannot access any resources.
+                            </p>
+                          </DropdownMenuItem>
+
+
+                          <DropdownMenuItem
+                            className="teamaspace-y-1 flex flex-col items-start px-4 py-2"
+                            onClick={async () => {
+                              //check if user is admin/staff and if not display error toast
+
+                              const res = await ChangeUserRole({ newRole: "User", userInfo: user });
+                              if (res.error) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "Uh oh! Something went wrong.",
+                                  description: "Could not change user role. Please try again.",
+                                });
+                              } else {
+                                refresh_dash();
+                                toast({
+                                  title: "Success!",
+                                  description: `Changed ${user.name}\'s role to User.`,
+                                });
+                              }
+                            }}
+                          >
+                            <p>User</p>
+                            <p className="text-sm text-muted-foreground">
+                              Can view and checkout.
+                            </p>
+                          </DropdownMenuItem>
+
+
+                          <DropdownMenuItem
+                            className="teamaspace-y-1 flex flex-col items-start px-4 py-2"
+                            onClick={async () => {
+                              //check if user is admin/staff and if not display error toast
+
+                              const res = await ChangeUserRole({ newRole: "Staff", userInfo: user });
+                              if (res.error) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "Uh oh! Something went wrong.",
+                                  description: "Could not change user role. Please try again.",
+                                });
+                              } else {
+                                toast({
+                                  title: "Success!",
+                                  description: `Changed ${user.name}\'s role to Staff.`,
+                                });
+                              }
+                            }}
+                          >
+                            <p>Staff</p>
+                            <p className="text-sm text-muted-foreground">
+                              Can view, checkout, comment and edit.
+                            </p>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="teamaspace-y-1 flex flex-col items-start px-4 py-2"
+                            onClick={async () => {
+                              //check if user is admin/staff and if not display error toast
+
+                              const res = await ChangeUserRole({ newRole: "Admin", userInfo: user });
+                              if (res.error) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "Uh oh! Something went wrong.",
+                                  description: "Could not change user role. Please try again.",
+                                });
+                              } else {
+                                refresh_dash();
+                                toast({
+                                  title: "Success!",
+                                  description: `Changed ${user.name}\'s role to Admin.`,
+                                });
+                              }
+                            }}
+                          >
+                            <p>Admin</p>
+                            <p className="text-sm text-muted-foreground">
+                              Admin-level access to all resources.
+                            </p>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </td>
                   </tr>
                 ))}
