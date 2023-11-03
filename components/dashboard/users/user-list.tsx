@@ -298,7 +298,7 @@ export function UserList({ users, currentUser }: { users: User[], currentUser: U
                                       toast({
                                         variant: "destructive",
                                         title: "Success!",
-                                        description: `${user.name}/'s account has been deleted.`,
+                                        description: `${user.name}\'s account has been deleted.`,
                                       });
                                     }
                                   }}
