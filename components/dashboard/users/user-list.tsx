@@ -249,7 +249,7 @@ export function UserList({ users, currentUser }: { users: User[], currentUser: U
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
-                      <td className="px-2">
+                      <div className="px-2">
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             {currentUser.role !== "Admin" || currentUser.id === user.id ? (
@@ -309,7 +309,7 @@ export function UserList({ users, currentUser }: { users: User[], currentUser: U
                             </AlertDialogFooter>
                           </AlertDialogContent>
                         </AlertDialog>
-                      </td>
+                      </div>
                     </td>
                   </tr>
                 ))}
