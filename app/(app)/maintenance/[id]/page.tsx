@@ -6,6 +6,7 @@ import {
   } from "@/components/ui/accordion";
   import Image from "next/image";
   import stretcher from "../../../../public/scaledshimlogo.png";
+  import sample from "../../../../public/sample.pdf";
   import { PreventativeMaintenance } from "../columns";
   import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
   import { Label } from "@/components/ui/label";
@@ -183,8 +184,8 @@ import {
               </AccordionItem>
             </Accordion>
 
-            <object data="http://africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%">
-              <p>Alternative text - include a link <a href="http://africau.edu/images/default/sample.pdf">to the PDF!</a></p>
+            <object data={sample} type="application/pdf" width="100%" height="100%">
+              <p>Alternative text - include a link <a href="">to the PDF!</a></p>
 
             </object>
 
