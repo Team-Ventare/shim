@@ -31,7 +31,7 @@ export default function DashboardLayout({
             <NotificationsDashboard notifications={notifications} />
           </TabsContent>
           <TabsContent value="users" className="space-y-4">
-            <UserList users={users} />
+            <UserList users={users} currentUser={user} />
           </TabsContent>
           <TabsContent value="settings">
             <SettingsDashboard user={user} />
