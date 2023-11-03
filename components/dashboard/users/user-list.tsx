@@ -275,7 +275,7 @@ export function UserList({ users, currentUser }: { users: User[], currentUser: U
                             <AlertDialogHeader>
                               <AlertDialogTitle>Confirm</AlertDialogTitle>
                               <AlertDialogDescription>
-                                Are you sure you want to delete the account of{user.name}?
+                                Are you sure you want to delete the account of {user.name}?
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
