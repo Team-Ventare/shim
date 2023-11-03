@@ -8,17 +8,21 @@ datasource db {
 }
 
 model Users {
-  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  email            String            @unique
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  email            String             @unique
   password         String
   name             String
-  role             Role              @default(PENDING)
-  cartId           String            @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role             Role               @default(Pending)
+  cartId           String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image            String?
   checkoutHistory  CheckoutHistory[]
+  News             News[]
+  Notifications    Notifications[]
   purchaseRequests PurchaseRequests[]
-  cart             Cart              @relation(fields: [cartId], references: [id])
+  Reports          Reports[]
+  cart             Cart               @relation(fields: [cartId], references: [id])
 }
 
 model Cart {
@@ -38,19 +42,25 @@ model Products {
   location        String
   type            Type
   status          Status            @default(AVAILABLE)
+  description     String            @default("")
   carts           Cart[]            @relation("CartToProducts")
   checkoutHistory CheckoutHistory[] @relation("CheckoutHistoryToProducts")
 }
 
 model PurchaseRequests {
-  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  title     String
-  priority  PR_Proirity
-  status    PR_Status   @default(PENDING)
-  userId    String      @db.Uuid
-  users     Users       @relation(fields: [userId], references: [id])
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  title       String
+  priority    PR_Proirity
+  status      PR_Status   @default(PENDING)
+  userId      String      @db.Uuid
+  description String
+  price       String      @default("N/A")
+  reason      String
+  amount      Int
+  imageUrl    String?
+  users       Users       @relation(fields: [userId], references: [id])
 }
 
 model Suppliers {
@@ -73,10 +83,48 @@ model CheckoutHistory {
   products  Products[] @relation("CheckoutHistoryToProducts")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model News {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  title       String
+  description String
+  imageUrl    String?
+  label       String
+  userId      String   @db.Uuid
+  Users       Users    @relation(fields: [userId], references: [id])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Notifications {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  message   String
+  userId    String   @db.Uuid
+  category  String
+  Users     Users    @relation(fields: [userId], references: [id])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Reports {
+  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime
+  technician String
+  priority   PM_Priority
+  status     PM_Status   @default(PENDING)
+  userId     String      @db.Uuid
+  comments   String
+  Users      Users       @relation(fields: [userId], references: [id])
+}
+
 enum Role {
-  ADMIN
-  USER
-  PENDING
+  Admin
+  User
+  Pending
+  Staff
 }
 
 enum PR_Status {
@@ -106,4 +154,15 @@ enum Type {
   COMPUTERS
   OFFICE_SUPPLIES
   OTHER
+}
+
+enum PM_Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum PM_Status {
+  PENDING
+  REVIEWED
 }

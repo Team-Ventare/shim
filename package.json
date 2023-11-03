@@ -49,7 +49,7 @@
     "eslint-config-next": "13.4.6",
     "firebase": "^9.23.0",
     "framer-motion": "^10.12.17",
-    "next": "^13.4.12",
+    "next": "^14.0.1",
     "next-auth": "^4.22.1",
     "next-themes": "^0.2.1",
     "node-fetch": "^3.3.1",

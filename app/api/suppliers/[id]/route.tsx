@@ -49,7 +49,12 @@ export async function PATCH(
     },
     // remove data if not sent
     data: {
+      createdAt: json.createdAt || null,
+      updatedAt: json.updatedAt || null,
       name: json.name || null,
+      email: json.email || null,
+      title: json.title || null,
+      vendor: json.vendor || null,
     },
   });
   return NextResponse.json(updated);
