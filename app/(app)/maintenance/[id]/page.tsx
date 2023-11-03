@@ -5,7 +5,7 @@ import {
     AccordionTrigger,
   } from "@/components/ui/accordion";
   import Image from "next/image";
-  import stretcher from "../../../../public/stretcher.png";
+  import stretcher from "../../../../public/scaledshimlogo.png";
   import { PreventativeMaintenance } from "../columns";
   import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
   import { Label } from "@/components/ui/label";
@@ -57,10 +57,10 @@ import {
             </Link>
             <ChevronRightIcon className="h-4 w-4" />
             <Link
-              href="/requests"
+              href="/maintenance"
               className="overflow-hidden text-ellipsis whitespace-nowrap"
             >
-              Purchase Requests
+              Maintenance
             </Link>
             <ChevronRightIcon className="h-4 w-4" />
             <div className="font-medium text-foreground">{data.technician}</div>
@@ -79,7 +79,7 @@ import {
             <div className="ml-8 mr-6 grid grid-cols-1 gap-4">
               <div>
                 <Label className="block text-sm font-semibold text-zinc-950">
-                  Title
+                  Technician
                 </Label>
                 <p className="mt-1 text-sm font-light text-zinc-950">
                   {data.technician}
@@ -122,7 +122,7 @@ import {
         </div>
         <div className="h-[480px] py-2">
           <div className="container py-12">
-            <h1 className="text-xl font-semibold">Purchase Request Details</h1>
+            <h1 className="text-xl font-semibold">Report Details</h1>
   
             <Accordion
               type="single"
@@ -147,7 +147,7 @@ import {
               </AccordionItem>
               <AccordionItem value="item-2">
                 <AccordionTrigger className="p-4">
-                  Requester Information
+                  Uploader Information
                 </AccordionTrigger>
                 <AccordionContent className="px-4 border-t pt-4">
                   <div className="flex justify-between gap-x-6">
@@ -175,13 +175,20 @@ import {
                         Role: {data.users.role.charAt(0).toUpperCase() + data.users.role.slice(1).toLowerCase()}
                       </p>
                       <p className="text-xs leading-5 text-gray-500">
-                        Created request on: {new Date(data.createdAt).toDateString()}
+                        Uploadeded report on: {new Date(data.createdAt).toDateString()}
                       </p>
                     </div>
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+
+            <object data="http://africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%">
+              <p>Alternative text - include a link <a href="http://africau.edu/images/default/sample.pdf">to the PDF!</a></p>
+
+            </object>
+
+
           </div>
         </div>
       </div>
