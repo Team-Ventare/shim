@@ -11,9 +11,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import React from "react";
 import { ChangeUserRole } from "./change-user-role";
 import { refresh_dash } from "../refresh_page";
+import { deleteUser } from "@/components/user/actions/delete-user";
 
 // type Role = {
 //   value: string
@@ -39,7 +51,7 @@ import { refresh_dash } from "../refresh_page";
 //   },
 // ]
 
-export function UserList({ users }: { users: User[] }) {
+export function UserList({ users, currentUser }: { users: User[], currentUser: User }) {
   // const [open, setOpen] = React.useState(false)
   // const [selectedStatus, setSelectedStatus] = React.useState<Role | null>(
   //   null
@@ -94,7 +106,18 @@ export function UserList({ users }: { users: User[] }) {
                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500 flex justify-end">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button
+                        {currentUser.role !== "Admin"  ? (
+                            <Button
+                            variant="outline"
+                            size="sm"
+                            className="ml-auto"
+                            disabled
+                          >
+                            {user.role}
+                            <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
+                          </Button>
+                          ) : (
+                            <Button
                             variant="outline"
                             size="sm"
                             className="ml-auto"
@@ -102,6 +125,15 @@ export function UserList({ users }: { users: User[] }) {
                             {user.role}
                             <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
                           </Button>
+                          )}
+                          {/* <Button
+                            variant="outline"
+                            size="sm"
+                            className="ml-auto"
+                          >
+                            {user.role}
+                            <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
+                          </Button> */}
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="p-0" align="end">
                           <DropdownMenuLabel className="teamaspace-y-1 flex flex-col items-start px-4 py-3"
@@ -124,7 +156,7 @@ export function UserList({ users }: { users: User[] }) {
                                 refresh_dash();
                                 toast({
                                   title: "Success!",
-                                  description: `Changed ${user.name}\'s role to Pending.`,
+                                  description: `Changed ${user.name}\'s role to Pending. Please inform the user that they will need to log out and log back in to see the changes.`,
                                 });
                               }
                             }}
@@ -152,7 +184,7 @@ export function UserList({ users }: { users: User[] }) {
                                 refresh_dash();
                                 toast({
                                   title: "Success!",
-                                  description: `Changed ${user.name}\'s role to User.`,
+                                  description: `Changed ${user.name}\'s role to User. Please inform the user that they will need to log out and log back in to see the changes.`,
                                 });
                               }
                             }}
@@ -179,7 +211,7 @@ export function UserList({ users }: { users: User[] }) {
                               } else {
                                 toast({
                                   title: "Success!",
-                                  description: `Changed ${user.name}\'s role to Staff.`,
+                                  description: `Changed ${user.name}\'s role to Staff. Please inform the user that they will need to log out and log back in to see the changes.`,
                                 });
                               }
                             }}
@@ -205,7 +237,7 @@ export function UserList({ users }: { users: User[] }) {
                                 refresh_dash();
                                 toast({
                                   title: "Success!",
-                                  description: `Changed ${user.name}\'s role to Admin.`,
+                                  description: `Changed ${user.name}\'s role to Admin. Please inform the user that they will need to log out and log back in to see the changes.`,
                                 });
                               }
                             }}
@@ -217,6 +249,67 @@ export function UserList({ users }: { users: User[] }) {
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
+                      <div className="px-2">
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            {currentUser.role !== "Admin" || currentUser.id === user.id ? (
+                                <Button
+                                variant="outline"
+                                size="sm"
+                                className="ml-auto"
+                                disabled
+                              >
+                                Delete User
+                              </Button>
+                              ) : (
+                                <Button
+                                variant="outline"
+                                size="sm"
+                                className="ml-auto"
+                              >
+                                Delete User
+                              </Button>
+                            )}
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Confirm</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Are you sure you want to delete the account of {user.name}?
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction asChild>
+                                <Button
+                                  className="cursor-pointer"
+                                  onClick={async () => {
+                                    const res = await deleteUser({ id: user.id });
+
+                                    if (res.error) {
+                                      toast({
+                                        variant: "destructive",
+                                        title: "Uh oh! Something went wrong.",
+                                        description:
+                                          "User account could not be removed. Please try again.",
+                                      });
+                                    } else {
+                                      refresh_dash();
+                                      toast({
+                                        variant: "destructive",
+                                        title: "Success!",
+                                        description: `${user.name}\'s account has been deleted.`,
+                                      });
+                                    }
+                                  }}
+                                >
+                                  Confirm
+                                </Button>
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
                     </td>
                   </tr>
                 ))}
