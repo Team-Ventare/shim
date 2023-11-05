@@ -87,16 +87,16 @@ export default async function ProductPage({
         </div>
 
         <div className="relative isolate flex flex-col gap-10 lg:flex-row mx-8">
-            {/* STILL NEED TO UPDATE THE IMAGE BUT NEED BLOB SERVICE TO WORK AGAIN */}
-            <Image
-              priority={true}
-              src={hospital}
-              alt="Photo by Drew Beamer"
-              className="rounded-sm object-cover"
-              width={400}
-              height={(9 / 16) * 400}
-            />
-
+          <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:w-80 xl:w-96 lg:shrink-0">
+            {data.imageUrl && (
+              <img
+                src={data.imageUrl}
+                alt=""
+                className="flex-auto inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+              />
+            )}
+            <div className="flex-auto inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+          </div>
           <div className="w-full">
             <div className="ml-2 mr-2 grid grid-rows-5 grid-flow-col gap-4">
               <div>
