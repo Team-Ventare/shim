@@ -1,3 +1,5 @@
+"use client";
+
 import { User } from "@/app/(app)/dashboard/page";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

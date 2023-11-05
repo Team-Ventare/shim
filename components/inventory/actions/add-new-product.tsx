@@ -24,48 +24,112 @@ import {
   SelectGroup,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { User } from "@/app/(app)/dashboard/page";
+import { PutBlobResult } from "@vercel/blob";
 
 export default function AddNewProduct({ userInfo }: { userInfo: User }) {
   const [formValues, setFormValues] = React.useState({});
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    
+    if (inputFileRef.current?.files) {
+      const file = inputFileRef.current.files[0];
 
-    const response = await fetch("/api/products", {
-      method: "POST",
-      body: JSON.stringify(formValues),
-    });
+      if (file) {
+        const req = await fetch(`/api/users/upload?filename=${file.name}`, {
+          method: "POST",
+          body: file,
+        });
 
-    if (response.ok) {
-      toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(formValues, null, 2)}
-            </code>
-          </pre>
-        ),
-      });
+        const res = (await req.json()) as PutBlobResult;
+        if (res.url) {
+          setBlob(res);
 
-      fetch("/api/notifications", {
-        method: "POST",
-        body: JSON.stringify({
-          message: `added a new assest to the inventory`,
-          category: "Inventory",
-          userId: userInfo.id,
-        }),
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-      });
+          const response = await fetch("/api/products", {
+            method: "POST",
+            body: JSON.stringify({
+              ...formValues,
+              imageUrl: res.url,
+            }),
+          });
+
+          if (response.ok) {
+            toast({
+              title: "You submitted the following values:",
+              description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                  <code className="text-white">
+                    {JSON.stringify(formValues, null, 2)}
+                  </code>
+                </pre>
+              ),
+            });
+
+            fetch("/api/notifications", {
+              method: "POST",
+              body: JSON.stringify({
+                message: `added a new assest to the inventory`,
+                category: "Inventory",
+                userId: userInfo.id,
+              }),
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              duration: 2000,
+              description: "There was a problem with your request. Make sure you have filled out all the fields correctly.",
+            });
+          }
+        } else {
+          console.log(res);
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            duration: 2000,
+            description: "There was a problem with your product. Make sure you have filled out all the fields correctly.",
+          });
+        }
+      }
     }
+
+    // const response = await fetch("/api/products", {
+    //   method: "POST",
+    //   body: JSON.stringify(formValues),
+    // });
+
+    // if (response.ok) {
+    //   toast({
+    //     title: "You submitted the following values:",
+    //     description: (
+    //       <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //         <code className="text-white">
+    //           {JSON.stringify(formValues, null, 2)}
+    //         </code>
+    //       </pre>
+    //     ),
+    //   });
+
+    //   fetch("/api/notifications", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       message: `added a new assest to the inventory`,
+    //       category: "Inventory",
+    //       userId: userInfo.id,
+    //     }),
+    //   });
+    // } else {
+    //   toast({
+    //     variant: "destructive",
+    //     title: "Uh oh! Something went wrong.",
+    //     description: "There was a problem with your request.",
+    //   });
+    // }
   };
   //if the user is not an admin or staff, return null
   if (userInfo.role !== "Admin" && userInfo.role !== "Staff") {
@@ -204,6 +268,18 @@ export default function AddNewProduct({ userInfo }: { userInfo: User }) {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label>Picture</Label>
+              <Input
+                id="picture"
+                type="file"
+                ref={inputFileRef}
+                onChange={(e) => {
+                  console.log(inputFileRef);
+                  console.log(inputFileRef.current?.files);
+                }}
+              />
             </div>
           </div>
           <SheetFooter>

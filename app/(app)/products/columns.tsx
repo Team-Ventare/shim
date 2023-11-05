@@ -28,6 +28,7 @@ export type Product = {
   type: string;
   status: string;
   description: string;
+  imageUrl: string;
 };
 
 export const columns: ColumnDef<Product>[] = [
