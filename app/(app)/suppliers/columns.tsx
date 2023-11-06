@@ -98,14 +98,13 @@ export const columns: ColumnDef<Supplier>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Edit supplier</DropdownMenuItem>
-            <DropdownMenuSeparator />
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem
                   className="cursor-pointer"
                   onSelect={(e) => e.preventDefault()}
                 >
-                  Delete supplier
+                  <div className="text-red-600">Delete supplier</div>
                 </DropdownMenuItem>
               </AlertDialogTrigger>
               <AlertDialogContent>
