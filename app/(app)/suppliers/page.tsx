@@ -1,5 +1,4 @@
 import AddSupplierSheet from "@/components/suppliers/add-supplier";
-import EditSwitch from "./switch";
 import { Supplier, columns } from "./columns";
 import { DataTable } from "./data-table";
 import { getUserSession } from "@/lib/auth";
@@ -38,9 +37,6 @@ export default async function SupplierPage() {
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <AddSupplierSheet userId={user.id} />
         </div>
-      </div>
-      <div className="float-right padding-1px">
-        <EditSwitch />
       </div>
       <div className="pt-6 padding-2px">
         <DataTable columns={columns} data={data} />

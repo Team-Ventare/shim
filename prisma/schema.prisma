@@ -40,10 +40,10 @@ model Products {
   name            String
   amount          Int
   location        String
-  imageUrl        String?
   type            Type
   status          Status            @default(AVAILABLE)
   description     String            @default("")
+  imageUrl        String?
   carts           Cart[]            @relation("CartToProducts")
   checkoutHistory CheckoutHistory[] @relation("CheckoutHistoryToProducts")
 }

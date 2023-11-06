@@ -12,9 +12,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
+import { refresh_SP } from "@/components/suppliers/refresh_page";
+import { deleteSP } from "@/components/suppliers/remove-supplier";
 
 export interface Supplier {
     id: string;
@@ -72,7 +85,7 @@ export const columns: ColumnDef<Supplier>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const product = row.original;
+      const supp = row.original;
 
       return (
         <DropdownMenu>
@@ -84,34 +97,56 @@ export const columns: ColumnDef<Supplier>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                toast({
-                  title: "Success! Added to cart",
-                  description: `${product.name} has been added to your cart.`,
-                });
-              }}
-            >
-              Add to cart
-            </DropdownMenuItem>
+            <DropdownMenuItem>Edit supplier</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(product.id);
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  Delete supplier
+                </DropdownMenuItem>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirm</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete {supp.title}?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction asChild>
+                    <Button
+                      //remove?? unless we stop users/pending from deleting them
+                      className="cursor-pointer"
+                      onClick={async () => {
+                        const res = await deleteSP({ id: supp.id });
 
-                toast({
-                  title: "Success! Copied product ID",
-                  description: `${product.name} ID has been copied to your clipboard.`,
-                });
-              }}
-            >
-              Copy product ID
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href={`/products/${product.id}`}>View product details</Link>
-            </DropdownMenuItem>
+                        if (res.error) {
+                          toast({
+                            variant: "destructive",
+                            title: "Uh oh! Something went wrong.",
+                            description:
+                              "Purchase request could not be removed.",
+                          });
+                        } else {
+                          refresh_SP();
+                          toast({
+                            variant: "destructive",
+                            title: "Success!",
+                            description: `${supp.title} has been deleted.`,
+                          });
+                        }
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       );
