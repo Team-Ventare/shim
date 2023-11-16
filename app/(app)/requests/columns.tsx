@@ -202,12 +202,11 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                             variant: "destructive",
                             title: "Uh oh! Something went wrong.",
                             description:
-                              "Purchase request could not be removed.",
+                              `${request.title} could not be removed.`,
                           });
                         } else {
                           refresh_PR();
                           toast({
-                            variant: "destructive",
                             title: "Success!",
                             description: `${request.title} has been deleted.`,
                           });
