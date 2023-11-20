@@ -38,6 +38,7 @@ export async function PUT(
       status: json.status || "PENDING",
       description: json.description || null,
       reason: json.reason || null,
+      imageUrl: json.imageUrl || null,
     },
   });
   return NextResponse.json(updated);

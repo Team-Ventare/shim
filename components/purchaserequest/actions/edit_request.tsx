@@ -21,12 +21,13 @@ import {
   SelectTrigger,
   SelectGroup,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { PurchaseRequest } from "@/app/(app)/requests/columns";
 import { Textarea } from "@/components/ui/textarea";
 import { refresh_PR } from "./refresh_page";
 import { User } from "@/app/(app)/dashboard/page";
+import { PutBlobResult, del } from "@vercel/blob";
 
 export default function EditRequest({ userInfo, request }: { userInfo: User, request: PurchaseRequest }) {
   const [formValues, setFormValues] = useState({
@@ -38,31 +39,89 @@ export default function EditRequest({ userInfo, request }: { userInfo: User, req
     reason: request.reason,
   });
   const { toast } = useToast();
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await fetch(`/api/purchaserequests/${request.id}`, {
-      method: "PUT",
-      body: JSON.stringify(formValues),
-    });
+    if (inputFileRef.current?.files && inputFileRef.current?.files[0]) {
+      const file = inputFileRef.current.files[0];
 
-    if (response.ok) {
-      refresh_PR();
-      toast({
-        title: "Request updated!",
-        duration: 2000,
-        description: "The request was successfully updated.",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        duration: 2000,
-        description:
-          "There was a problem updating the request. Please try again",
-      });
+      if (file) {
+        const req = await fetch(`/api/users/upload?filename=${file.name}`, {
+          method: "POST",
+          body: file,
+        });
+
+        const res = (await req.json()) as PutBlobResult;
+        if (res.url) {
+          setBlob(res);
+          
+          //delete old image
+          await fetch(`/api/users/upload?url=${request.imageUrl}`, {
+            method: "DELETE",
+          });
+
+          const response = await fetch(`/api/purchaserequests/${request.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              ...formValues,
+              imageUrl: res.url,}),
+          });
+
+          if (response.ok) {
+            refresh_PR();
+            toast({
+              title: "Request updated!",
+              duration: 2000,
+              description: "The request was successfully updated.",
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              duration: 2000,
+              description: "There was a problem with your request. Make sure you have filled out all the fields correctly.",
+            });
+          }
+        } else {
+          console.log(res);
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            duration: 2000,
+            description: "There was a problem with your request. Make sure you have filled out all the fields correctly.",
+          });
+        }
+      }
     }
+    else{
+      const response = await fetch(`/api/purchaserequests/${request.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          ...formValues,
+          imageUrl: request.imageUrl,}),
+      });
+
+      if (response.ok) {
+        refresh_PR();
+        toast({
+          title: "Request updated!",
+          duration: 2000,
+          description: "The request was successfully updated.",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          duration: 2000,
+          description:
+            "There was a problem updating the request. Please try again",
+        });
+      }
+    }
+                                  
   };
 
   if (userInfo.role === "User" || userInfo.role === "Pending") {
@@ -171,7 +230,15 @@ export default function EditRequest({ userInfo, request }: { userInfo: User, req
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="picture">Picture</Label>
-              <Input id="picture" type="file" />
+              <Input 
+              id="picture" 
+              type="file"
+              ref={inputFileRef}
+              onChange={(e) => {
+              console.log(inputFileRef);
+              console.log(inputFileRef.current?.files);
+              }}
+              />
             </div>
           </div>
           <SheetFooter>
