@@ -86,7 +86,7 @@ export default function EditRequest({ userInfo, request }: { userInfo: User, req
             });
           }
         } else {
-          console.log(res);
+          //console.log(res);
           toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",

@@ -22,11 +22,13 @@ import {
   SelectGroup,
   SelectLabel,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Product } from "@/app/(app)/products/columns";
 import { Textarea } from "@/components/ui/textarea";
 import { User } from "@/app/(app)/dashboard/page";
+import { PutBlobResult } from "@vercel/blob";
+import { refresh_PRODUCT } from "./refresh_page";
 
 export default function EditProduct({ product, userInfo }: { userInfo: User, product: Product }) {
   const [formValues, setFormValues] = useState({
@@ -38,32 +40,83 @@ export default function EditProduct({ product, userInfo }: { userInfo: User, pro
     type: product.type,
   });
   const { toast } = useToast();
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await fetch(`/api/products/${product.id}`, {
-      method: "PUT",
-      body: JSON.stringify(formValues),
-    });
+    if (inputFileRef.current?.files && inputFileRef.current?.files[0]) {
+      const file = inputFileRef.current.files[0];
 
-    if (response.ok) {
-      toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(formValues, null, 2)}
-            </code>
-          </pre>
-        ),
+      if (file) {
+        const req = await fetch(`/api/users/upload?filename=${file.name}`, {
+          method: "POST",
+          body: file,
+        });
+
+        const res = (await req.json()) as PutBlobResult;
+        if (res.url) {
+          setBlob(res);
+          
+          //delete old image
+          await fetch(`/api/users/upload?url=${product.imageUrl}`, {
+            method: "DELETE",
+          });
+
+          const response = await fetch(`/api/products/${product.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              ...formValues,
+              imageUrl: res.url,}),
+          });
+
+          if (response.ok) {
+            refresh_PRODUCT();
+            toast({
+              title: "Product updated!",
+              duration: 2000,
+              description: "The product was successfully updated.",
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              description: "There was a problem with your request.",
+            });
+          }
+        } else {
+          //console.log(res);
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+          });
+        }
+      }
+    }
+    else{
+      const response = await fetch(`/api/products/${product.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          ...formValues,
+          imageUrl: product.imageUrl,}),
       });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-      });
+
+      if (response.ok) {
+        refresh_PRODUCT();
+        toast({
+          title: "Product updated!",
+          duration: 2000,
+          description: "The product was successfully updated.",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        });
+      }
     }
   };
 
@@ -206,12 +259,33 @@ export default function EditProduct({ product, userInfo }: { userInfo: User, pro
                 </SelectContent>
               </Select>
             </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="picture">Picture</Label>
+              <Input 
+              id="picture" 
+              type="file"
+              ref={inputFileRef}
+              onChange={(e) => {
+              console.log(inputFileRef);
+              console.log(inputFileRef.current?.files);
+              }}
+              />
+            </div>
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit" className="w-full max-w-sm">
-                Save changes
-              </Button>
+              {formValues.name === "" ||
+              formValues.description === "" ||
+              formValues.location === "" ||
+              !formValues.amount ? (
+                <Button type="submit" className="w-full max-w-sm" disabled>
+                  Save changes
+                </Button>
+              ) : (
+                <Button type="submit" className="w-full max-w-sm">
+                  Save changes
+                </Button>
+              )}
             </SheetClose>
           </SheetFooter>
         </form>
