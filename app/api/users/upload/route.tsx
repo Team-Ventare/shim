@@ -1,4 +1,4 @@
-import { put } from "@vercel/blob";
+import { del, put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -18,3 +18,12 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   return NextResponse.json(blob);
 }
+
+//delete image from blob
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const urlToDelete = searchParams.get('url') as string;
+  await del(urlToDelete,  {token: "vercel_blob_rw_SnxeQAoIENCJBvzU_bBvUj0hYx7Rr2nhJTMLZghMbjRZyEs"});
+ 
+  return new Response();
+}              
