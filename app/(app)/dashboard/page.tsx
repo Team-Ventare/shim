@@ -5,7 +5,6 @@ import { Product } from "../products/columns";
 import { getUserSession } from "@/lib/auth";
 
 export type User = {
-  status: string;
   id: string;
   image: string | undefined;
   email: string;
