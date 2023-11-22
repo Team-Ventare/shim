@@ -28,8 +28,9 @@ import { toast } from "@/components/ui/use-toast";
 import React, { useState, useRef } from "react";
 import { Textarea } from "../ui/textarea";
 import { revalidateNews } from "./revalidate-news";
+import { User } from "@/app/(app)/dashboard/page";
 
-export default function AddNewsPost({ userId }: { userId: string }) {
+export default function AddNewsPost({ userInfo }: { userInfo: User }) {
   const [formValues, setFormValues] = React.useState({});
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -71,7 +72,7 @@ export default function AddNewsPost({ userId }: { userId: string }) {
               body: JSON.stringify({
                 message: "added a new post to the news page",
                 category: "News",
-                userId: userId,
+                userId: userInfo.id,
               }),
             });
           } else {
@@ -91,7 +92,10 @@ export default function AddNewsPost({ userId }: { userId: string }) {
       }
     }
   };
-
+  //if the user is not an admin, return null
+  if (userInfo.role != "Admin") {
+    return null;
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -188,7 +192,7 @@ export default function AddNewsPost({ userId }: { userId: string }) {
                 type="submit"
                 className="w-full max-w-sm"
                 onClick={async () => {
-                  setFormValues({ ...formValues, userId: userId });
+                  setFormValues({ ...formValues, userId: userInfo.id });
                 }}
               >
                 Post

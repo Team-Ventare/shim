@@ -18,7 +18,7 @@ import {
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { revalidateNews } from "./revalidate-news";
 
-export default function DeleteNewsPost({ post }: { post: NewsPost }) {
+export default function DeleteNewsPost({ post , userRole}: { post: NewsPost, userRole: String }) {
   const deletePost = async () => {
     const response = await fetch(`/api/newspost/${post.id}`, {
       method: "DELETE",
@@ -38,7 +38,10 @@ export default function DeleteNewsPost({ post }: { post: NewsPost }) {
       });
     }
   };
-
+  //if user is not an admin, do not show delete button
+  if (userRole != "Admin") {
+    return null;
+  }
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
