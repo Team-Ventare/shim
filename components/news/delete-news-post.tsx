@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { revalidateNews } from "./revalidate-news";
 
 export default function DeleteNewsPost({ post }: { post: NewsPost }) {
   const deletePost = async () => {
@@ -24,6 +25,7 @@ export default function DeleteNewsPost({ post }: { post: NewsPost }) {
     });
 
     if (response.ok) {
+      revalidateNews();
       toast({
         title: "Success!",
         description: "Your news post has been deleted.",

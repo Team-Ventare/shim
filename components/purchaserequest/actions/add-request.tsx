@@ -60,14 +60,9 @@ export default function AddRequestSheet({ userInfo }: { userInfo: User }) {
           if (response.ok) {
             refresh_PR();
             toast({
-              title: "You submitted the following values:",
-              description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                  <code className="text-white">
-                    {JSON.stringify(formValues, null, 2)}
-                  </code>
-                </pre>
-              ),
+              title: "request Added!",
+              duration: 2000,
+              description: "The new request was successfully created.",
             });
 
             fetch("/api/notifications", {
@@ -87,7 +82,7 @@ export default function AddRequestSheet({ userInfo }: { userInfo: User }) {
             });
           }
         } else {
-          console.log(res);
+          //console.log(res);
           toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",

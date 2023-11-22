@@ -27,6 +27,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import React, { useState, useRef } from "react";
 import { Textarea } from "../ui/textarea";
+import { revalidateNews } from "./revalidate-news";
 
 export default function AddNewsPost({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
@@ -58,15 +59,11 @@ export default function AddNewsPost({ userId }: { userId: string }) {
           });
 
           if (response.ok) {
+            revalidateNews();
             toast({
-              title: "You submitted the following values:",
-              description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                  <code className="text-white">
-                    {JSON.stringify(formValues, null, 2)}
-                  </code>
-                </pre>
-              ),
+              title: "News Post Added!",
+              duration: 2000,
+              description: "The new posted was successfully created.",
             });
 
             fetch("/api/notifications", {
