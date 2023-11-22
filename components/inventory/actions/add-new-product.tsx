@@ -28,6 +28,7 @@ import React, { useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { User } from "@/app/(app)/dashboard/page";
 import { PutBlobResult } from "@vercel/blob";
+import { refresh_PRODUCT } from "./refresh_page";
 
 export default function AddNewProduct({ userInfo }: { userInfo: User }) {
   const [formValues, setFormValues] = React.useState({});
@@ -59,15 +60,11 @@ export default function AddNewProduct({ userInfo }: { userInfo: User }) {
           });
 
           if (response.ok) {
+            refresh_PRODUCT();
             toast({
-              title: "You submitted the following values:",
-              description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                  <code className="text-white">
-                    {JSON.stringify(formValues, null, 2)}
-                  </code>
-                </pre>
-              ),
+              title: "Product Added!",
+              duration: 2000,
+              description: "The new product was successfully created.",
             });
 
             fetch("/api/notifications", {
@@ -87,7 +84,7 @@ export default function AddNewProduct({ userInfo }: { userInfo: User }) {
             });
           }
         } else {
-          console.log(res);
+          //console.log(res);
           toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",

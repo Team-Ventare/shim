@@ -27,6 +27,7 @@ import React from "react";
 import { Textarea } from "../ui/textarea";
 import { NewsPost } from "@/app/(app)/news/page";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import { revalidateNews } from "./revalidate-news";
 
 export default function EditNewsPost({ post }: { post: NewsPost }) {
   const [formValues, setFormValues] = React.useState({
@@ -44,15 +45,11 @@ export default function EditNewsPost({ post }: { post: NewsPost }) {
     });
 
     if (response.ok) {
+      revalidateNews();
       toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(formValues, null, 2)}
-            </code>
-          </pre>
-        ),
+        title: "News Post Updated!",
+        duration: 2000,
+        description: "The news post was successfully updated.",
       });
     } else {
       toast({
