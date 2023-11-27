@@ -186,7 +186,8 @@ import {
             <object data="/sample.pdf" type="application/pdf" width="100%" height="100%">
               <p>Alternative text - include a link <a href="/sample.pdf">to the PDF!</a></p>
             </object>
-
+            <p>Download Link - (Right Click, Save link as...) <a href="/sample.pdf" className ="underline">Click Here!</a></p>
+            
 
           </div>
         </div>
