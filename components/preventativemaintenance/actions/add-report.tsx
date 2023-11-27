@@ -22,12 +22,15 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { refresh_PM } from "./refresh_page";
 import { Textarea } from "@/components/ui/textarea";
+import { PutBlobResult } from "@vercel/blob";
 
 export default function AddReportSheet({ userId }: { userId: string }) {
   const [formValues, setFormValues] = React.useState({});
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -133,7 +136,15 @@ export default function AddReportSheet({ userId }: { userId: string }) {
             
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="picture">PDF Report</Label>
-              <Input id="picture" type="file" />
+              <Input 
+              id="picture" 
+              type="file" 
+              ref={inputFileRef}
+              onChange={(e) => {
+                console.log(inputFileRef);
+                console.log(inputFileRef.current?.files);
+              }}
+              />
             </div>
           </div>
           <SheetFooter>
