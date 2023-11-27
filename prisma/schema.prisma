@@ -115,7 +115,6 @@ model Reports {
   status     PM_Status   @default(PENDING)
   userId     String      @db.Uuid
   comments   String
-  imageUrl   String?
   users      Users       @relation(fields: [userId], references: [id])
 }
 
