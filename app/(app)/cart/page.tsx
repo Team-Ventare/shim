@@ -2,6 +2,20 @@ import { getUserSession } from "@/lib/auth";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { Product } from "../products/columns";
+import { User } from "../dashboard/page";
+
+async function getUser(id: string): Promise<User> {
+  const response = await fetch(
+    `https://shim-ventare.vercel.app/api/users/${id}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user");
+  }
+
+  const data = await response.json();
+  return data;
+}
 
 async function getData(cartId: string): Promise<Product[]> {
   const response = await fetch(
@@ -21,8 +35,13 @@ async function getData(cartId: string): Promise<Product[]> {
 
 export default async function Cart() {
   const user = await getUserSession();
-  const data = await getData(user.cartId);
-  console.log(user);
+
+  // Running these requests in parallel
+  const userData = getUser(user.id);
+  const cartData = getData(user.cartId);
+  const [userD, cartD] = await Promise.all([userData, cartData]);
+
+  console.log(userD);
 
   return (
     <div className="container mx-auto py-6">
@@ -38,7 +57,7 @@ export default async function Cart() {
         </div>
       </div>
       <div className="pt-6">
-        <DataTable columns={columns} data={data} userInfo={user} />
+        <DataTable columns={columns} data={cartD} userInfo={user} />
       </div>
     </div>
   );
