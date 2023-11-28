@@ -19,6 +19,7 @@ import { ToastAction } from "@/components/ui/toast";
 import { DataTableColumnHeader } from "@/components/inventory/data-table-column-header";
 import { statuses, types } from "@/components/inventory/data";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 export type Product = {
   id: string;
@@ -80,6 +81,26 @@ export const columns: ColumnDef<Product>[] = [
       <DataTableColumnHeader column={column} title="Location" />
     ),
   },
+
+  {
+    accessorKey: "type",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Type" />
+    ),
+    cell: ({ row }) => {
+      const type = types.find((type) => type.value === row.getValue("type"));
+
+      if (!type) {
+        return null;
+      }
+
+      //return type.view();
+      return <Badge variant="outline">{type.label}</Badge>;
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
   {
     accessorKey: "status",
     header: ({ column }) => (
@@ -95,24 +116,6 @@ export const columns: ColumnDef<Product>[] = [
       }
 
       return status.view();
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-    cell: ({ row }) => {
-      const type = types.find((type) => type.value === row.getValue("type"));
-
-      if (!type) {
-        return null;
-      }
-
-      return type.view();
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

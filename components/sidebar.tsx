@@ -246,6 +246,8 @@ export default function Sidebar({ user }: { user: User }) {
                             </Avatar>
                             <span aria-hidden="true">{user.name}</span>
 
+                            <div className="flex-grow" />
+
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button
@@ -466,7 +468,7 @@ export default function Sidebar({ user }: { user: User }) {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
           <div className="flex-1 text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-            Dashboard
+            {navigation.find((item) => item.href === pathname)?.name}
           </div>
           <span className="sr-only">Your profile</span>
           <div className="flex items-center space-x-4 text-sm font-semibold leading-6 text-gray-900 dark:text-white">

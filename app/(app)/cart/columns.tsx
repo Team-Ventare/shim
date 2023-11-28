@@ -15,7 +15,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 
 import {
   AlertDialog,
@@ -45,7 +44,7 @@ import { DataTableColumnHeader } from "@/components/inventory/data-table-column-
 import { statuses, types } from "@/components/inventory/data";
 import { deleteItemFromCart } from "@/components/cart/actions/delete-item";
 import { refreshCart } from "@/components/cart/actions/refresh-cart";
-
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -97,6 +96,25 @@ export const columns: ColumnDef<Product>[] = [
     ),
   },
   {
+    accessorKey: "type",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Type" />
+    ),
+    cell: ({ row }) => {
+      const type = types.find((type) => type.value === row.getValue("type"));
+
+      if (!type) {
+        return null;
+      }
+
+      //return type.view();
+      return <Badge variant="outline">{type.label}</Badge>;
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
     accessorKey: "status",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
@@ -117,28 +135,9 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-    cell: ({ row }) => {
-      const type = types.find((type) => type.value === row.getValue("type"));
-
-      if (!type) {
-        return null;
-      }
-
-      return type.view();
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
     id: "actions",
     cell: ({ row }) => {
       const product = row.original;
-
 
       return (
         <DropdownMenu>
@@ -150,15 +149,31 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(product.id);
+
+                toast({
+                  title: "Success! Copied product ID",
+                  description: `${product.name} ID has been copied to your clipboard.`,
+                });
+              }}
+            >
+              Copy product ID
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              {/* this should probably be removed in the future or link to something else that does not let them delete the item from inventory */}
+              <Link href={`/products/${product.id}`}>View product details</Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                {/* <Button
-                  variant="ghost"
-                  className="text-gray-700 pl-2 pr-12 select-none items-center rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
-                >
-                  Delete from cart
-                </Button> */}
-                <DropdownMenuItem className="cursor-pointer"
+                <DropdownMenuItem
+                  className="cursor-pointer"
                   onSelect={(e) => e.preventDefault()}
                 >
                   Delete from cart
@@ -168,7 +183,8 @@ export const columns: ColumnDef<Product>[] = [
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirm</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to delete {product.name} from your cart?
+                    Are you sure you want to delete {product.name} from your
+                    cart?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -202,70 +218,6 @@ export const columns: ColumnDef<Product>[] = [
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-
-            <DropdownMenuSeparator />
-            <Dialog>
-              <DialogTrigger asChild>
-                {/* <Button
-                  variant="ghost"
-                  className="text-gray-700 pl-2 pr-24 w-full text-left select-none rounded-sm py-1.5 cursor-pointer focus:bg-accent focus:text-accent-foreground"
-                >
-                  Edit Item
-                </Button> */}
-                <DropdownMenuItem className="cursor-pointer"
-                  onSelect={(e) => e.preventDefault()}
-                >
-                  Edit Amount
-                </DropdownMenuItem>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[350px]">
-                <DialogHeader>
-                  <DialogTitle>Edit Product Quantity</DialogTitle>
-                  <DialogDescription>Change the product Quantity. Current quantity in your cart is {product.amount}.</DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Input id="new_amount" className="col-span-4" />
-                  </div>
-                </div>
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button
-                      type="submit"
-                      className="w-full max-w-sm"
-                      onClick={() => {
-                        toast({
-                          variant: "destructive",
-                          title: "Item Updated.",
-                          description: `${product.name} has been updated in your cart.`,
-                        });
-                      }}
-                    >
-                      Save changes
-                    </Button>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(product.id);
-
-                toast({
-                  title: "Success! Copied product ID",
-                  description: `${product.name} ID has been copied to your clipboard.`,
-                });
-              }}
-            >
-              Copy product ID
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              {/* this should probably be removed in the future or link to something else that does not let them delete the item from inventory */}
-              <Link href={`/products/${product.id}`}>View product details</Link>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -2,7 +2,10 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { priorities, statuses } from "@/components/preventativemaintenance/data";
+import {
+  priorities,
+  statuses,
+} from "@/components/preventativemaintenance/data";
 import { DataTableColumnHeader } from "@/components/preventativemaintenance/data-table-column-header";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
@@ -41,7 +44,7 @@ export interface PreventativeMaintenance {
   technician: string;
   status: string;
   priority: string;
-  label: string; /*xxx*/
+  label: string /*xxx*/;
   comments: string;
   userId: string;
   users: Users;
@@ -85,46 +88,6 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
     },
   },
   {
-    accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
-    cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      );
-
-      if (!status) {
-        return null;
-      }
-
-      return status.view();
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "priority",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
-    ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
-      );
-
-      if (!priority) {
-        return null;
-      }
-
-      return priority.view();
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
     accessorKey: "users",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Uploaded by" />
@@ -145,7 +108,7 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
             />
             <AvatarFallback>{user.name?.at(0)}</AvatarFallback>
           </Avatar>
-          <p className="font-medium">{user.name}</p>
+          <p className="font-semibold">{user.name}</p>
         </div>
       );
     },
@@ -153,6 +116,27 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
       return value.includes(row.getValue(id));
     },
   },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      const status = statuses.find(
+        (status) => status.value === row.getValue("status")
+      );
+
+      if (!status) {
+        return null;
+      }
+
+      return status.view();
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+
   {
     id: "actions",
     cell: ({ row }) => {
@@ -168,6 +152,27 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>
+              <Link href={`/maintenance/${report.id}`}>
+                View report details
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(report.id);
+
+                toast({
+                  title: "Report ID copied",
+                  description: `Report ID ${report.id} copied to clipboard`,
+                });
+              }}
+            >
+              Copy report ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem
@@ -181,7 +186,8 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirm</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to delete report from {report.technician}?
+                    Are you sure you want to delete report from{" "}
+                    {report.technician}?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -196,8 +202,7 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
                           toast({
                             variant: "destructive",
                             title: "Uh oh! Something went wrong.",
-                            description:
-                              "Report could not be removed.",
+                            description: "Report could not be removed.",
                           });
                         } else {
                           refresh_PM();
@@ -215,23 +220,6 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href={`/maintenance/${report.id}`}>View report details</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(report.id);
-
-                toast({
-                  title: "Report ID copied",
-                  description: `Report ID ${report.id} copied to clipboard`,
-                });
-              }}
-            >
-              Copy report ID
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

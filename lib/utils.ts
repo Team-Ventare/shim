@@ -26,15 +26,8 @@ export function formatCreatedAt(createdAt: string): string {
   } else if (timeDifferenceInHours < 24) {
     const hoursAgo = Math.floor(timeDifferenceInHours);
     const minutesAgo = Math.floor(timeDifferenceInMinutes % 60);
-    const formattedTime =
-      hoursAgo === 0
-        ? `${minutesAgo} minutes`
-        : `${hoursAgo} hour${hoursAgo === 1 ? "" : "s"}${
-            minutesAgo > 0
-              ? ` and ${minutesAgo} minute${minutesAgo === 1 ? "" : "s"}`
-              : ""
-          }`;
-    return `Today at ${formattedTime} ago`;
+    const formattedTime = `${hoursAgo} hour${hoursAgo === 1 ? "" : "s"}`;
+    return `${formattedTime} ago`;
   } else if (timeDifferenceInDays < 2) {
     const formattedDate = createdAtDate.toLocaleDateString(undefined, {
       hour: "numeric",
