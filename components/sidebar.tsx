@@ -43,7 +43,7 @@ const navigation = [
     href: "/dashboard",
     icon: RectangleGroupIcon,
   },
-  { name: "Cart", href: "/cart", icon: ShoppingCartIcon },
+  { name: "Checkout & Return", href: "/cart", icon: ShoppingCartIcon },
   {
     name: "Inventory",
     href: "/products",

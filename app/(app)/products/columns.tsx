@@ -20,6 +20,7 @@ import { DataTableColumnHeader } from "@/components/inventory/data-table-column-
 import { statuses, types } from "@/components/inventory/data";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Dropdown } from "react-day-picker";
 
 export type Product = {
   id: string;
@@ -136,6 +137,7 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={async () => {

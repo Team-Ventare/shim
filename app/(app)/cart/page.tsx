@@ -28,11 +28,11 @@ export default async function Cart() {
       <div className="sm:flex sm:items-center py-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Cart
+            Checkout & Return
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            Select products to checkout with a provided course name, view
-            specific product details, or delete products from your cart.
+            Select products to checkout with a provided course name or return
+            items previously checked out.
           </p>
         </div>
       </div>
