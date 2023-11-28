@@ -16,6 +16,7 @@ declare module "next-auth" {
       cart: {
         products: Product[];
       };
+      currentCheckout: Product[];
     };
   }
 }
