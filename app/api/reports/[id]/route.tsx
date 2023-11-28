@@ -31,9 +31,8 @@ export async function PUT(
       id: id,
     },
     data: {
-      technician: json.technician || null,
-      priority: json.priority || null,
-      status: json.status || "PENDING",
+      technician: json.technician,
+      status: json.status,
       comments: json.comments || null,
     },
   });
@@ -58,7 +57,7 @@ export async function PATCH(
     },
   });
   return NextResponse.json(updated);
-} 
+}
 
 // Delete Report (/api/reports/[id])
 export async function DELETE(
