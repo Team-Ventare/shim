@@ -6,7 +6,7 @@ import EditNewsPost from "@/components/news/edit-news-post";
 import DeleteNewsPost from "@/components/news/delete-news-post";
 import { formatCreatedAt } from "@/lib/utils";
 
-export default function PostDisplay({ data }: { data: NewsPost[] }) {
+export default function PostDisplay({ data, userRole}: { data: NewsPost[], userRole: String }) {
   return (
     <>
       {data.map((post) => (
@@ -31,8 +31,8 @@ export default function PostDisplay({ data }: { data: NewsPost[] }) {
                 {post.label}
               </span>
               <div className="ml-auto space-x-2">
-                <EditNewsPost post={post} />
-                <DeleteNewsPost post={post} />
+                <EditNewsPost post={post} userRole={userRole}/>
+                <DeleteNewsPost post={post} userRole={userRole}/>
               </div>
             </div>
             <div className="group relative max-w-xl">

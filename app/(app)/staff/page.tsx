@@ -30,7 +30,7 @@ const people = [
     imageUrl:
       "https://cdn.web.uta.edu/-/media/project/website/conhi/images/people/headshots-128x128/roye_jennifer_headshot_128px.ashx?revision=a7a57753-21f2-4db2-ac50-e4baf7df7473",
     phone: "817-272-0022",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    bio: "Jennifer Roye, MSN, RN, CHSE, CNE is The Assistant Dean for Simulation and Technology and a Clinical Assistant Professor at the University of Texas at Arlington College of Nursing and Health Innovation. She is lead faculty for the Fundamental Telehealth Skills course and is also the Director of the Undergraduate Health Informatics Certificate Program. Mrs. Roye is an affiliate of the Multi Interprofessional Center of Health Informatics at UTA. She is active in INACSL, serving as the chair for the INACSL Simulation Education Program (ISEP), and serves on the INACSL education committee. She received her MSN from UTA in 2003 and is currently enrolled at The University of Alabama in the EdD Instructional Leadership program. She practiced as a CPNP in private practice for 10 years and as an RN in the Emergency Department at Cook Children’s Medical Center in Ft. Worth, Texas for 16 years. Her areas of research interest include simulation, telehealth, student engagement, enhancing online education, health informatics, rural health, and extended reality (XR) simulation.",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function StaffPage() {
               className="flex flex-col gap-10 pt-12 sm:flex-row"
             >
               <img
-                className="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+                className="aspect-[5/5] w-52 flex-none rounded-2xl object-cover"
                 src={person.imageUrl}
                 alt=""
               />
@@ -86,9 +86,6 @@ export default function StaffPage() {
                     </p>
                   </div>
                 </div>
-                <p className="mt-6 text-base leading-7 text-gray-600">
-                  {person.bio}
-                </p>
               </div>
             </li>
           ))}

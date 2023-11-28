@@ -28,6 +28,8 @@ import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { refresh_SP } from "@/components/suppliers/refresh_page";
 import { deleteSP } from "@/components/suppliers/remove-supplier";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import EditSupplier from "@/components/suppliers/edit-supplier";
 
 export interface Supplier {
     id: string;
@@ -97,7 +99,7 @@ export const columns: ColumnDef<Supplier>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>Edit supplier</DropdownMenuItem>
+            <DropdownMenuItem><EditSupplier supp={supp}/></DropdownMenuItem>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem

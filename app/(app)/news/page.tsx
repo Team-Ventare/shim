@@ -48,11 +48,11 @@ export default async function NewsPage() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <AddNewsPost userId={session.user.id} />
+          <AddNewsPost userInfo={session.user} />
         </div>
       </div>
       <div className="mt-8 lg:mt-12 space-y-16">
-        <PostDisplay data={data} />
+        <PostDisplay data={data} userRole={session.user.role} />
       </div>
     </div>
   );
