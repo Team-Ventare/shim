@@ -1,6 +1,7 @@
 import { getUserSession } from "@/lib/auth";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
+import { CheckedOutDataTable } from "./checked-out-data-table";
 import { Product } from "../products/columns";
 import { User } from "../dashboard/page";
 
@@ -41,10 +42,24 @@ export default async function Cart() {
   const cartData = getData(user.cartId);
   const [userD, cartD] = await Promise.all([userData, cartData]);
 
-  console.log(userD);
+  console.log(userD.currentCheckout.length);
 
   return (
     <div className="container mx-auto py-6">
+      {userD.currentCheckout && (
+        <div className="pb-6">
+          <h1 className="text-base font-semibold leading-6 text-gray-900">
+            Your currently checkout items
+          </h1>
+          <div className="pt-6">
+            <CheckedOutDataTable
+              columns={columns}
+              data={userD.currentCheckout}
+              userInfo={user}
+            />
+          </div>
+        </div>
+      )}
       <div className="sm:flex sm:items-center py-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">

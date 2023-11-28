@@ -13,6 +13,17 @@ export async function checkoutItems(formValues: any) {
 
   //prisma function to create a new checkout history entry and use try catch to handle errors
   try {
+    const reqP = await prisma.products.updateMany({
+      where: {
+        id: {
+          in: formValues.products.id,
+        },
+      },
+      data: {
+        status: "CHECKED_OUT",
+      },
+    });
+
     const req = await prisma.checkoutHistory.create({
       data: {
         course: formValues.course,
@@ -37,7 +48,7 @@ export async function checkoutItems(formValues: any) {
       },
     });
 
-    return req && reqCheckedOut;
+    return reqP && req && reqCheckedOut;
   } catch (error) {
     console.log(error);
   }

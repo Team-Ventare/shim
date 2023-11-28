@@ -15,6 +15,7 @@ export type User = {
     products: Product[];
   };
   currentCheckout: {
+    length: any;
     products: Product[];
   };
 };
