@@ -36,6 +36,8 @@ export async function checkoutItems(formValues: any) {
         },
       },
     });
+
+    return req && reqCheckedOut;
   } catch (error) {
     console.log(error);
   }
