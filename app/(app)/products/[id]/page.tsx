@@ -186,7 +186,7 @@ export default async function ProductPage({
                           {object.course}
                         </p>
                         <p className="text-xs leading-5 text-gray-500">
-                          {formatCreatedAt(object.createdAt)}
+                          {formatCreatedAt(object.createdAt.toString())}
                         </p>
                       </div>
                     </div>
