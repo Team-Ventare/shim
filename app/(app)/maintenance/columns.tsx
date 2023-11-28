@@ -2,10 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  priorities,
-  statuses,
-} from "@/components/preventativemaintenance/data";
+import { statuses } from "@/components/preventativemaintenance/data";
 import { DataTableColumnHeader } from "@/components/preventativemaintenance/data-table-column-header";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
@@ -36,6 +33,7 @@ import { deletePM } from "@/components/preventativemaintenance/actions/delete_re
 import { refresh_PM } from "@/components/preventativemaintenance/actions/refresh_page";
 import { User } from "next-auth";
 import { Users } from "@prisma/client";
+import { Badge } from "@/components/ui/badge";
 
 export interface PreventativeMaintenance {
   id: string;
@@ -130,7 +128,8 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
         return null;
       }
 
-      return status.view();
+      //return status.view();
+      return <Badge variant="outline">{status.label}</Badge>;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

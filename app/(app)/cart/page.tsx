@@ -22,6 +22,7 @@ async function getData(cartId: string): Promise<Product[]> {
 export default async function Cart() {
   const user = await getUserSession();
   const data = await getData(user.cartId);
+  console.log(user);
 
   return (
     <div className="container mx-auto py-6">

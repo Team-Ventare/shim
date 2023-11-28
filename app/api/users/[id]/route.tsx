@@ -17,6 +17,7 @@ export async function GET(
           products: true,
         },
       },
+      currentCheckout: true,
       checkoutHistory: true,
       purchaseRequests: true,
     },

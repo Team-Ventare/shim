@@ -47,7 +47,7 @@ model Products {
   imageUrl        String?
   carts           Cart[]            @relation("CartToProducts")
   checkoutHistory CheckoutHistory[] @relation("CheckoutHistoryToProducts")
-  Users           Users?            @relation(fields: [usersId], references: [id])
+  users           Users?            @relation(fields: [usersId], references: [id])
   usersId         String?           @db.Uuid
 }
 

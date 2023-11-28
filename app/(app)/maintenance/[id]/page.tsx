@@ -11,11 +11,9 @@ import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
-import {
-  priorities,
-  statuses,
-} from "@/components/preventativemaintenance/data";
+import { statuses } from "@/components/preventativemaintenance/data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 //import EditRequest from "@/components/preventativemaintenance/actions/edit_request";
 //import ChangeRequestStatus from "@/components/preventativemaintenance/actions/change_request_status";
 //import DeleteRequest from "@/components/preventativemaintenance/actions/delete_request_w_dialog";
@@ -45,9 +43,8 @@ export default async function PreventativeMaintenancePage({
 }) {
   const data = await getData(params.id);
   const status = statuses.find((s) => s.value === data.status);
-  const priority = priorities.find((s) => s.value === data.priority);
 
-  if (!status || !priority) {
+  if (!status) {
     return <div>Not found</div>;
   }
   return (
@@ -91,13 +88,7 @@ export default async function PreventativeMaintenancePage({
               <Label className="block text-sm font-semibold text-zinc-950">
                 Status
               </Label>
-              {status.view()}
-            </div>
-            <div>
-              <Label className="block text-sm font-semibold text-zinc-950">
-                Priority
-              </Label>
-              {priority.view()}
+              <Badge variant="outline">{status.label}</Badge>
             </div>
 
             <div>
