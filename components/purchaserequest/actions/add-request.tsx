@@ -60,7 +60,7 @@ export default function AddRequestSheet({ userInfo }: { userInfo: User }) {
           if (response.ok) {
             refresh_PR();
             toast({
-              title: "request Added!",
+              title: "Request Added!",
               duration: 2000,
               description: "The new request was successfully created.",
             });
