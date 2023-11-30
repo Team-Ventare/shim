@@ -184,7 +184,7 @@ export default function ChangeRequestStatus({ userInfo, request,}: {userInfo: Us
                 Confirm: Needs Review
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to update the maintenance report's status? You will
+                Are you sure you want to update the maintenance report status? You will
                 not be able to edit any reports with a completed status.
               </AlertDialogDescription>
             </AlertDialogHeader>
@@ -219,7 +219,7 @@ export default function ChangeRequestStatus({ userInfo, request,}: {userInfo: Us
                 Confirm: Reviewed
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to update the maintenance report's status? You will
+                Are you sure you want to update the maintenance report status? You will
                 not be able to edit any reports with a completed status.
               </AlertDialogDescription>
             </AlertDialogHeader>
@@ -253,7 +253,7 @@ export default function ChangeRequestStatus({ userInfo, request,}: {userInfo: Us
                 Confirm: In Progress
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to update the maintenance report's status? You will
+                Are you sure you want to update the maintenance report status? You will
                 not be able to edit any reports with a completed status.
               </AlertDialogDescription>
             </AlertDialogHeader>
@@ -287,7 +287,7 @@ export default function ChangeRequestStatus({ userInfo, request,}: {userInfo: Us
                 Confirm: Ordered
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to update the maintenance report's status? You will
+                Are you sure you want to update the maintenance report status? You will
                 not be able to edit any reports with a completed status.
               </AlertDialogDescription>
             </AlertDialogHeader>
@@ -321,7 +321,7 @@ export default function ChangeRequestStatus({ userInfo, request,}: {userInfo: Us
                 Confirm: WARNING!!! COMPLETED STATUS 
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to update the maintenance report's status? You will
+                Are you sure you want to update the maintenance report status? You will
                 not be able to edit any reports with a completed status.
               </AlertDialogDescription>
             </AlertDialogHeader>
