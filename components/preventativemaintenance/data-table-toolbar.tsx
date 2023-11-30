@@ -7,9 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/preventativemaintenance/data-table-view-options";
 
-import { priorities, statuses } from "@/components/preventativemaintenance/data"; //data
+import { statuses } from "@/components/preventativemaintenance/data"; //data
 import { DataTableFacetedFilter } from "@/components/preventativemaintenance/data-table-faceted-filter";
-import AddReportSheet from "./actions/add-report";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -18,7 +17,6 @@ interface DataTableToolbarProps<TData> {
 
 export function DataTableToolbar<TData>({
   table,
-  userId,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -40,13 +38,7 @@ export function DataTableToolbar<TData>({
             options={statuses}
           />
         )}
-        {table.getColumn("priority") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
-          />
-        )}
+
         {isFiltered && (
           <Button
             variant="ghost"

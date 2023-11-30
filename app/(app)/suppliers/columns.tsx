@@ -24,20 +24,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { refresh_SP } from "@/components/suppliers/refresh_page";
 import { deleteSP } from "@/components/suppliers/remove-supplier";
-import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import EditSupplier from "@/components/suppliers/edit-supplier";
 
 export interface Supplier {
-    id: string;
-    name: string;
-    title: string;
-    vendor: string;
-    email: string;
-  }
+  id: string;
+  name: string;
+  title: string;
+  vendor: string;
+  email: string;
+}
 
 export const columns: ColumnDef<Supplier>[] = [
   {
@@ -60,6 +58,10 @@ export const columns: ColumnDef<Supplier>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "vendor",
+    header: "Vendor",
+  },
+  {
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => {
@@ -75,10 +77,6 @@ export const columns: ColumnDef<Supplier>[] = [
   {
     accessorKey: "title",
     header: "Title",
-  },
-  {
-    accessorKey: "vendor",
-    header: "Vendor",
   },
   {
     accessorKey: "email",
@@ -99,7 +97,13 @@ export const columns: ColumnDef<Supplier>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem><EditSupplier supp={supp}/></DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <EditSupplier supp={supp} />
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem
@@ -113,14 +117,13 @@ export const columns: ColumnDef<Supplier>[] = [
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirm</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to delete {supp.title}?
+                    Are you sure you want to delete {supp.vendor} as a supplier?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction asChild>
                     <Button
-                      //remove?? unless we stop users/pending from deleting them
                       className="cursor-pointer"
                       onClick={async () => {
                         const res = await deleteSP({ id: supp.id });

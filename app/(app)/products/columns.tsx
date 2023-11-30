@@ -19,6 +19,8 @@ import { ToastAction } from "@/components/ui/toast";
 import { DataTableColumnHeader } from "@/components/inventory/data-table-column-header";
 import { statuses, types } from "@/components/inventory/data";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Dropdown } from "react-day-picker";
 
 export type Product = {
   id: string;
@@ -80,6 +82,26 @@ export const columns: ColumnDef<Product>[] = [
       <DataTableColumnHeader column={column} title="Location" />
     ),
   },
+
+  {
+    accessorKey: "type",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Type" />
+    ),
+    cell: ({ row }) => {
+      const type = types.find((type) => type.value === row.getValue("type"));
+
+      if (!type) {
+        return null;
+      }
+
+      //return type.view();
+      return <Badge variant="outline">{type.label}</Badge>;
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
   {
     accessorKey: "status",
     header: ({ column }) => (
@@ -101,24 +123,6 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-    cell: ({ row }) => {
-      const type = types.find((type) => type.value === row.getValue("type"));
-
-      if (!type) {
-        return null;
-      }
-
-      return type.view();
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
     id: "actions",
     cell: ({ row }) => {
       const product = row.original;
@@ -133,6 +137,7 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={async () => {

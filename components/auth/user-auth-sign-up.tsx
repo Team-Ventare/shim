@@ -48,7 +48,7 @@ export function UserAuthFormSignUp() {
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 500);
   }
 
   return (

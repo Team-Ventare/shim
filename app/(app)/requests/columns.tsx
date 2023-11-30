@@ -33,6 +33,7 @@ import { deletePR } from "@/components/purchaserequest/actions/delete_request";
 import { refresh_PR } from "@/components/purchaserequest/actions/refresh_page";
 import { User } from "next-auth";
 import { Users } from "@prisma/client";
+import { Badge } from "@/components/ui/badge";
 
 export interface PurchaseRequest {
   id: string;
@@ -73,6 +74,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -80,52 +82,18 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
     ),
     cell: ({ row }) => {
       const request = row.original;
+      const priority = priorities.find(
+        (priority) => priority.value === request.priority
+      );
 
       return (
-        <a href={`/requests/${request.id}`} className="hover:underline">
-          {request.title}
-        </a>
+        <div className="space-x-1">
+          <Badge variant="outline">{priority?.label}</Badge>
+          <a href={`/requests/${request.id}`} className="hover:underline">
+            {request.title}
+          </a>
+        </div>
       );
-    },
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
-    cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      );
-
-      if (!status) {
-        return null;
-      }
-
-      return status.view();
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "priority",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
-    ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
-      );
-
-      if (!priority) {
-        return null;
-      }
-
-      return priority.view();
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
     },
   },
   {
@@ -149,9 +117,29 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
             />
             <AvatarFallback>{user.name?.at(0)}</AvatarFallback>
           </Avatar>
-          <p className="font-medium">{user.name}</p>
+          <p className="font-semibold">{user.name}</p>
         </div>
       );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      const status = statuses.find(
+        (status) => status.value === row.getValue("status")
+      );
+
+      if (!status) {
+        return null;
+      }
+
+      return status.view();
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -172,6 +160,25 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>
+              <Link href={`/requests/${request.id}`}>View request details</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(request.id);
+
+                toast({
+                  title: "Request ID copied",
+                  description: `Request ID ${request.id} copied to clipboard`,
+                });
+              }}
+            >
+              Copy request ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem
@@ -201,8 +208,7 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                           toast({
                             variant: "destructive",
                             title: "Uh oh! Something went wrong.",
-                            description:
-                              `${request.title} could not be removed.`,
+                            description: `${request.title} could not be removed.`,
                           });
                         } else {
                           refresh_PR();
@@ -219,23 +225,6 @@ export const columns: ColumnDef<PurchaseRequest>[] = [
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href={`/requests/${request.id}`}>View request details</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(request.id);
-
-                toast({
-                  title: "Request ID copied",
-                  description: `Request ID ${request.id} copied to clipboard`,
-                });
-              }}
-            >
-              Copy request ID
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

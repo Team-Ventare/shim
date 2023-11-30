@@ -31,6 +31,21 @@ export const columns: ColumnDef<INotification>[] = [
       );
     },
   },
+
+  {
+    accessorKey: "category",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Category" />
+    ),
+    cell: ({ row }) => {
+      const notification = row.original;
+
+      return <Badge variant="outline">{notification.category}</Badge>;
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
@@ -40,20 +55,6 @@ export const columns: ColumnDef<INotification>[] = [
       const notification = row.original;
 
       return <span>{formatCreatedAt(notification.createdAt)}</span>;
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "category",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Category" />
-    ),
-    cell: ({ row }) => {
-      const notification = row.original;
-
-      return <Badge variant="secondary">{notification.category}</Badge>;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
