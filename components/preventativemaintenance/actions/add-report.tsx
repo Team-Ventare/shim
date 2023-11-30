@@ -81,7 +81,7 @@ export default function AddReportSheet({ userId }: { userId: string }) {
           </SheetHeader>
           <div className="grid gap-4 py-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="title" className="text-left">
+              <Label htmlFor="technician" className="text-left">
                 Technician
               </Label>
               <Input

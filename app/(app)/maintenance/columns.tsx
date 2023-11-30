@@ -71,7 +71,7 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "technician",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Technician" />
     ),
