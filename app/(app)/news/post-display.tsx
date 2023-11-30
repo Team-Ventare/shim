@@ -5,8 +5,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditNewsPost from "@/components/news/edit-news-post";
 import DeleteNewsPost from "@/components/news/delete-news-post";
 import { formatCreatedAt } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
-export default function PostDisplay({ data, userRole}: { data: NewsPost[], userRole: String }) {
+export default function PostDisplay({
+  data,
+  userRole,
+}: {
+  data: NewsPost[];
+  userRole: String;
+}) {
   return (
     <>
       {data.map((post) => (
@@ -27,12 +34,10 @@ export default function PostDisplay({ data, userRole}: { data: NewsPost[], userR
           <div className="w-full">
             <div className="flex items-center gap-x-4 text-xs">
               {formatCreatedAt(post.createdAt)}
-              <span className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                {post.label}
-              </span>
+              <Badge variant="outline">{post.label}</Badge>
               <div className="ml-auto space-x-2">
-                <EditNewsPost post={post} userRole={userRole}/>
-                <DeleteNewsPost post={post} userRole={userRole}/>
+                <EditNewsPost post={post} userRole={userRole} />
+                <DeleteNewsPost post={post} userRole={userRole} />
               </div>
             </div>
             <div className="group relative max-w-xl">
