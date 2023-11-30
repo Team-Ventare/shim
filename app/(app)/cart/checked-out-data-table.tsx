@@ -28,11 +28,13 @@ import { DataTablePagination } from "@/components/cart/data-table-pagination";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  userInfo: any;
 }
 
 export function CheckedOutDataTable<TData, TValue>({
   columns,
   data,
+  userInfo,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(

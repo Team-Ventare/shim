@@ -42,7 +42,7 @@ export default async function Cart() {
   const cartData = getData(user.cartId);
   const [userD, cartD] = await Promise.all([userData, cartData]);
 
-  console.log(userD.currentCheckout.length);
+  console.log(userD);
 
   return (
     <div className="container mx-auto py-6">

@@ -14,10 +14,7 @@ export type User = {
   cart: {
     products: Product[];
   };
-  currentCheckout: {
-    length: any;
-    products: Product[];
-  };
+  currentCheckout: Product[];
 };
 
 async function getNotifications() {
