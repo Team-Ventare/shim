@@ -47,8 +47,8 @@ import { PreventativeMaintenance } from "@/app/(app)/maintenance/columns";
       <Dialog>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon">
-              <MoreHorizontalIcon className="h-4 w-4" />
+            <Button variant="outline">
+                Delete Report
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>

@@ -138,15 +138,15 @@ export default function EditRequest({ userInfo, request }: { userInfo: User, req
       <SheetContent>
         <form onSubmit={onSumbit}>
           <SheetHeader>
-            <SheetTitle>Edit Purchase Request</SheetTitle>
+            <SheetTitle>Edit Report Details</SheetTitle>
             <SheetDescription>
-              Edit purchase request information here. Click save changes when
+              Edit the report details and information here. Click save changes when
               you are done.
             </SheetDescription>
           </SheetHeader>
           <div className="grid gap-4 py-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="technician">Technician</Label>
+              <Label htmlFor="technician">Technician or Name of Report</Label>
               <Input
                 id="technician"
                 type="text"
@@ -181,7 +181,7 @@ export default function EditRequest({ userInfo, request }: { userInfo: User, req
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select Current Status" id="status" />
+                  <SelectValue placeholder={formValues.status} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="needs_review">Needs Review</SelectItem>

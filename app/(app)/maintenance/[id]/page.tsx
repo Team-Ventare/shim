@@ -29,9 +29,7 @@ async function getData(id: string): Promise<PreventativeMaintenance> {
 
   if (!response.ok) {
     throw new Error("Failed to fetch product");
-  } else {
-    revalidatePath(`/maintenance/${id}`);
-  }
+  } 
 
   const data = await response.json();
   return data;
