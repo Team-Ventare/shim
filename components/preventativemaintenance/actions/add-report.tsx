@@ -108,23 +108,25 @@ export default function AddReportSheet({ userId }: { userId: string }) {
             
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="category" className="text-left">
-                Priority
+                Status
               </Label>
               <Select
                 onValueChange={(value) =>
                   setFormValues((prevFormValues) => ({
                     ...prevFormValues,
-                    priority: value.toUpperCase(),
+                    status: value.toUpperCase(),
                   }))
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select priority" id="priority" />
+                  <SelectValue placeholder="Select Current Status" id="status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="low">Low</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="needs_review">Needs Review</SelectItem>
+                  <SelectItem value="reviewed">Reviewed</SelectItem>
+                  <SelectItem value="in_progress">In Progress</SelectItem>
+                  <SelectItem value="ordered">Ordered</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
                 </SelectContent>
               </Select>
             </div>
