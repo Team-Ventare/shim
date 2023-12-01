@@ -30,7 +30,7 @@ export default function EditRequest({ supp }: { supp: Supplier }) {
     const { toast } = useToast();
 
     const onSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+        //event.preventDefault();
         const response = await fetch(`/api/suppliers/${supp.id}`, {
             method: "PUT",
             body: JSON.stringify({
@@ -55,8 +55,8 @@ export default function EditRequest({ supp }: { supp: Supplier }) {
           }
     };
     return (
-    <Sheet>
-        <SheetTrigger asChild>
+      <Sheet>
+        <SheetTrigger>
             <DropdownMenuItem className="cursor-pointer">
                 Edit supplier
             </DropdownMenuItem>
@@ -98,10 +98,7 @@ export default function EditRequest({ supp }: { supp: Supplier }) {
                 type="text"
                 defaultValue={formValues.title}
                 onChange={(e) =>
-                  setFormValues({
-                    ...formValues,
-                    title: e.target.value,
-                  })
+                  setFormValues({...formValues,title: e.target.value,})
                 }
               />
             </div>
@@ -142,5 +139,5 @@ export default function EditRequest({ supp }: { supp: Supplier }) {
         </form>
       </SheetContent>  
     </Sheet>
-    );
+  );
 }

@@ -96,7 +96,7 @@ export const columns: ColumnDef<Supplier>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
               <EditSupplier supp={supp} />
             </DropdownMenuItem>
             <AlertDialog>
