@@ -44,6 +44,8 @@ export default async function PreventativeMaintenancePage({
   const user = await getUserSession();
   const data = await getData(params.id);
   const status = statuses.find((s) => s.value === data.status);
+  
+
 
   if (!status) {
     return <div>Not found</div>;
@@ -171,7 +173,7 @@ export default async function PreventativeMaintenancePage({
                         data.users.role.slice(1).toLowerCase()}
                     </p>
                     <p className="text-xs leading-5 text-gray-500">
-                      Uploadeded report on:{" "}
+                      Uploaded report on:{" "}
                       {new Date(data.createdAt).toDateString()}
                     </p>
                   </div>
@@ -189,7 +191,7 @@ export default async function PreventativeMaintenancePage({
 
 
 
-          <embed src={data.imageUrl} type="application/pdf" width="100%" height="1150" />
+          <embed type="application/pdf" src="/sample.pdf" width="100%" height="1150"  />
 
           
             <p>
