@@ -186,29 +186,9 @@ export default async function PreventativeMaintenancePage({
               Click Here!
             </a>
           </div>
-          <object
-            data={data.imageUrl}
-            type="application/pdf"
-            width="100%"
-            height="1150"
-            
-          >
-            <p>
-              Alternative text - include a link{" "}
-              <a href="/sample.pdf">to the PDF!</a>
-            </p>
-          </object>
+          <embed src={data.imageUrl} type="application/pdf" width="100%" height = "1150"/>
           
-          <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:w-80 xl:w-96 lg:shrink-0">
-            {data.imageUrl && (
-              <img
-                src={data.imageUrl}
-                alt=""
-                className="flex-auto inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
-              />
-            )}
-            <div className="flex-auto inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-          </div>
+          
 
           
             <p>
