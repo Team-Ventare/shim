@@ -18,7 +18,7 @@ import EditRequest from "@/components/preventativemaintenance/actions/edit_repor
 import { getUserSession } from "@/lib/auth";
 import ChangeRequestStatus from "@/components/preventativemaintenance/actions/change_report_status";
 import DeleteRequest from "@/components/preventativemaintenance/actions/delete_report_w_dialog";
-import { Document, Page } from 'react-pdf';
+//import { Document, Page } from 'react-pdf';
 
 async function getData(id: string): Promise<PreventativeMaintenance> {
   const response = await fetch(
@@ -187,14 +187,8 @@ export default async function PreventativeMaintenancePage({
           </a>
           </div>
 
-<<<<<<< HEAD
           <iframe src={data.imageUrl} title="PDF Viewer" width="100%" height="1150" />
 
-=======
-          <Document file={data.imageUrl}>
-            <Page pageNumber={1} width={600} />
-          </Document>
->>>>>>> 54f138a74eb3ade8109b6408cbddbf2ea5c88af4
 
           
           
