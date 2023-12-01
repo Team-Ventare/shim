@@ -18,7 +18,7 @@ import EditRequest from "@/components/preventativemaintenance/actions/edit_repor
 import { getUserSession } from "@/lib/auth";
 import ChangeRequestStatus from "@/components/preventativemaintenance/actions/change_report_status";
 import DeleteRequest from "@/components/preventativemaintenance/actions/delete_report_w_dialog";
-//import { Document, Page } from 'react-pdf';
+import { Document, Page } from 'react-pdf';
 
 async function getData(id: string): Promise<PreventativeMaintenance> {
   const response = await fetch(
@@ -182,14 +182,19 @@ export default async function PreventativeMaintenancePage({
           <div className="container py-12">
             <p className="font-bold">Error Not Loading?</p>
             Download Link - (Right Click, Save link as...){" "}
-            <a href={data.imageUrl} className="underline" download>
-            Click Here!
-          </a>
+            <a href="/sample.pdf" className="underline">
+              Click Here!
+            </a>
           </div>
+          <embed src={data.imageUrl} type="application/pdf" width="100%" height = "1150"/>
+          
+          
 
-          <iframe src={data.imageUrl} title="PDF Viewer" width="100%" height="1150" />
-
-
+          
+            <p>
+              Alternative text - include a link{" "}
+              <a href={data.imageUrl}>to the PDF!</a>
+            </p>
           
           
         </div>
