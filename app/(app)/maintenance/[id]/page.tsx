@@ -187,7 +187,7 @@ export default async function PreventativeMaintenancePage({
             </a>
           </div>
           <object
-            data="/sample.pdf"
+            data={data.imageUrl}
             type="application/pdf"
             width="100%"
             height="1150"
@@ -210,18 +210,12 @@ export default async function PreventativeMaintenancePage({
             <div className="flex-auto inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
           </div>
 
-          <object
-            data={data.imageUrl}
-            type="application/pdf"
-            width="100%"
-            height="1150"
-            
-          >
+          
             <p>
               Alternative text - include a link{" "}
               <a href={data.imageUrl}>to the PDF!</a>
             </p>
-          </object>
+          
           
         </div>
         
