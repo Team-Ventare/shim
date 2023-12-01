@@ -14,7 +14,7 @@ interface FormData {
   password: string | undefined;
 }
 
-export function UserAuthFormSignIn({ setError }: { setError: any }) {
+export function UserAuthFormSignIn() {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState<FormData>({
@@ -42,7 +42,7 @@ export function UserAuthFormSignIn({ setError }: { setError: any }) {
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 500);
   }
 
   return (

@@ -2,8 +2,6 @@
 
 import { getUserSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { NextResponse } from "next/server";
-
 
 export async function checkoutItems(formValues: any) {
   const user = await getUserSession();
@@ -27,16 +25,20 @@ export async function checkoutItems(formValues: any) {
         products: true,
       },
     });
-    return true; 
-  } catch (error) {
-    return false;
-  }
-  /*//this shit be wack need to figure out why the products dont work.
-  const req = await fetch("https://shim-ventare.vercel.app/api/checkouthistory", {
-    method: "POST",
-    body: JSON.stringify(formValues),
-  });
-  const res = await req.json();
 
-  return res;*/
+    const reqTwo = await prisma.users.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        currentCheckout: {
+          connect: formValues.products,
+        },
+      },
+    });
+
+    return true;
+  } catch (error) {
+    console.log(error);
   }
+}

@@ -6,10 +6,8 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 import { Product } from "../columns";
-import { cn, formatCreatedAt } from "@/lib/utils";
 import { ChevronRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
-import hospital from "../../../../public/hospital.png";
 import Link from "next/link";
 import EditItemSheet from "@/components/inventory/actions/edit-product";
 import DeleteItem from "@/components/inventory/actions/delete-product";
@@ -17,6 +15,7 @@ import { prisma } from "@/lib/prisma";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { statuses, types } from "@/components/inventory/data";
 import { getUserSession } from "@/lib/auth";
+import { formatCreatedAt } from "@/lib/utils";
 
 async function getData(id: string): Promise<Product> {
   const response = await fetch(
@@ -155,21 +154,6 @@ export default async function ProductPage({
             collapsible
             className="w-full border rounded-md mt-6"
           >
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="p-4">
-                Additional Information
-              </AccordionTrigger>
-              <AccordionContent className="px-4 py-2 border-t pt-4">
-                <div className="col-span-3">
-                  <Label className="mt-1 block text-sm font-semibold text-zinc-950">
-                    Description:
-                  </Label>
-                  <p className="mt-1 text-sm font-light text-gray-500">
-                    {data.description}
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="p-4">
                 Checkout History
@@ -202,8 +186,7 @@ export default async function ProductPage({
                           {object.course}
                         </p>
                         <p className="text-xs leading-5 text-gray-500">
-                          {/* can change to add time? seems ok like this though */}
-                          {new Date(object.createdAt).toDateString()}
+                          {formatCreatedAt(object.createdAt.toString())}
                         </p>
                       </div>
                     </div>

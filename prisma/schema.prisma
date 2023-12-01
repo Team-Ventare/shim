@@ -20,6 +20,7 @@ model Users {
   checkoutHistory  CheckoutHistory[]
   news             News[]
   notifications    Notifications[]
+  currentCheckout  Products[]
   purchaseRequests PurchaseRequests[]
   reports          Reports[]
   cart             Cart               @relation(fields: [cartId], references: [id])
@@ -44,6 +45,8 @@ model Products {
   status          Status            @default(AVAILABLE)
   description     String            @default("")
   imageUrl        String?
+  usersId         String?           @db.Uuid
+  users           Users?            @relation(fields: [usersId], references: [id])
   carts           Cart[]            @relation("CartToProducts")
   checkoutHistory CheckoutHistory[] @relation("CheckoutHistoryToProducts")
 }
@@ -107,15 +110,15 @@ model Notifications {
 }
 
 model Reports {
-  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   technician String
-  priority   PM_Priority
-  status     PM_Status   @default(PENDING)
-  userId     String      @db.Uuid
+  status     PM_Status @default(NEEDS_REVIEW)
+  userId     String    @db.Uuid
   comments   String
-  users      Users       @relation(fields: [userId], references: [id])
+  imageUrl   String?
+  users      Users     @relation(fields: [userId], references: [id])
 }
 
 enum Role {
@@ -154,13 +157,10 @@ enum Type {
   OTHER
 }
 
-enum PM_Priority {
-  LOW
-  MEDIUM
-  HIGH
-}
-
 enum PM_Status {
-  PENDING
   REVIEWED
+  NEEDS_REVIEW
+  IN_PROGRESS
+  ORDERED
+  COMPLETED
 }
