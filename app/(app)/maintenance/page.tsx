@@ -33,7 +33,7 @@ export default async function PreventativeMaintenancePage() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <AddReportSheet userId={user.id} />
+          <AddReportSheet userInfo={user} />
         </div>
       </div>
       <div className="pt-6">

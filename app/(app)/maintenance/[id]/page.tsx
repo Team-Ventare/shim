@@ -18,6 +18,7 @@ import EditRequest from "@/components/preventativemaintenance/actions/edit_repor
 import { getUserSession } from "@/lib/auth";
 import ChangeRequestStatus from "@/components/preventativemaintenance/actions/change_report_status";
 import DeleteRequest from "@/components/preventativemaintenance/actions/delete_report_w_dialog";
+import { Document, Page } from 'react-pdf';
 
 async function getData(id: string): Promise<PreventativeMaintenance> {
   const response = await fetch(
@@ -48,6 +49,7 @@ export default async function PreventativeMaintenancePage({
     return <div>Not found</div>;
   }
   return (
+    
     <div className="h-screen py-10">
       <div className="border-b h-[360px] mt-2">
         <div className="container flex items-center space-x-1 text-sm text-muted-foreground">
@@ -67,7 +69,7 @@ export default async function PreventativeMaintenancePage({
         <div className="container flex mt-8">
           <div className="flex flex-col items-center justify-center ml-10 mr-10">
             <Image
-              priority={true}
+              
               src={shimlogo}
               alt="Photo by Drew Beamer"
               className="rounded-sm object-cover"
@@ -197,8 +199,21 @@ export default async function PreventativeMaintenancePage({
             </p>
           </object>
           
+          <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:w-80 xl:w-96 lg:shrink-0">
+            {data.imageUrl && (
+              <img
+                src={data.imageUrl}
+                alt=""
+                className="flex-auto inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+              />
+            )}
+            <div className="flex-auto inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+          </div>
+          
         </div>
+        
       </div>
     </div>
+    
   );
 }
