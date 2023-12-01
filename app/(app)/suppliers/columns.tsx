@@ -96,13 +96,9 @@ export const columns: ColumnDef<Supplier>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <EditSupplier supp={supp} />
             </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <DropdownMenuItem
