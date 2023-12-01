@@ -182,19 +182,19 @@ export default async function PreventativeMaintenancePage({
           <div className="container py-12">
             <p className="font-bold">Error Not Loading?</p>
             Download Link - (Right Click, Save link as...){" "}
-            <a href="/sample.pdf" className="underline">
-              Click Here!
-            </a>
+            <a href={data.imageUrl} className="underline" download>
+            Click Here!
+          </a>
           </div>
-          <embed src={data.imageUrl} type="application/pdf" width="100%" height = "1150"/>
-          
-          
 
-          
-            <p>
-              Alternative text - include a link{" "}
-              <a href={data.imageUrl}>to the PDF!</a>
-            </p>
+          <embed src={data.imageUrl} type="application/pdf" width="100%" height="1150" />
+
+          <p>
+            Alternative text - include a link{" "}
+          <a href={data.imageUrl} download>
+          to the PDF!
+          </a>
+        </p>
           
           
         </div>
