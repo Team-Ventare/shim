@@ -44,6 +44,8 @@ export default async function PreventativeMaintenancePage({
   const user = await getUserSession();
   const data = await getData(params.id);
   const status = statuses.find((s) => s.value === data.status);
+  
+
 
   if (!status) {
     return <div>Not found</div>;
@@ -189,7 +191,7 @@ export default async function PreventativeMaintenancePage({
 
 
 
-          <embed src={data.imageUrl} type="application/pdf" width="100%" height="1150" />
+          <embed type="application/pdf" src={data.imageUrl} width="100%" height="1150"  />
 
           
             <p>
