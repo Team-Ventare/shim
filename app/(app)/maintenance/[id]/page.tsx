@@ -187,9 +187,8 @@ export default async function PreventativeMaintenancePage({
           </a>
           </div>
 
-          <Document file={data.imageUrl}>
-          <Page pageNumber={1} width={600} />
-          </Document>
+          <iframe src={data.imageUrl} title="PDF Viewer" width="100%" height="1150" />
+
 
           
           
