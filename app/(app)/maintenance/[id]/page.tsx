@@ -187,14 +187,10 @@ export default async function PreventativeMaintenancePage({
           </a>
           </div>
 
-          <embed src={data.imageUrl} type="application/pdf" width="100%" height="1150" />
+          <Document file={data.imageUrl}>
+          <Page pageNumber={1} width={600} />
+          </Document>
 
-          <p>
-            Alternative text - include a link{" "}
-          <a href={data.imageUrl} download>
-          to the PDF!
-          </a>
-        </p>
           
           
         </div>
