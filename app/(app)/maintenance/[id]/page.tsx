@@ -188,7 +188,7 @@ export default async function PreventativeMaintenancePage({
           </div>
 
           <Document file={data.imageUrl}>
-          <Page pageNumber={1} width={600} />
+            <Page pageNumber={1} width={600} />
           </Document>
 
           
