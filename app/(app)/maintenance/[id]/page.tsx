@@ -191,7 +191,7 @@ export default async function PreventativeMaintenancePage({
 
 
 
-          <embed type="application/pdf" src={data.imageUrl} width="100%" height="1150"  />
+          <embed type="application/pdf" src="/sample.pdf" width="100%" height="1150"  />
 
           
             <p>
