@@ -16,7 +16,7 @@ import { User } from "next-auth";
 import { useState } from "react";
 import { refresh_SP } from "./refresh_page";
 import { useToast } from "../ui/use-toast";
-import { Button } from "react-day-picker";
+import { Button } from "@/components/ui/button";
 import { Input } from "../ui/input";
 
 export default function EditRequest({ supp }: { supp: Supplier }) {
@@ -64,7 +64,7 @@ export default function EditRequest({ supp }: { supp: Supplier }) {
         <SheetContent>
         <form onSubmit={onSumbit}>
           <SheetHeader>
-            <SheetTitle>New Supplier</SheetTitle>
+            <SheetTitle>Edit Supplier</SheetTitle>
             <SheetDescription>
               Upload supplier information here. Click save when you are done.
             </SheetDescription>
