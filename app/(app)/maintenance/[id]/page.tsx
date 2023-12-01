@@ -173,7 +173,7 @@ export default async function PreventativeMaintenancePage({
                         data.users.role.slice(1).toLowerCase()}
                     </p>
                     <p className="text-xs leading-5 text-gray-500">
-                      Uploadeded report on:{" "}
+                      Uploaded report on:{" "}
                       {new Date(data.createdAt).toDateString()}
                     </p>
                   </div>
