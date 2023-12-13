@@ -21,7 +21,5 @@ export async function deleteItemFromCart({ product }: { product: Product }) {
     }
   );
   const res = await req.json();
-
-  //revalidatePath("/cart");
   return res;
 }

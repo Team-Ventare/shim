@@ -1,7 +1,8 @@
 import { getUserSession } from "@/lib/auth";
 import { columns } from "./columns";
+import { checkedOut } from "./checkedOut/columns";
 import { DataTable } from "./data-table";
-import { CheckedOutDataTable } from "./checked-out-data-table";
+import { CheckedOutDataTable } from "./checkedOut/checked-out-data-table";
 import { Product } from "../products/columns";
 import { User } from "../dashboard/page";
 
@@ -42,20 +43,25 @@ export default async function Cart() {
   const cartData = getData(user.cartId);
   const [userD, cartD] = await Promise.all([userData, cartData]);
 
-  console.log(userD);
+  console.log(userD.currentCheckout.length);
 
   return (
     <div className="container mx-auto py-6">
-      {userD.currentCheckout && (
+      {userD.currentCheckout.length > 0 && (
         <div className="pb-6">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
             Your currently checkout items
           </h1>
+          <p className="mt-2 text-sm text-gray-700">
+            Select products to return to the inventory. Only return items that
+            are in good condition. If an item is damaged, please submit a
+            maintenance request.
+          </p>
           <div className="pt-6">
             <CheckedOutDataTable
-              columns={columns}
+              columns={checkedOut}
               data={userD.currentCheckout}
-              userInfo={user}
+              userId={user.id}
             />
           </div>
         </div>
