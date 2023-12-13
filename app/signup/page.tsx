@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -21,7 +20,7 @@ export default function AuthenticationPage() {
           Login
         </Link>
 
-        <div className="lg:p-8 bg-purple-300 h-screen w-screen justify-center flex items-center">
+        <div className="lg:p-8 h-screen w-screen justify-center flex items-center">
           <div className="m-auto flex flex-col justify-center space-y-6 w-[350px] lg:w-[450px] pb-8">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">

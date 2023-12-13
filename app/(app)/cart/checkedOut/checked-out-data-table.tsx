@@ -24,17 +24,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/cart/data-table-view-options";
 import { DataTablePagination } from "@/components/cart/data-table-pagination";
+import ReturnItems from "@/components/cart/actions/return-items";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  userInfo: any;
+  userId: string;
 }
 
 export function CheckedOutDataTable<TData, TValue>({
   columns,
   data,
-  userInfo,
+  userId,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -78,6 +79,10 @@ export function CheckedOutDataTable<TData, TValue>({
         </div>
 
         <div className="flex space-x-2">
+          <ReturnItems
+            selectedRows={table.getSelectedRowModel().rows}
+            userId={userId}
+          />
           <DataTableViewOptions table={table} />
         </div>
       </div>

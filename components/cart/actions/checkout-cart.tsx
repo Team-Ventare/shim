@@ -84,7 +84,7 @@ export default function CheckoutCart({
         });
         toast({
           title: "Success!",
-          description: `${selectedRows.length} product(s) have been checked out.`,
+          description: `You checked out ${selectedRows.length} product(s).`,
         });
 
         fetch("/api/notifications", {

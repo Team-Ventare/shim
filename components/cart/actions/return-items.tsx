@@ -13,46 +13,31 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Trash2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
-import { deleteItemFromCart } from "./delete-item";
-import { refreshCart } from "./refresh-cart";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, SwatchIcon } from "@heroicons/react/24/outline";
+import PrismaReturn from "./prisma-return";
 
 export default function DeleteManyItems({
+  userId,
   selectedRows,
 }: {
+  userId: string;
   selectedRows: any;
 }) {
   async function cartDelete() {
     if (selectedRows.length === 0) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "No products selected to delete.",
+        title: "Uh oh!",
+        description: "Please select some products to return.",
       });
       return;
     } else {
-      selectedRows.forEach(async (row: any) => {
-        const res = await deleteItemFromCart({ product: row.original });
-        if (res.error) {
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "Product(s) could not be removed.",
-          });
-        } else {
-          refreshCart();
-          toast({
-            variant: "destructive",
-            title: "Removed from cart.",
-            description: `${row.original.name} has been removed from your cart.`,
-          });
-        }
-        selectedRows.forEach((row: any) => {
-          row.toggleSelected(false);
-        });
+      await PrismaReturn({ userId, selectedRows });
+
+      selectedRows.forEach((row: any) => {
+        row.toggleSelected(false);
       });
     }
   }
@@ -60,23 +45,19 @@ export default function DeleteManyItems({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto h-8 lg:flex text-white bg-red-500 hover:bg-red-600 hover:text-white"
-        >
-          <Trash2 className="mr-2 h-4 w-4" />
-          Delete
+        <Button variant="outline" size="sm" className="ml-auto h-8 lg:flex">
+          <SwatchIcon className="mr-2 h-4 w-4" />
+          Return
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="flex items-center">
-            <ExclamationTriangleIcon className="h-6 w-6 text-red-500 mr-2" />
+            <CheckIcon className="h-6 w-6 text-green-600 bg-green-100 mr-2 rounded-full" />
             Confirm
           </AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete the selected item(s) from your cart?
+            Are you sure you want to return the selected item(s) to inventory?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -88,7 +69,7 @@ export default function DeleteManyItems({
                 cartDelete();
               }}
             >
-              Delete
+              Confirm
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>

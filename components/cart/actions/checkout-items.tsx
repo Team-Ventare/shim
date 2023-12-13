@@ -1,5 +1,6 @@
 "use server";
 
+import { Product } from "@/app/(app)/products/columns";
 import { getUserSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
@@ -8,11 +9,35 @@ export async function checkoutItems(formValues: any) {
   formValues.userId = user.id;
 
   if (!user) {
-    throw new Error("You must be signed in to add products to your cart");
+    throw new Error("You must be signed in to checkout products.");
   }
 
-  //prisma function to create a new checkout history entry and use try catch to handle errors
   try {
+    formValues.products.forEach(async (product: Product) => {
+      if (product.type === "CONSMABLE_SUPPLIES") {
+        const req = await prisma.products.update({
+          where: {
+            id: product.id,
+          },
+          data: {
+            status: "CHECKED_OUT",
+            amount: {
+              decrement: 1,
+            },
+          },
+        });
+      } else {
+        const req = await prisma.products.update({
+          where: {
+            id: product.id,
+          },
+          data: {
+            status: "CHECKED_OUT",
+          },
+        });
+      }
+    });
+
     const req = await prisma.checkoutHistory.create({
       data: {
         course: formValues.course,
