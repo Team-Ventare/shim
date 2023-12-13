@@ -154,6 +154,22 @@ export default async function ProductPage({
             collapsible
             className="w-full border rounded-md mt-6"
           >
+            {/* bruv */}
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="p-4">
+                Additional Information
+              </AccordionTrigger>
+              <AccordionContent className="px-4 py-2 border-t pt-4">
+                <div className="col-span-3">
+                  <Label className="mt-1 block text-sm font-semibold text-zinc-950">
+                    Description:
+                  </Label>
+                  <p className="mt-1 text-sm font-light text-gray-500">
+                    {data.description}
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="p-4">
                 Checkout History
