@@ -2,13 +2,7 @@
 
 import prisma from "@/lib/prisma";
 
-export default async function PrismaReturn({
-  userId,
-  selectedRows,
-}: {
-  userId: string;
-  selectedRows: any;
-}) {
+export async function prismaReturn(userId: string, selectedRows: any) {
   const request = await prisma.users.update({
     where: {
       id: userId,
@@ -30,4 +24,6 @@ export default async function PrismaReturn({
       status: "AVAILABLE",
     },
   });
+
+  return request && requestTwo;
 }
