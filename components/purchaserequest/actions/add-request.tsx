@@ -60,7 +60,7 @@ export default function AddRequestSheet({ userInfo }: { userInfo: User }) {
           if (response.ok) {
             refresh_PR();
             toast({
-              title: "request Added!",
+              title: "Request Added!",
               duration: 2000,
               description: "The new request was successfully created.",
             });
@@ -139,7 +139,7 @@ export default function AddRequestSheet({ userInfo }: { userInfo: User }) {
           <SheetHeader>
             <SheetTitle>New Request</SheetTitle>
             <SheetDescription>
-              Upload purchase request information here. Click create reqest when
+              Upload purchase request information here. Click create request when
               you are done.
             </SheetDescription>
           </SheetHeader>

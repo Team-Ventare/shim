@@ -17,10 +17,10 @@ model Users {
   role             Role               @default(Pending)
   cartId           String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   image            String?
-  currentCheckout  Products[]
   checkoutHistory  CheckoutHistory[]
   news             News[]
   notifications    Notifications[]
+  currentCheckout  Products[]
   purchaseRequests PurchaseRequests[]
   reports          Reports[]
   cart             Cart               @relation(fields: [cartId], references: [id])
@@ -45,10 +45,10 @@ model Products {
   status          Status            @default(AVAILABLE)
   description     String            @default("")
   imageUrl        String?
+  usersId         String?           @db.Uuid
+  users           Users?            @relation(fields: [usersId], references: [id])
   carts           Cart[]            @relation("CartToProducts")
   checkoutHistory CheckoutHistory[] @relation("CheckoutHistoryToProducts")
-  users           Users?            @relation(fields: [usersId], references: [id])
-  usersId         String?           @db.Uuid
 }
 
 model PurchaseRequests {
@@ -158,9 +158,9 @@ enum Type {
 }
 
 enum PM_Status {
+  REVIEWED
   NEEDS_REVIEW
   IN_PROGRESS
   ORDERED
   COMPLETED
-  REVIEWED
 }

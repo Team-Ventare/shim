@@ -34,6 +34,7 @@ export async function PUT(
       technician: json.technician,
       status: json.status,
       comments: json.comments || null,
+      imageUrl: json.imageUrl || null,
     },
   });
   return NextResponse.json(updated);
