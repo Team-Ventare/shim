@@ -19,7 +19,7 @@ export default function AuthenticationPage() {
         >
           Create Account
         </Link>
-        <div className="lg:p-8 bg-purple-300 h-screen w-screen justify-center flex items-center">
+        <div className="lg:p-8 h-screen w-screen justify-center flex items-center">
           <div className="m-auto flex flex-col justify-center space-y-6 w-[350px] lg:w-[450px] pb-8">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
