@@ -41,11 +41,12 @@ export interface PreventativeMaintenance {
   updatedAt: Date;
   technician: string;
   status: string;
-  priority: string;
+  //priority: string;
   label: string /*xxx*/;
   comments: string;
   userId: string;
   users: Users;
+  imageUrl: string;
 }
 
 export const columns: ColumnDef<PreventativeMaintenance>[] = [
@@ -71,7 +72,7 @@ export const columns: ColumnDef<PreventativeMaintenance>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "technician",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Technician" />
     ),
