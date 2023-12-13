@@ -20,7 +20,6 @@ import { DataTableColumnHeader } from "@/components/inventory/data-table-column-
 import { statuses, types } from "@/components/inventory/data";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Dropdown } from "react-day-picker";
 
 export type Product = {
   id: string;

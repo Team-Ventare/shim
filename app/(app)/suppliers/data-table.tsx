@@ -13,7 +13,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -22,17 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import AddSupplierSheet from "@/components/suppliers/add-supplier";
 import { DataTableViewOptions } from "@/components/suppliers/data-table-view-options";
 import { DataTablePagination } from "@/components/suppliers/data-table-pagination";
 
@@ -77,10 +66,12 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center">
         <div className="flex items-center flex-grow">
           <Input
-            placeholder="Filter names..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter vendors..."
+            value={
+              (table.getColumn("vendor")?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+              table.getColumn("vendor")?.setFilterValue(event.target.value)
             }
             className="h-8 w-[150px] lg:w-[250px]"
           />

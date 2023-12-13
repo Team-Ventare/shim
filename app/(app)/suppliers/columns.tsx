@@ -9,6 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -96,7 +97,8 @@ export const columns: ColumnDef<Supplier>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
               <EditSupplier supp={supp} />
             </DropdownMenuItem>
             <AlertDialog>
