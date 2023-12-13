@@ -15,22 +15,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
-
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { DataTableColumnHeader } from "@/components/inventory/data-table-column-header";
 import { statuses, types } from "@/components/inventory/data";
-import { deleteItemFromCart } from "@/components/cart/actions/delete-item";
-import { refreshCart } from "@/components/cart/actions/refresh-cart";
 import { Badge } from "@/components/ui/badge";
 import { Product } from "../../products/columns";
 

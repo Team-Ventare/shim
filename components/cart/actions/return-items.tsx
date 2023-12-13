@@ -16,7 +16,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import React from "react";
 import { CheckIcon, SwatchIcon } from "@heroicons/react/24/outline";
-import PrismaReturn from "./prisma-return";
+import { prismaReturn } from "./prisma-return";
 
 export default function DeleteManyItems({
   userId,
@@ -34,11 +34,17 @@ export default function DeleteManyItems({
       });
       return;
     } else {
-      await PrismaReturn({ userId, selectedRows });
+      const res = await prismaReturn(userId, selectedRows);
 
-      selectedRows.forEach((row: any) => {
-        row.toggleSelected(false);
-      });
+      if (res) {
+        selectedRows.forEach((row: any) => {
+          row.toggleSelected(false);
+        });
+        toast({
+          title: "Success!",
+          description: "Products returned to inventory.",
+        });
+      }
     }
   }
 
